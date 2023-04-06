@@ -7,12 +7,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import Web3 from "web3"
 import { ABI } from "./abi.js"
-import { config } from "dotenv"
-config()
+import { contractAddress } from './constants.js'
 
 const { Header, Content } = Layout
 const web3 = new Web3(Web3.givenProvider)
-const contractAddress = process.env.CONTRACT_ADDRESS
 const contract = new web3.eth.Contract(ABI, contractAddress)
 
 const fetchBalance = createAsyncThunk("balance/fetchBalance", async (address) => {

@@ -1,0 +1,47 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: Test
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}" >> .env
+          echo "CLERK_FRONTEND_API=${{ secrets.CLERK_FRONTEND_API }}" >> .env
+          echo "NEXT_PUBLIC_REGISTER_ISP_URL=${{ secrets.NEXT_PUBLIC_REGISTER_ISP_URL }}" >> .env
+          echo "NEXT_PUBLIC_REGISTER_ADMIN_URL=${{ secrets.NEXT_PUBLIC_REGISTER_ADMIN_URL }}" >> .env
+          echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}" >> .env
+          echo "NEXT_PUBLIC_REGISTER_SUPER_USER_URL=${{ secrets.NEXT_PUBLIC_REGISTER_SUPER_USER_URL }}" >> .env
+          echo "NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL=${{ secrets.NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL }}" >> .env
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Install dependencies
+        run: npm ci -f
+
+      - name: Start local database
+        run: npm run database:local:prepare
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build

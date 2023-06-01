@@ -48,7 +48,7 @@ export default function GigaTokenModal({ closeModal, locale }: GigaTokenModalPro
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("Giga Token is a social impact project in partnership with UNICEF that aims to bridge the digital divide by connecting underprivileged schools to the internet.")}<br />
+                      {t.t("Giga Token is a social impact project in collaboration with UNICEF that aims to bridge the digital divide by connecting underprivileged schools to the internet.")}<br />
                       {t.t("The project uses a blockchain-based token, GigaToken (GIGA), to incentivize internet service providers (ISPs) to connect schools to the internet.")}<br />
                       {t.t("ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.")}<br />
                       {t.t("These tokens can then be exchanged for tax incentives or other rewards.")}<br />

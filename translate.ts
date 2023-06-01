@@ -171,7 +171,7 @@ export class Translate {
                 case "Thank you very much! :)": return "Muito obrigado! :)"
 
                 // giga token title
-                case "Giga Token is a social impact project in partnership with UNICEF that aims to bridge the digital divide by connecting underprivileged schools to the internet.": return "Giga Token é um projeto de impacto social em parceria com a UNICEF que visa reduzir a divisão digital conectando escolas carentes à internet."
+                case "Giga Token is a social impact project in collaboration with UNICEF that aims to bridge the digital divide by connecting underprivileged schools to the internet.": return "Giga Token é um projeto de impacto social em colaboração com a UNICEF que visa reduzir a divisão digital conectando escolas carentes à internet."
                 case "The project uses a blockchain-based token, GigaToken (GIGA), to incentivize internet service providers (ISPs) to connect schools to the internet.": return "O projeto utiliza um token baseado em blockchain, GigaToken (GIGA), para incentivar provedores de serviços de internet (ISPs) a conectar as escolas à internet."
                 case "ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.": return "Os ISPs podem ganhar GigaTokens conectando escolas à internet e garantindo a qualidade da conexão."
                 case "These tokens can then be exchanged for tax incentives or other rewards.": return "Esses tokens podem ser trocados por incentivos fiscais ou outras recompensas."

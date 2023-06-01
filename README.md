@@ -2,7 +2,7 @@
 
 # GigaToken API
 
-Giga Token is a social impact project in partnership with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet.  
+Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet.  
 The project utilizes a blockchain-based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet.  
 ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.
 These tokens can be exchanged for tax incentives or other rewards.  

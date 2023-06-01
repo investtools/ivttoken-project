@@ -1,4 +1,4 @@
-[![Test](https://github.com/lambertixx/ivttoken-api/actions/workflows/main.yml/badge.svg)](https://github.com/lambertixx/ivttoken-api/actions/workflows/main.yml) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Test](https://github.com/investtools/ivttoken_frontend/actions/workflows/main.yml/badge.svg)](https://github.com/investtools/ivttoken_frontend/actions/workflows/main.yml) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 # GigaToken API
 

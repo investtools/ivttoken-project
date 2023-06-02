@@ -9,9 +9,16 @@ export default function SwitchLanguage() {
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language')
     if (storedLanguage === 'pt-br') {
+      const currentPath = router.asPath
+      void router.push(currentPath, currentPath, { locale: 'pt-br' })
       setEnabled(true)
     }
-  }, [])
+    if (storedLanguage === 'en') {
+      const currentPath = router.asPath
+      void router.push(currentPath, currentPath, { locale: 'en' })
+      setEnabled(false)
+    }
+  }, [router])
 
   const handleLanguageSwitch = (isEnabled: boolean | ((prevState: boolean) => boolean)) => {
     setEnabled(isEnabled)

@@ -17,6 +17,23 @@ body {
   background-attachment: fixed;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #363636;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #02B5A5;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #35928C;
+}
+
 @keyframes gradient-animation {
   0% {
     background-position: 0% 50%;

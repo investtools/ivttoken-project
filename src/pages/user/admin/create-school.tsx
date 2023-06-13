@@ -1,20 +1,20 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/homeButton"
+import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
 import { Listbox } from '@headlessui/react'
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
-import FormSentModal from "~/styles/styledComponents/modals/formSentModal"
-import IncompleteFieldsModal from "~/styles/styledComponents/modals/incompleteFieldsModal"
-import SendIcon from "~/styles/styledComponents/icons/sendIcon"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
+import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
+import SendIcon from "~/styles/styledComponents/icons/SendIcon"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
 import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from "next/router"
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 import InputMask from 'react-input-mask'
 import { validateEmail, type ViaCEPAddress } from "~/utils/functions/adminFunctions"
-import AddNumberModal from "~/styles/styledComponents/modals/addNumberModal"
-import InvalidEmailModal from "~/styles/styledComponents/modals/invalidEmailModal"
+import AddNumberModal from "~/styles/styledComponents/modals/AddNumberModal"
+import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModal"
 import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
 
 function CreateSchool() {
@@ -30,7 +30,7 @@ function CreateSchool() {
   const [administrator, setAdministrator] = useState('')
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
   const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
-  const [addNumberModalIsOpen, setAddNumberModalIsOpen] = useState(false)
+  const [AddNumberModalIsOpen, setAddNumberModalIsOpen] = useState(false)
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
   const [optionsWidth, setOptionsWidth] = useState(0)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -91,7 +91,7 @@ function CreateSchool() {
       {incompleteFieldsModalIsOpen && (
         <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
       )}
-      {addNumberModalIsOpen && (
+      {AddNumberModalIsOpen && (
         <AddNumberModal closeModal={() => setAddNumberModalIsOpen(false)} locale={locale} />
       )}
       {invalidEmailIsOpen && (
@@ -275,32 +275,32 @@ function CreateSchool() {
               </div>
             </div>
             <div className="flex items-center justify-center mt-6">
-                <button
-                  onClick={(event) => {
-                    event.preventDefault()
-                    handleSubmit(
-                      name,
-                      state,
-                      city,
-                      zipCode,
-                      address,
-                      Number(number),
-                      cnpj,
-                      inepCode,
-                      email,
-                      administrator
-                    )
-                  }}
-                  type="submit"
-                  style={{ marginBottom: "0.5rem" }}
-                  className="w-1/2 border border-transparent shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
-                >
-                  <span className="flex items-center justify-center">
-                    {t.t("Create School")}
-                    <SendIcon />
-                  </span>
-                </button>
-              </div>
+              <button
+                onClick={(event) => {
+                  event.preventDefault()
+                  handleSubmit(
+                    name,
+                    state,
+                    city,
+                    zipCode,
+                    address,
+                    Number(number),
+                    cnpj,
+                    inepCode,
+                    email,
+                    administrator
+                  )
+                }}
+                type="submit"
+                style={{ marginBottom: "0.5rem" }}
+                className="w-1/2 border border-transparent shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
+              >
+                <span className="flex items-center justify-center">
+                  {t.t("Create School")}
+                  <SendIcon />
+                </span>
+              </button>
+            </div>
           </form>
         </div >
       </div >

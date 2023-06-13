@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { api } from '~/utils/api'
-import ErrorMessageComponent from './errorMessage'
-import XMarkIcon from '../icons/xMarkIcon'
-import { Translate } from 'translate'
-import Underline from './underline'
+import ErrorMessageComponent from './ErrorMessage'
+import XMarkIcon from '../icons/XMarkIcon'
+import { Translate } from "translate/translate"
+import Underline from './Underline'
 
 type WalletModalProps = {
   isOpen: boolean

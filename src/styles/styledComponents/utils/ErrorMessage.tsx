@@ -1,13 +1,13 @@
-import HomeButton from "./homeButton"
+import HomeButton from "./HomeButton"
 import { FaExclamationTriangle } from 'react-icons/fa'
 import React from 'react'
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 
 interface ErrorMessageProps {
   locale: string
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({locale}) => {
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ locale }) => {
   const t = new Translate(locale)
 
   return (
@@ -27,7 +27,7 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({locale}) => {
   )
 }
 
-const ErrorMessageComponent: React.FC<ErrorMessageProps> = ({locale}) => {
+const ErrorMessageComponent: React.FC<ErrorMessageProps> = ({ locale }) => {
   return (
     <>
       <div className="p-8 relative min-h-screen">

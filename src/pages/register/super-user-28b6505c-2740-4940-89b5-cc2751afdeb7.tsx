@@ -1,12 +1,12 @@
 import { api } from "~/utils/api"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
-import FormSentModal from "~/styles/styledComponents/modals/formSentModal"
-import IncompleteFieldsModal from "~/styles/styledComponents/modals/incompleteFieldsModal"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
+import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import { Fragment, useState } from 'react'
-import SendIcon from "~/styles/styledComponents/icons/sendIcon"
-import HomeButton from "~/styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
+import SendIcon from "~/styles/styledComponents/icons/SendIcon"
+import HomeButton from "~/styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
 import { useRouter } from "next/router"
 
 const RegisterSuperUser: React.FC = () => {

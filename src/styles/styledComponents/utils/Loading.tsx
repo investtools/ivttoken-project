@@ -1,5 +1,5 @@
-import { Translate } from "translate"
-import HomeButton from "./homeButton"
+import { Translate } from "translate/translate"
+import HomeButton from "./HomeButton"
 import styles from './Loading.module.css'
 import React from 'react'
 
@@ -12,7 +12,7 @@ const Loading: React.FC<LoadingProps> = ({ locale }) => {
   return (
     <div className="flex flex-col items-center justify-center p-80">
       <div className="flex flex-col items-center">
-        <div className="loader" style={{ marginRight: "6rem"}}>
+        <div className="loader" style={{ marginRight: "6rem" }}>
           <div className="loader__bar"></div>
           <div className="loader__bar"></div>
           <div className="loader__bar"></div>
@@ -21,8 +21,8 @@ const Loading: React.FC<LoadingProps> = ({ locale }) => {
           <div className="loader__ball"></div>
         </div>
         <span className={`text-2xl font-semibold text-ivtcolor2`}>
-            <span  className={styles.loadingText}>{t.t("Loading")}</span><span className={styles.loadingDots}>.</span><span className={styles.loadingDots}>.</span><span className={styles.loadingDots}>.</span>
-          </span>
+          <span className={styles.loadingText}>{t.t("Loading")}</span><span className={styles.loadingDots}>.</span><span className={styles.loadingDots}>.</span><span className={styles.loadingDots}>.</span>
+        </span>
         <div className="w-48 text-center" />
       </div>
     </div>

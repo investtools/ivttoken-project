@@ -1,14 +1,14 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
-import IncompleteFieldsModal from "~/styles/styledComponents/modals/incompleteFieldsModal"
+import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import { useState } from "react"
 import { formatDate, mapUserRole } from "~/utils/functions/ispFunctions"
 import { entityMap } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 
 const AuthorizedUsers: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)

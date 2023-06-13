@@ -1,15 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
-interface NoContractModalProps {
+interface ApproveContractModalProps {
   closeModal: () => void
   locale: string
 }
 
-export default function NoContractModal({ closeModal, locale }: NoContractModalProps) {
-  const t = new Translate(locale)
+export default function ApproveContractModal({ closeModal, locale }: ApproveContractModalProps) {
   const [isOpen] = useState(true)
+  const t = new Translate(locale)
 
   return (
     <>
@@ -43,19 +43,22 @@ export default function NoContractModal({ closeModal, locale }: NoContractModalP
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Oops! There are no pending contracts...")}
+                    {t.t("Contract Approved!")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("There are currently no pending contracts to review.")}<br />
-                      {t.t("Please check back later!")}
+                      {t.t("This contract has been approved.")}
                     </p>
                   </div>
                   <div className="mt-4 flex justify-center">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={() => {
+                        closeModal
+                        window.location.reload()
+                      }
+                      }
                     >
                       {t.t("Got it!")}
                     </button>

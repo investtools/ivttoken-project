@@ -1,10 +1,10 @@
 import { api } from "~/utils/api"
 import { useRouter } from 'next/router'
 import type { NextPage } from "next"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import { Translate } from "translate"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import { Translate } from "translate/translate"
 import { Role } from "@prisma/client"
 
 const RegisterRedirect: NextPage = () => {

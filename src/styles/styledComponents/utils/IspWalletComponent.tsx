@@ -1,7 +1,7 @@
 import React from 'react'
-import WalletModal from './walletModal'
+import WalletModal from './WalletModal'
 import { useState } from "react"
-import ColorfulCoinIcon from '../icons/colorfulCoinIcon'
+import ColorfulCoinIcon from '../icons/ColorfulCoinIcon'
 import { useRouter } from 'next/router'
 
 const IspWalletComponent: React.FC = () => {

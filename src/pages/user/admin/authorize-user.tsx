@@ -3,17 +3,17 @@ import type { NextPage } from "next"
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Fragment, useState } from 'react'
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
-import IncompleteFieldsModal from "~/styles/styledComponents/modals/incompleteFieldsModal"
-import HomeButton from "~/styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import SendIcon from "~/styles/styledComponents/icons/sendIcon"
-import FormSentModal from "~/styles/styledComponents/modals/formSentModal"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
+import HomeButton from "~/styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import SendIcon from "~/styles/styledComponents/icons/SendIcon"
+import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 import { validateEmail } from "~/utils/functions/adminFunctions"
-import InvalidEmailModal from "~/styles/styledComponents/modals/invalidEmailModal"
+import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModal"
 import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
 
 const AuthorizeUser: NextPage = () => {
@@ -31,7 +31,7 @@ const AuthorizeUser: NextPage = () => {
   const [email, setEmail] = useState('')
   const [selected, setSelected] = useState(roles[0])
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
-  const [formSentModalIsOpen, setFormSentModalIsOpen] = useState(false)
+  const [FormSentModalIsOpen, setFormSentModalIsOpen] = useState(false)
   const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
 
   const isAdmin = api.admin.isAdmin.useQuery()
@@ -59,7 +59,7 @@ const AuthorizeUser: NextPage = () => {
       {incompleteFieldsModalIsOpen && (
         <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
       )}
-      {formSentModalIsOpen && (
+      {FormSentModalIsOpen && (
         <FormSentModal closeModal={() => setFormSentModalIsOpen(false)} locale={locale} />
       )}
       {invalidEmailIsOpen && (

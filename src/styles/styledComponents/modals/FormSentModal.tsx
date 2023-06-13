@@ -1,21 +1,28 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { useRouter } from 'next/router'
+import { Translate } from "translate/translate"
 
-interface GigaTokenModalProps {
+
+interface IncompleteFieldsModalProps {
   closeModal: () => void
   locale: string
 }
 
-
-export default function GigaTokenModal({ closeModal, locale }: GigaTokenModalProps) {
-  const t = new Translate(locale)
+export default function FormSentModal({ closeModal, locale }: IncompleteFieldsModalProps) {
   const [isOpen] = useState(true)
+  const router = useRouter()
+  const t = new Translate(locale)
+
+  const handleModalClose = () => {
+    void router.push('/')
+    closeModal
+  }
 
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-40" onClose={closeModal}>
+        <Dialog as="div" className="relative z-40" onClose={handleModalClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -44,22 +51,20 @@ export default function GigaTokenModal({ closeModal, locale }: GigaTokenModalPro
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    Giga Token
+                    {t.t("Responses successfully submitted!")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("Giga Token is a social impact project in collaboration with UNICEF that aims to bridge the digital divide by connecting underprivileged schools to the internet.")}<br />
-                      {t.t("The project uses a blockchain-based token, GigaToken (GIGA), to incentivize internet service providers (ISPs) to connect schools to the internet.")}<br />
-                      {t.t("ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.")}<br />
-                      {t.t("These tokens can then be exchanged for tax incentives or other rewards.")}<br />
-                      {t.t("The project is designed to improve educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.")}
+                      {t.t("We have received the submitted data and are processing it.")}<br />
+                      {t.t("Thank you very much! :)")}
                     </p>
                   </div>
+
                   <div className="mt-4 flex justify-center">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={handleModalClose}
                     >
                       {t.t("Got it!")}
                     </button>

@@ -1,27 +1,20 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
-interface PurchasedBenefitModalProps {
+interface FailedToSignTransactionModalProps {
   closeModal: () => void
   locale: string
 }
 
-export default function PurchasedBenefitModal({ closeModal, locale }: PurchasedBenefitModalProps) {
-  const router = useRouter()
-  const [isOpen] = useState(true)
+export default function FailedToSignTransactionModal({ closeModal, locale }: FailedToSignTransactionModalProps) {
   const t = new Translate(locale)
-
-  const handleModalClose = () => {
-    closeModal
-    void router.push('/user/isp/my-information')
-  }
+  const [isOpen] = useState(true)
 
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-40" onClose={handleModalClose}>
+        <Dialog as="div" className="relative z-40" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -50,20 +43,19 @@ export default function PurchasedBenefitModal({ closeModal, locale }: PurchasedB
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Benefit successfully purchased!")}
+                    {t.t("Oops! The transaction could not be signed...")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("We have received your exchange and are processing it.")}<br />
-                      {t.t("Thank you very much! :)")}
+                      {t.t("Either there was a problem with the transaction, or you don't have MetaMask installed on your browser.")}<br />
+                      {t.t("Please try again later!")}
                     </p>
                   </div>
-
                   <div className="mt-4 flex justify-center">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={handleModalClose}
+                      onClick={closeModal}
                     >
                       {t.t("Got it!")}
                     </button>

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import GigaTokenModal from "../modals/gigaTokenModal"
+import GigaTokenModal from "../modals/GigaTokenModal"
 import React from 'react'
 import Image from 'next/image'
 

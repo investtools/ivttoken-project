@@ -1,13 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate';
+import { Translate } from "translate/translate"
 
-interface IncompleteFieldsModalProps {
-  closeModal: () => void;
+interface NoSchoolsISPModalProps {
+  closeModal: () => void
   locale: string
 }
 
-export default function IncompleteFieldsModal({ closeModal, locale }: IncompleteFieldsModalProps) {
+export default function NoSchoolsISPModal({ closeModal, locale }: NoSchoolsISPModalProps) {
   const [isOpen] = useState(true)
   const t = new Translate(locale)
 
@@ -43,15 +43,14 @@ export default function IncompleteFieldsModal({ closeModal, locale }: Incomplete
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Oops! We couldn't submit your responses :(")}
+                    {t.t("Oops! It seems like you don't have any contracts with schools yet :(")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("You didn't fill out all the fields before submitting.")}<br />
-                      {t.t("Please fill out all fields and try again!")}
+                      {t.t("In order to access the school reports, you need to have at least one active contract.")}<br />
+                      {t.t("Please select one school to send a contract.")}
                     </p>
                   </div>
-
                   <div className="mt-4 flex justify-center">
                     <button
                       type="button"

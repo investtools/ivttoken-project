@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import HomeIcon from '../icons/homeIcon'
+import HomeIcon from '../icons/HomeIcon'
 
 const HomeButton: React.FC = () => {
   return (

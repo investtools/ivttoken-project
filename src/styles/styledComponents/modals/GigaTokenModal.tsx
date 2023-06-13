@@ -1,13 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
-interface AddNumberModalProps {
+interface GigaTokenModalProps {
   closeModal: () => void
   locale: string
 }
 
-export default function AddNumberModal({ closeModal, locale }: AddNumberModalProps) {
+
+export default function GigaTokenModal({ closeModal, locale }: GigaTokenModalProps) {
   const t = new Translate(locale)
   const [isOpen] = useState(true)
 
@@ -43,12 +44,15 @@ export default function AddNumberModal({ closeModal, locale }: AddNumberModalPro
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Don't forget to add the number to the address field.")}
+                    Giga Token
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("After the address autocomplete, you need to add the number.")}<br />
-                      {t.t("Add the number and create the school.")}
+                      {t.t("Giga Token is a social impact project in collaboration with UNICEF that aims to bridge the digital divide by connecting underprivileged schools to the internet.")}<br />
+                      {t.t("The project uses a blockchain-based token, GigaToken (GIGA), to incentivize internet service providers (ISPs) to connect schools to the internet.")}<br />
+                      {t.t("ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.")}<br />
+                      {t.t("These tokens can then be exchanged for tax incentives or other rewards.")}<br />
+                      {t.t("The project is designed to improve educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.")}
                     </p>
                   </div>
                   <div className="mt-4 flex justify-center">

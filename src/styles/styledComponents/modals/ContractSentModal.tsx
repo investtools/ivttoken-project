@@ -1,20 +1,27 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate';
+import { Translate } from "translate/translate"
 
-interface InvalidEmailModalProps {
-  closeModal: () => void;
+interface ContractSentModalProps {
+  closeModal: () => void
   locale: string
 }
 
-export default function InvalidEmailModal({ closeModal, locale }: InvalidEmailModalProps) {
+export default function ContractSentModal({ closeModal, locale }: ContractSentModalProps) {
+  const router = useRouter()
   const [isOpen] = useState(true)
   const t = new Translate(locale)
+
+  const handleModalClose = () => {
+    closeModal
+    void router.push('/user/isp/my-contracts')
+  }
 
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-40" onClose={closeModal}>
+        <Dialog as="div" className="relative z-40" onClose={handleModalClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -43,11 +50,14 @@ export default function InvalidEmailModal({ closeModal, locale }: InvalidEmailMo
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Oops! Invalid e-mail address :(")}
+                    {t.t("Contract successfully sent!")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("Please enter a valid e-mail address and try again.")}
+                      {t.t("We have sent your contract for review.")}<br />
+                      {t.t("One of the administrators will review it shortly.")}<br />
+                      {t.t("Check the status of your contract in the 'My Contracts' menu.")}<br />
+                      {t.t("Thank you very much! :)")}
                     </p>
                   </div>
 
@@ -55,7 +65,7 @@ export default function InvalidEmailModal({ closeModal, locale }: InvalidEmailMo
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={handleModalClose}
                     >
                       {t.t("Got it!")}
                     </button>

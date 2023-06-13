@@ -1,20 +1,27 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate';
+import { Translate } from "translate/translate"
 
-interface SchoolHasNoProviderModalProps {
-  closeModal: () => void;
+interface PurchasedBenefitModalProps {
+  closeModal: () => void
   locale: string
 }
 
-export default function SchoolHasNoProviderModal({ closeModal, locale }: SchoolHasNoProviderModalProps) {
+export default function PurchasedBenefitModal({ closeModal, locale }: PurchasedBenefitModalProps) {
+  const router = useRouter()
   const [isOpen] = useState(true)
   const t = new Translate(locale)
+
+  const handleModalClose = () => {
+    closeModal
+    void router.push('/user/isp/my-information')
+  }
 
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-40" onClose={closeModal}>
+        <Dialog as="div" className="relative z-40" onClose={handleModalClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -43,11 +50,12 @@ export default function SchoolHasNoProviderModal({ closeModal, locale }: SchoolH
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Oops! We couldn't submit your responses :(")}
+                    {t.t("Benefit successfully purchased!")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("Sorry, you cannot submit a connectivity report as your school has no internet provider yet.")}<br />
+                      {t.t("We have received your exchange and are processing it.")}<br />
+                      {t.t("Thank you very much! :)")}
                     </p>
                   </div>
 
@@ -55,7 +63,7 @@ export default function SchoolHasNoProviderModal({ closeModal, locale }: SchoolH
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={handleModalClose}
                     >
                       {t.t("Got it!")}
                     </button>

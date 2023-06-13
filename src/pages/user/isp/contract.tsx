@@ -1,17 +1,17 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
+import HomeButton from "~/styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 import { translateSchoolKey } from "~/utils/functions/schoolAdminFunctions"
-import MiniContractsIcon from "~/styles/styledComponents/icons/miniContractsIcon"
-import ConfirmContractModal from "~/styles/styledComponents/modals/confirmContractModal"
-import ContractSentModal from "~/styles/styledComponents/modals/contractSentModal"
-import Underline from "~/styles/styledComponents/utils/underline"
-import CardsHeader from "~/styles/styledComponents/utils/cardsHeader"
+import MiniContractsIcon from "~/styles/styledComponents/icons/MiniContractsIcon"
+import ConfirmContractModal from "~/styles/styledComponents/modals/ConfirmContractModal"
+import ContractSentModal from "~/styles/styledComponents/modals/ContractSentModal"
+import Underline from "~/styles/styledComponents/utils/Underline"
+import CardsHeader from "~/styles/styledComponents/utils/CardsHeader"
 
 const Contract: React.FC = () => {
   const [cnpj, setCnpj] = useState('')
@@ -58,7 +58,7 @@ const Contract: React.FC = () => {
         <HomeButton />
         <div className="mt-8">
           <div className="bg-white p-4 my-4 rounded shadow">
-          <CardsHeader title={t.t("School Details")} />
+            <CardsHeader title={t.t("School Details")} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-900">
               {Object.keys(getSchoolByCnpj.data).map((key, index) => {
                 const typedKey = key as keyof typeof getSchoolByCnpj.data

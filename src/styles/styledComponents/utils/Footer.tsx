@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
 const Footer: React.FC = () => {
   const router = useRouter()

@@ -1,15 +1,15 @@
 import { api } from "~/utils/api"
 import { useState } from 'react'
-import HomeButton from "../../../styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
-import IncompleteFieldsModal from "~/styles/styledComponents/modals/incompleteFieldsModal"
-import FormSentModal from "~/styles/styledComponents/modals/formSentModal"
-import SendIcon from "~/styles/styledComponents/icons/sendIcon"
+import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
+import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
+import SendIcon from "~/styles/styledComponents/icons/SendIcon"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
 
 const AssignTokensSchool: React.FC = () => {

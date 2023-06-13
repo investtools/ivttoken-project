@@ -1,21 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate";
 
-interface ConfirmPurchaseModalProps {
-  closeModal: () => void
-  onConfirm: () => void
+interface DuplicatedReportModalProps {
+  closeModal: () => void;
   locale: string
 }
 
-export default function ConfirmPurchaseModal({ closeModal, onConfirm, locale }: ConfirmPurchaseModalProps) {
+export default function DuplicatedReportModal({ closeModal, locale }: DuplicatedReportModalProps) {
   const [isOpen] = useState(true)
   const t = new Translate(locale)
-
-  const handleConfirm = () => {
-    closeModal()
-    onConfirm()
-  }
 
   return (
     <>
@@ -49,22 +43,22 @@ export default function ConfirmPurchaseModal({ closeModal, onConfirm, locale }: 
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Are you sure you want to proceed?")}
+                    {t.t("Oops! We couldn't submit your responses :(")}
                   </Dialog.Title>
-                  <div className="mt-4 flex justify-center space-x-4">
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500 text-center">
+                      {t.t("A connectivity report for this month has already been created.")}<br />
+                      {t.t("Please select another month or contact the administrator for assistance.")}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex justify-center">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-red-400 hover:bg-red-500 px-4 py-2 text-sm text-white font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      {t.t("Cancel")}
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm bg-ivtcolor hover:bg-hover text-white font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
-                      onClick={handleConfirm}
-                    >
-                      {t.t("Proceed with exchange")}
+                      {t.t("Got it!")}
                     </button>
                   </div>
                 </Dialog.Panel>

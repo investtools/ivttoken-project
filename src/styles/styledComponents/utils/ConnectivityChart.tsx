@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
-import ErrorMessageComponent from './errorMessage'
-import { Translate } from 'translate'
+import ErrorMessageComponent from './ErrorMessage'
+import { Translate } from "translate/translate"
 import { connectivityQualityMap, monthMap } from '~/utils/functions/adminFunctions'
 import { getFullYear, getMonth, getTwoDigitsYear } from '~/utils/functions/ispFunctions'
 import { Fragment, useState } from 'react'

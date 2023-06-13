@@ -1,11 +1,11 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
+import HomeButton from "~/styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from 'next/router'
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 
 const ConnectivityReports: React.FC = () => {
   const router = useRouter()

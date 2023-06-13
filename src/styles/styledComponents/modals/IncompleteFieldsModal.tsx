@@ -1,13 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate";
 
-interface ApproveContractModalProps {
-  closeModal: () => void
+interface IncompleteFieldsModalProps {
+  closeModal: () => void;
   locale: string
 }
 
-export default function ApproveContractModal({ closeModal, locale }: ApproveContractModalProps) {
+export default function IncompleteFieldsModal({ closeModal, locale }: IncompleteFieldsModalProps) {
   const [isOpen] = useState(true)
   const t = new Translate(locale)
 
@@ -43,22 +43,20 @@ export default function ApproveContractModal({ closeModal, locale }: ApproveCont
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Contract Approved!")}
+                    {t.t("Oops! We couldn't submit your responses :(")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("This contract has been approved.")}
+                      {t.t("You didn't fill out all the fields before submitting.")}<br />
+                      {t.t("Please fill out all fields and try again!")}
                     </p>
                   </div>
+
                   <div className="mt-4 flex justify-center">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={() => {
-                        closeModal
-                        window.location.reload()
-                      }
-                      }
+                      onClick={closeModal}
                     >
                       {t.t("Got it!")}
                     </button>

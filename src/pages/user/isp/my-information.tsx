@@ -1,13 +1,13 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
+import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import { formatDate, mapBenefitPrice, mapBenefits } from "~/utils/functions/ispFunctions"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
-import Underline from "~/styles/styledComponents/utils/underline"
-import CardsHeader from "~/styles/styledComponents/utils/cardsHeader"
+import { Translate } from "translate/translate"
+import Underline from "~/styles/styledComponents/utils/Underline"
+import CardsHeader from "~/styles/styledComponents/utils/CardsHeader"
 
 const Transactions: React.FC = () => {
   const isIsp = api.internetServiceProviders.isIsp.useQuery()

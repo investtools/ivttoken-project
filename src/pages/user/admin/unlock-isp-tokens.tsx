@@ -1,15 +1,15 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
+import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import { formatDate } from "~/utils/functions/ispFunctions"
 import { useState } from "react"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
-import Underline from "~/styles/styledComponents/utils/underline"
-import NoTransactionModal from "~/styles/styledComponents/modals/noTransactionModal"
-import FailedToSignTransactionModal from "~/styles/styledComponents/modals/failSignTransactionModal"
+import { Translate } from "translate/translate"
+import Underline from "~/styles/styledComponents/utils/Underline"
+import NoTransactionModal from "~/styles/styledComponents/modals/NoTransactionModal"
+import FailedToSignTransactionModal from "~/styles/styledComponents/modals/FailSignTransactionModal"
 
 const UnlockIspTokens: React.FC = () => {
   const [noTransactionsModalIsOpen, setNoTransactionsModalIsOpen] = useState(false)

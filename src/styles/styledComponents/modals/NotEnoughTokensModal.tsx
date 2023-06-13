@@ -1,27 +1,20 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
-interface ContractSentModalProps {
+interface NotEnoughTokensModalProps {
   closeModal: () => void
   locale: string
 }
 
-export default function ContractSentModal({ closeModal, locale }: ContractSentModalProps) {
-  const router = useRouter()
+export default function NotEnoughTokensModal({ closeModal, locale }: NotEnoughTokensModalProps) {
   const [isOpen] = useState(true)
   const t = new Translate(locale)
-
-  const handleModalClose = () => {
-    closeModal
-    void router.push('/user/isp/my-contracts')
-  }
 
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-40" onClose={handleModalClose}>
+        <Dialog as="div" className="relative z-40" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -50,22 +43,19 @@ export default function ContractSentModal({ closeModal, locale }: ContractSentMo
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Contract successfully sent!")}
+                    {t.t("Oops! Something went wrong :(")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("We have sent your contract for review.")}<br />
-                      {t.t("One of the administrators will review it shortly.")}<br />
-                      {t.t("Check the status of your contract in the 'My Contracts' menu.")}<br />
-                      {t.t("Thank you very much! :)")}
+                      {t.t("You do not have enough tokens to execute this transaction.")}<br />
+                      {t.t("Please try again when you have enough tokens to exchange for this benefit.")}
                     </p>
                   </div>
-
                   <div className="mt-4 flex justify-center">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={handleModalClose}
+                      onClick={closeModal}
                     >
                       {t.t("Got it!")}
                     </button>

@@ -1,13 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
-interface FailedToSignTransactionModalProps {
+interface AddNumberModalProps {
   closeModal: () => void
   locale: string
 }
 
-export default function FailedToSignTransactionModal({ closeModal, locale }: FailedToSignTransactionModalProps) {
+export default function AddNumberModal({ closeModal, locale }: AddNumberModalProps) {
   const t = new Translate(locale)
   const [isOpen] = useState(true)
 
@@ -43,12 +43,12 @@ export default function FailedToSignTransactionModal({ closeModal, locale }: Fai
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Oops! The transaction could not be signed...")}
+                    {t.t("Don't forget to add the number to the address field.")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 text-center">
-                      {t.t("Either there was a problem with the transaction, or you don't have MetaMask installed on your browser.")}<br />
-                      {t.t("Please try again later!")}
+                      {t.t("After the address autocomplete, you need to add the number.")}<br />
+                      {t.t("Add the number and create the school.")}
                     </p>
                   </div>
                   <div className="mt-4 flex justify-center">

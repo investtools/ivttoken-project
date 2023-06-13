@@ -1,14 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
-interface ConfirmContractModalProps {
+interface ConfirmPurchaseModalProps {
   closeModal: () => void
   onConfirm: () => void
   locale: string
 }
 
-export default function ConfirmContractModal({ closeModal, onConfirm, locale }: ConfirmContractModalProps) {
+export default function ConfirmPurchaseModal({ closeModal, onConfirm, locale }: ConfirmPurchaseModalProps) {
   const [isOpen] = useState(true)
   const t = new Translate(locale)
 
@@ -64,7 +64,7 @@ export default function ConfirmContractModal({ closeModal, onConfirm, locale }: 
                       className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm bg-ivtcolor hover:bg-hover text-white font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
                       onClick={handleConfirm}
                     >
-                      {t.t("Proceed with contract")}
+                      {t.t("Proceed with exchange")}
                     </button>
                   </div>
                 </Dialog.Panel>

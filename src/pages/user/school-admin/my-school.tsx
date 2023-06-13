@@ -1,15 +1,15 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
+import HomeButton from "~/styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import { connectivityQualityMap, monthMap } from "~/utils/functions/adminFunctions"
 import { translateSchoolKey } from "~/utils/functions/schoolAdminFunctions"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
-import CardsHeader from "~/styles/styledComponents/utils/cardsHeader"
-import Underline from "~/styles/styledComponents/utils/underline"
-import ConnectivityChart from "~/styles/styledComponents/utils/connectivityChart"
+import { Translate } from "translate/translate"
+import CardsHeader from "~/styles/styledComponents/utils/CardsHeader"
+import Underline from "~/styles/styledComponents/utils/Underline"
+import ConnectivityChart from "~/styles/styledComponents/utils/ConnectivityChart"
 import { getFullYear } from "~/utils/functions/ispFunctions"
 
 
@@ -89,7 +89,7 @@ const MySchool: React.FC = () => {
         </div>
         <div className="mt-8">
           <ConnectivityChart locale={locale} data={connectivityReports.data} />
-          </div>
+        </div>
         <div className="mt-8">
           <div className="bg-white p-2 rounded-t text-ivtcolor2 font-bold text-2xl flex justify-between">
             <h2 className="bg-white mt-2 ml-2 rounded text-ivtcolor2 font-bold text-2xl">{t.t("Connectivity Reports")}</h2>

@@ -1,13 +1,13 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
-import IncompleteFieldsModal from "~/styles/styledComponents/modals/incompleteFieldsModal"
+import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import { useState } from "react"
-import RightArrow from "~/styles/styledComponents/icons/rightArrowIcon"
+import RightArrow from "~/styles/styledComponents/icons/RightArrowIcon"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
-import { Translate } from "translate"
+import { Translate } from "translate/translate"
 import { useRouter } from "next/router"
 import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
 
@@ -124,7 +124,7 @@ const SchoolCatalog: React.FC = () => {
                   event.preventDefault()
                   handleSubmit(name, cnpj)
                 }}
-                
+
                 className="text-white font-bold py-2 px-4 rounded-full border border-transparent shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
               >
                 <span className="flex items-center">

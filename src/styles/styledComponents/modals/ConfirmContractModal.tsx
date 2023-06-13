@@ -1,15 +1,21 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Translate } from 'translate'
+import { Translate } from "translate/translate"
 
-interface NotEnoughTokensModalProps {
+interface ConfirmContractModalProps {
   closeModal: () => void
+  onConfirm: () => void
   locale: string
 }
 
-export default function NotEnoughTokensModal({ closeModal, locale }: NotEnoughTokensModalProps) {
+export default function ConfirmContractModal({ closeModal, onConfirm, locale }: ConfirmContractModalProps) {
   const [isOpen] = useState(true)
   const t = new Translate(locale)
+
+  const handleConfirm = () => {
+    closeModal()
+    onConfirm()
+  }
 
   return (
     <>
@@ -43,21 +49,22 @@ export default function NotEnoughTokensModal({ closeModal, locale }: NotEnoughTo
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {t.t("Oops! Something went wrong :(")}
+                    {t.t("Are you sure you want to proceed?")}
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500 text-center">
-                      {t.t("You do not have enough tokens to execute this transaction.")}<br />
-                      {t.t("Please try again when you have enough tokens to exchange for this benefit.")}
-                    </p>
-                  </div>
-                  <div className="mt-4 flex justify-center">
+                  <div className="mt-4 flex justify-center space-x-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-red-400 hover:bg-red-500 px-4 py-2 text-sm text-white font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      {t.t("Got it!")}
+                      {t.t("Cancel")}
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm bg-ivtcolor hover:bg-hover text-white font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+                      onClick={handleConfirm}
+                    >
+                      {t.t("Proceed with contract")}
                     </button>
                   </div>
                 </Dialog.Panel>

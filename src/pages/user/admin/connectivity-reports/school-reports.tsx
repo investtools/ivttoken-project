@@ -1,14 +1,14 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/homeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/errorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/loading"
-import PageHeader from "~/styles/styledComponents/utils/pageHeader"
+import HomeButton from "~/styles/styledComponents/utils/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import { useEffect, useState } from "react"
 import { connectivityQualityMap, monthMap } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
-import { Translate } from "translate"
-import Underline from "~/styles/styledComponents/utils/underline"
-import ConnectivityChart from "~/styles/styledComponents/utils/connectivityChart"
+import { Translate } from "translate/translate"
+import Underline from "~/styles/styledComponents/utils/Underline"
+import ConnectivityChart from "~/styles/styledComponents/utils/ConnectivityChart"
 import { getFullYear } from "~/utils/functions/ispFunctions"
 
 
@@ -76,7 +76,7 @@ const SchoolReports: React.FC = () => {
             <div className="p-8">
                 <HomeButton />
                 <div className="mt-8">
-                <ConnectivityChart locale={locale} data={connectivityReports.data} />
+                    <ConnectivityChart locale={locale} data={connectivityReports.data} />
                     <div className="bg-white p-2 rounded-t text-ivtcolor2 font-bold text-2xl flex justify-between">
                         <div className="flex-1 text-left">{t.t("Connectivity Reports")}</div>
                         <div className="flex-1 text-center">{schoolName.data}</div>

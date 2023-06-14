@@ -9,10 +9,14 @@ import { Translate } from "translate/translate"
 import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import Filter from "~/styles/styledComponents/utils/Filter"
 
 const ConnectivityReports: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(5)
+  const [search, setSearch] = useState("")
+  const [filterOption, setFilterOption] = useState<SchoolKeys>('name')
+  type SchoolKeys = 'name' | 'state' | 'city' | 'zipCode'
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -36,6 +40,9 @@ const ConnectivityReports: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
+
+  const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+
   return (
     <>
       <PageHeader title={t.t("Connectivity Reports")} />
@@ -43,8 +50,9 @@ const ConnectivityReports: React.FC = () => {
         <HomeButton />
         <div className="mt-8">
         </div>
-        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <h2 className="bg-white p-2 rounded-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("Schools")}</h2>
+        <div className="shadow bg-white border-b border-gray-200 sm:rounded-lg">
+          <h2 className="p-2 rounded-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("Schools")}</h2>
+        <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
           <div className="overflow-x-auto">
             <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
               <thead>
@@ -64,7 +72,7 @@ const ConnectivityReports: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((school) => (
+                {filteredItems.map((school) => (
                   <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>

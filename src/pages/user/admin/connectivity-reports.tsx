@@ -6,8 +6,14 @@ import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from 'next/router'
 import { Translate } from "translate/translate"
+import { useState } from "react"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 
 const ConnectivityReports: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
+
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
   const t = new Translate(locale)
@@ -25,6 +31,11 @@ const ConnectivityReports: React.FC = () => {
     void router.push(`/user/admin/connectivity-reports/school-reports?cnpj=${cnpj}`)
   }
 
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
   return (
     <>
       <PageHeader title={t.t("Connectivity Reports")} />
@@ -53,7 +64,7 @@ const ConnectivityReports: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...data]?.map((school) => (
+                {currentItems.map((school) => (
                   <tr key={school.cnpj} className="bg-white text-center">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
@@ -79,6 +90,7 @@ const ConnectivityReports: React.FC = () => {
               </tbody>
             </table>
           </div>
+          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
       </div>
     </>

@@ -10,9 +10,11 @@ import { Translate } from "translate/translate"
 import { useRouter } from "next/router"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import SwitchCatalog from "~/styles/styledComponents/utils/SwitchCatalog"
 
 const SchoolCatalog: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
+  const [showMap, setShowMap] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(5)
 
@@ -47,6 +49,65 @@ const SchoolCatalog: React.FC = () => {
     currentPage * itemsPerPage
   )
 
+  const renderMap = () => {
+    return (
+      <div>
+        map here
+      </div>
+    )
+  }
+
+  const renderTable = () => {
+    return (
+      <>
+        <div className="overflow-x-auto">
+          <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr className="text-center bg-gray-200">
+                <th className="p-2 border text-ivtcolor2">{t.t("School's Name")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("State")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("City")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("Inep Code")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("Tokens")}</th>
+                <th className="p-2 border text-ivtcolor2">{t.t("Select")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentItems.map((school) => (
+                <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
+                  <td className="p-2 border text-ivtcolor2">{school.name}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.state}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.city}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.address}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.inepCode}</td>
+                  <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.email}</td>
+                  <td className="p-2 border text-ivtcolor2">{school.tokens}</td>
+                  <td className="p-2 border text-ivtcolor2">
+                    <button
+                      onClick={() => handleSubmit(school.cnpj)}
+                      className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
+                    >
+                      {t.t("Contract")}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
+      </>
+    )
+  }
+
   return (
     <>
       {incompleteFieldsModalIsOpen && (
@@ -55,54 +116,14 @@ const SchoolCatalog: React.FC = () => {
       <PageHeader title={t.t("School Catalog")} />
       <div className="p-8">
         <HomeButton />
-        <div className="mt-8">
-        </div>
-        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <h2 className="bg-white p-2 rounded-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("School Catalog")}</h2>
-          <div className="overflow-x-auto">
-            <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr className="text-center bg-gray-200">
-                  <th className="p-2 border text-ivtcolor2">{t.t("School's Name")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("State")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("City")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Inep Code")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Tokens")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Select")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((school) => (
-                  <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
-                    <td className="p-2 border text-ivtcolor2">{school.name}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.state}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.city}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.address}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.inepCode}</td>
-                    <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.email}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.tokens}</td>
-                    <td className="p-2 border text-ivtcolor2">
-                      <button
-                        onClick={() => handleSubmit(school.cnpj)}
-                        className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
-                      >
-                        {t.t("Contract")}
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg mt-8">
+          <div className="flex justify-between rounded">
+            <h2 className="p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{t.t("School Catalog")}</h2>
+            <div className="flex mr-2">
+              <SwitchCatalog setShowMap={setShowMap} />
+            </div>
           </div>
-          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
+          {showMap ? renderMap() : renderTable()}
         </div>
       </div>
     </>

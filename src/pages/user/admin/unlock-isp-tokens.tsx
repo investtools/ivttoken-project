@@ -99,7 +99,7 @@ const UnlockIspTokens: React.FC = () => {
             <Underline />
             <p className="text-gray-900">{transaction.createdAt === "-" ? "-" : formatDate(String(transaction.createdAt))}</p>
           </div>
-          <div className="flex items-center justify-center space-x-4 w-full">
+          <div className="bg-gray-100 rounded shadow flex items-center justify-center space-x-4 w-full">
             <button
               onClick={() => handleSign(transaction.txHash)}
               className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"

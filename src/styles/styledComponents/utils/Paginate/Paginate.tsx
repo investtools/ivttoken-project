@@ -15,20 +15,17 @@ type PaginateProps = {
 }
 
 const Paginate: React.FC<PaginateProps> = ({ totalPage, itemsPerPage, currentPage, goToPage, previousPage, nextPage, setItemsPerPage, setCurrentPage }) => {
-
     const handleItemsPerPageChange = (itemsPerPage: number) => {
         setItemsPerPage(itemsPerPage)
         setCurrentPage(1)
     }
-
-
 
     const router = useRouter()
     const locale = router.locale === undefined ? 'en' : router.locale
     const t = new Translate(locale)
 
     return (
-        <div className="flex justify-between items-center p-3 bg-white">
+        <div className="flex justify-between items-center p-3 bg-white rounded-b">
             <button className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full" onClick={() => goToPage(1)} disabled={currentPage === 1}>
                 {t.t("First")}
             </button>

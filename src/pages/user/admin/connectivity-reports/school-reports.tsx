@@ -10,10 +10,14 @@ import { Translate } from "translate/translate"
 import Underline from "~/styles/styledComponents/utils/Underline"
 import ConnectivityChart from "~/styles/styledComponents/utils/ConnectivityChart"
 import { getFullYear } from "~/utils/functions/ispFunctions"
-
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 
 const SchoolReports: React.FC = () => {
     const [cnpj, setCnpj] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(5)
+
     const router = useRouter()
     const locale = router.locale === undefined ? 'en' : router.locale
     const t = new Translate(locale)
@@ -35,8 +39,14 @@ const SchoolReports: React.FC = () => {
     if (cnpj && schoolName.isLoading) return <LoadingComponent locale={locale} />
     if (!connectivityReports.data) return <ErrorMessageComponent locale={locale} />
 
+    const { goToPage, nextPage, previousPage, totalPage } = paginateData(connectivityReports.data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+    const currentItems = connectivityReports.data.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    )
+
     const renderReports = () => {
-        return connectivityReports.data?.map((report, index, array) => (
+        return currentItems.map((report, index, array) => (
             <div key={index} className={`p-4 shadow ${index === array.length - 1 ? "rounded-b" : ""}`}>
                 <h3 className="text-ivtcolor2 font-semibold mb-1">{t.t("Report")} {index + 1}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -84,6 +94,7 @@ const SchoolReports: React.FC = () => {
                     </div>
                     <div className="bg-white shadow rounded-b">
                         {renderReports()}
+                        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
                     </div>
                 </div>
             </div>

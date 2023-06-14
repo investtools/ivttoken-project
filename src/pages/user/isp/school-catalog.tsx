@@ -5,17 +5,13 @@ import LoadingComponent from "~/styles/styledComponents/utils/Loading"
 import PageHeader from "~/styles/styledComponents/utils/PageHeader"
 import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import { useState } from "react"
-import RightArrow from "~/styles/styledComponents/icons/RightArrowIcon"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { Translate } from "translate/translate"
 import { useRouter } from "next/router"
-import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 
 const SchoolCatalog: React.FC = () => {
-  const [name, setName] = useState('')
-  const [cnpj, setCnpj] = useState('')
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(5)
@@ -32,8 +28,8 @@ const SchoolCatalog: React.FC = () => {
   if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
 
-  const handleSubmit = (name: string, cnpj: string) => {
-    if (name && cnpj) {
+  const handleSubmit = (cnpj: string) => {
+    if (cnpj) {
       try {
         void router.push(`/user/isp/contract?cnpj=${cnpj}`)
       } catch (error) {
@@ -43,11 +39,6 @@ const SchoolCatalog: React.FC = () => {
     } else {
       setIncompleteFieldsModalIsOpen(true)
     }
-  }
-
-  const handleSelectSchool = (name: string, cnpj: string) => {
-    setName(name)
-    setCnpj(cnpj)
   }
 
   const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
@@ -100,10 +91,10 @@ const SchoolCatalog: React.FC = () => {
                     <td className="p-2 border text-ivtcolor2">{school.tokens}</td>
                     <td className="p-2 border text-ivtcolor2">
                       <button
-                        onClick={() => handleSelectSchool(school.name, school.cnpj)}
+                        onClick={() => handleSubmit(school.cnpj)}
                         className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
                       >
-                        {t.t("Select")}
+                        {t.t("Contract")}
                       </button>
                     </td>
                   </tr>
@@ -112,40 +103,6 @@ const SchoolCatalog: React.FC = () => {
             </table>
           </div>
           <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
-        </div>
-
-        <div className="flex justify-center items-top p-5">
-          <form className="bg-white p-10 rounded-lg shadow-md ">
-            <h1 className="text-center text-2xl font-bold mb-8 text-gray-900">{t.t("Select a School")}</h1>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="name" className="mb-2 font-bold text-lg text-gray-900">
-                {t.t("Selected School")}:
-              </label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                readOnly
-                className={selectField}
-              />
-            </div>
-
-            <div className="flex justify-center">
-              <button
-                onClick={(event) => {
-                  event.preventDefault()
-                  handleSubmit(name, cnpj)
-                }}
-
-                className="text-white font-bold py-2 px-4 rounded-full border border-transparent shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
-              >
-                <span className="flex items-center">
-                  {t.t("See Contract")}&nbsp;
-                  <RightArrow />
-                </span>
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </>

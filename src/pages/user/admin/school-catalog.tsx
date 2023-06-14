@@ -9,10 +9,14 @@ import { Translate } from "translate/translate"
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Filter from "~/styles/styledComponents/utils/Filter"
 
 const SchoolCatalog: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(5)
+  const [search, setSearch] = useState("")
+  const [filterOption, setFilterOption] = useState<SchoolKeys>('name')
+  type SchoolKeys = 'name' | 'state' | 'city' | 'zipCode'
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -32,6 +36,8 @@ const SchoolCatalog: React.FC = () => {
     currentPage * itemsPerPage
   )
 
+  const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+
   return (
     <>
       <PageHeader title={t.t("School Catalog")} />
@@ -39,8 +45,9 @@ const SchoolCatalog: React.FC = () => {
         <HomeButton />
         <div className="mt-8">
         </div>
-        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <h2 className="bg-white p-2 rounded-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("School Catalog")}</h2>
+        <div className="bg-white border-b border-gray-200 sm:rounded-lg">
+          <h2 className="bg-white p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{t.t("School Catalog")}</h2>
+          <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
           <div className="overflow-x-auto">
             <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
               <thead>
@@ -58,7 +65,7 @@ const SchoolCatalog: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((school) => (
+                {filteredItems.map((school) => (
                   <tr key={school.cnpj} className="bg-white text-ivtcolor2 text-center hover:bg-gray-200">
                     <td className="p-2 border">{school.name}</td>
                     <td className="p-2 border">{school.state}</td>

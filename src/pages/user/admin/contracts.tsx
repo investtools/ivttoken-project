@@ -12,11 +12,18 @@ import { entityMap } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import Underline from "~/styles/styledComponents/utils/Underline"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 
 const Contracts: React.FC = () => {
   const [approveContractModalIsOpen, setApproveContractModalIsOpen] = useState(false)
   const [denyContractModalIsOpen, setDenyContractModalIsOpen] = useState(false)
   const [noContractModalIsOpen, setNoContractModalIsOpen] = useState(false)
+  const [allContractsCurrentPage, allContractsSetCurrentPage] = useState(1)
+  const [allContractsItemsPerPage, allContractsSetItemsPerPage] = useState(5)
+  const [pendingContractsCurrentPage, pendingContractsSetCurrentPage] = useState(1)
+  const [pendingContractsItemsPerPage, pendingContractsSetItemsPerPage] = useState(5)
+
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -32,6 +39,20 @@ const Contracts: React.FC = () => {
   if (allContracts.isLoading) return <LoadingComponent locale={locale} />
   if (pendingContracts.isLoading) return <LoadingComponent locale={locale} />
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
+  if (!allContracts.data) return <ErrorMessageComponent locale={locale} />
+  if (!pendingContracts.data) return <ErrorMessageComponent locale={locale} />
+
+  const paginateAllContracts = paginateData(allContracts.data, allContractsItemsPerPage, allContractsCurrentPage, allContractsSetCurrentPage, allContractsSetItemsPerPage)
+  const currentAllContracts = allContracts.data.slice(
+    (allContractsCurrentPage - 1) * allContractsItemsPerPage,
+    allContractsCurrentPage * allContractsItemsPerPage
+  )
+
+  const paginatePendingContracts = paginateData(pendingContracts.data, pendingContractsItemsPerPage, pendingContractsCurrentPage, pendingContractsSetCurrentPage, pendingContractsSetItemsPerPage)
+  const currentPendingContracts = allContracts.data.slice(
+    (pendingContractsCurrentPage - 1) * pendingContractsItemsPerPage,
+    pendingContractsCurrentPage * pendingContractsItemsPerPage
+  )
 
   const handleApproveContract = (contractId: string) => {
     if (contractId === "NONE") {
@@ -52,7 +73,7 @@ const Contracts: React.FC = () => {
   }
 
   const renderPendingContracts = () => {
-    return pendingContracts.data?.map((contract, index) => (
+    return currentPendingContracts.map((contract, index) => (
       <div key={index} className="p-4 shadow">
         <h3 className="text-ivtcolor2 font-semibold mb-1">{t.t("Contract")} {index + 1}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -96,7 +117,7 @@ const Contracts: React.FC = () => {
   }
 
   const renderAllContracts = () => {
-    return allContracts.data?.map((contract, index) => (
+    return currentAllContracts.map((contract, index) => (
       <div key={index} className="p-4 shadow">
         <h3 className="text-ivtcolor2 font-semibold mb-1">{t.t("Contract")} {index + 1}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-1">
@@ -154,13 +175,15 @@ const Contracts: React.FC = () => {
       <PageHeader title={t.t("Contracts")} />
       <div className="p-8">
         <HomeButton />
-        <div className="mt-8 w-full rounded bg-white">
+        <div className="mt-8 w-full rounded bg-white border">
           <h2 className="p-2 text-ivtcolor2 font-bold text-2xl">{t.t("Pending Contracts")}</h2>
           {renderPendingContracts()}
+          <Paginate totalPage={paginatePendingContracts.totalPage} itemsPerPage={pendingContractsItemsPerPage} currentPage={pendingContractsCurrentPage} goToPage={paginatePendingContracts.goToPage} previousPage={paginatePendingContracts.previousPage} nextPage={paginatePendingContracts.nextPage} setCurrentPage={pendingContractsSetCurrentPage} setItemsPerPage={pendingContractsSetItemsPerPage} />
         </div>
-        <div className="mt-8 w-full rounded bg-white">
+        <div className="mt-8 w-full rounded bg-white border">
           <h2 className="p-2 text-ivtcolor2 font-bold text-2xl">{t.t("Contracts")}</h2>
           {renderAllContracts()}
+          <Paginate totalPage={paginateAllContracts.totalPage} itemsPerPage={allContractsItemsPerPage} currentPage={allContractsCurrentPage} goToPage={paginateAllContracts.goToPage} previousPage={paginateAllContracts.previousPage} nextPage={paginateAllContracts.nextPage} setCurrentPage={allContractsSetCurrentPage} setItemsPerPage={allContractsSetItemsPerPage} />
         </div>
       </div>
     </>

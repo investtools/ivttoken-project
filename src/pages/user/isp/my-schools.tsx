@@ -8,9 +8,13 @@ import { useRouter } from 'next/router'
 import { Translate } from "translate/translate"
 import { useState } from "react"
 import NoSchoolsISPModal from "~/styles/styledComponents/modals/NoSchoolsISPModal"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 
 const ISPSchools: React.FC = () => {
   const [noSchoolsISPModalIsOpen, setNoSchoolsISPModal] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -30,6 +34,12 @@ const ISPSchools: React.FC = () => {
     }
     void router.push(`/user/isp/my-schools/school?cnpj=${cnpj}`)
   }
+
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
 
   return (
     <>
@@ -61,7 +71,7 @@ const ISPSchools: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...data]?.map((school) => (
+                {currentItems.map((school) => (
                   <tr key={school.cnpj} className="bg-white text-center">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
@@ -87,6 +97,7 @@ const ISPSchools: React.FC = () => {
               </tbody>
             </table>
           </div>
+        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
       </div>
     </>

@@ -39,7 +39,7 @@ const Transactions: React.FC = () => {
 
   const renderTransactions = () => {
     return currentItems.map((transaction, index) => (
-      <div key={index} className="p-4 shadow">
+      <div key={index} className="p-4 shadow hover:bg-gray-200">
         <h3 className="text-ivtcolor2 font-semibold mb-1">{t.t("Transaction")} {index + 1}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="bg-gray-100 p-4 rounded shadow">

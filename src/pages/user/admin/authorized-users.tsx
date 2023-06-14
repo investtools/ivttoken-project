@@ -60,7 +60,7 @@ const AuthorizedUsers: React.FC = () => {
               </thead>
               <tbody>
                 {currentItems.map((authorizedUser) => (
-                  <tr key={authorizedUser.id} className="bg-white text-center">
+                  <tr key={authorizedUser.id} className="bg-white text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{authorizedUser.email}</td>
                     <td className="p-2 border text-ivtcolor2">{t.t(mapUserRole(authorizedUser.role))}</td>
                     <td className="p-2 border text-ivtcolor2">{authorizedUser.adminName}</td>

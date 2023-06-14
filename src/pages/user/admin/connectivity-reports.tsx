@@ -65,7 +65,7 @@ const ConnectivityReports: React.FC = () => {
               </thead>
               <tbody>
                 {currentItems.map((school) => (
-                  <tr key={school.cnpj} className="bg-white text-center">
+                  <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
                     <td className="p-2 border text-ivtcolor2">{school.city}</td>

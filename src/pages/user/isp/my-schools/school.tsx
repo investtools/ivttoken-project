@@ -46,7 +46,7 @@ const SchoolReports: React.FC = () => {
 
   const renderReports = () => {
     return currentItems.map((report, index, array) => (
-      <div key={index} className={`p-4 shadow ${index === array.length - 1 ? "rounded-b" : ""}`}>
+      <div key={index} className={`p-4 shadow hover:bg-gray-200 ${index === array.length - 1 ? "rounded-b" : ""}`}>
         <h3 className="text-ivtcolor2 font-semibold mb-1">{t.t("Report")} {index + 1}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="bg-gray-100 p-4 rounded shadow">

@@ -44,32 +44,32 @@ const SchoolCatalog: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
               <thead>
-                <tr className="text-center bg-gray-200">
-                  <th className="p-2 border text-ivtcolor2">{t.t("School's Name")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("State")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("City")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Inep Code")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Tokens")}</th>
+                <tr className="text-center bg-gray-200 text-ivtcolor2 border">
+                  <th className="p-2">{t.t("School's Name")}</th>
+                  <th className="p-2">{t.t("State")}</th>
+                  <th className="p-2">{t.t("City")}</th>
+                  <th className="p-2">{t.t("Zip Code")}</th>
+                  <th className="p-2">{t.t("Address")}</th>
+                  <th className="p-2">{t.t("CNPJ")}</th>
+                  <th className="p-2">{t.t("Inep Code")}</th>
+                  <th className="p-2">{t.t("Administrator")}</th>
+                  <th className="p-2">{t.t("E-Mail")}</th>
+                  <th className="p-2">{t.t("Tokens")}</th>
                 </tr>
               </thead>
               <tbody>
                 {currentItems.map((school) => (
-                  <tr key={school.cnpj} className="bg-white text-center">
-                    <td className="p-2 border text-ivtcolor2">{school.name}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.state}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.city}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.address}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.inepCode}</td>
-                    <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.email}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.tokens}</td>
+                  <tr key={school.cnpj} className="bg-white text-ivtcolor2 text-center hover:bg-gray-200">
+                    <td className="p-2 border">{school.name}</td>
+                    <td className="p-2 border">{school.state}</td>
+                    <td className="p-2 border">{school.city}</td>
+                    <td className="p-2 border">{school.zipCode}</td>
+                    <td className="p-2 border">{school.address}</td>
+                    <td className="p-2 border">{school.cnpj}</td>
+                    <td className="p-2 border">{school.inepCode}</td>
+                    <td className="p-2 border">{t.t(administratorNameMapping(school.administrator))}</td>
+                    <td className="p-2 border">{school.email}</td>
+                    <td className="p-2 border">{school.tokens}</td>
                   </tr>
                 ))}
               </tbody>

@@ -113,7 +113,7 @@ const Benefits: React.FC = () => {
               </thead>
               <tbody>
                 {[...benefits]?.map((benefits) => (
-                  <tr key={benefits.benefit} className="bg-white text-center">
+                  <tr key={benefits.benefit} className="bg-white text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{t.t(mapBenefits(benefits.benefit))}</td>
                     <td className="p-2 border text-ivtcolor2">{benefits.benefitPrice} Giga Tokens</td>
                     <td className="p-2 border text-ivtcolor2">

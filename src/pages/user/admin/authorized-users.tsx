@@ -9,9 +9,13 @@ import { formatDate, mapUserRole } from "~/utils/functions/ispFunctions"
 import { entityMap } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 
 const AuthorizedUsers: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -24,6 +28,12 @@ const AuthorizedUsers: React.FC = () => {
   if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
   if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
+
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
 
   return (
     <>
@@ -49,7 +59,7 @@ const AuthorizedUsers: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...data]?.map((authorizedUser) => (
+                {currentItems.map((authorizedUser) => (
                   <tr key={authorizedUser.id} className="bg-white text-center">
                     <td className="p-2 border text-ivtcolor2">{authorizedUser.email}</td>
                     <td className="p-2 border text-ivtcolor2">{t.t(mapUserRole(authorizedUser.role))}</td>
@@ -61,6 +71,7 @@ const AuthorizedUsers: React.FC = () => {
               </tbody>
             </table>
           </div>
+        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
       </div>
     </>

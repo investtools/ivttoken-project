@@ -37,7 +37,7 @@ const AssignTokensSchool: React.FC = () => {
   if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
 
-  const { goToPage, handleItemsPerPageChange, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
   const currentItems = data.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -108,8 +108,7 @@ const AssignTokensSchool: React.FC = () => {
                     <td className="p-2 border text-ivtcolor2">
                       <button
                         onClick={() => handleSelectSchool(school.name, school.cnpj)}
-                        className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
-                      >
+                        className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
                         {t.t("Select")}
                       </button>
                     </td>
@@ -118,9 +117,8 @@ const AssignTokensSchool: React.FC = () => {
               </tbody>
             </table>
           </div>
+          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
-
-        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} handleItemsPerPageChange={handleItemsPerPageChange} />
 
         <div className="flex justify-center items-top p-5">
           <form className="bg-white p-10 rounded-lg shadow-md ">

@@ -9,6 +9,10 @@ body {
   min-height: 100vh;
 }
 
+*:focus {
+  outline: 2px solid #35928C !important;  
+}
+
 .bg-wrapper {
   background-image: url('/images/bg.svg');
   background-repeat: no-repeat;

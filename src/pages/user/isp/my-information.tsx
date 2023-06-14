@@ -8,8 +8,14 @@ import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import Underline from "~/styles/styledComponents/utils/Underline"
 import CardsHeader from "~/styles/styledComponents/utils/CardsHeader"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import { useState } from "react"
 
 const Transactions: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
+
   const isIsp = api.internetServiceProviders.isIsp.useQuery()
   const { data, isLoading } = api.internetServiceProviders.getIspData.useQuery()
   const transactions = api.internetServiceProviders.getIspTransactions.useQuery()
@@ -23,9 +29,16 @@ const Transactions: React.FC = () => {
   if (transactions.isLoading) return <LoadingComponent locale={locale} />
   if (isIsp.data == false) return <ErrorMessageComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
+  if (!transactions.data) return <ErrorMessageComponent locale={locale} />
+
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(transactions.data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = transactions.data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
 
   const renderTransactions = () => {
-    return transactions.data?.map((transaction, index) => (
+    return currentItems.map((transaction, index) => (
       <div key={index} className="p-4 shadow">
         <h3 className="text-ivtcolor2 font-semibold mb-1">{t.t("Transaction")} {index + 1}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -88,6 +101,7 @@ const Transactions: React.FC = () => {
         <div className="mt-8 max-w-6xl bg-white rounded">
           <h2 className="text-ivtcolor2 font-bold text-2xl ml-4 translate-y-4 mb-4">{t.t("History")}</h2>
           {renderTransactions()}
+          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
       </div>
     </>

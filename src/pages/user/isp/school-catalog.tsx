@@ -10,11 +10,15 @@ import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { Translate } from "translate/translate"
 import { useRouter } from "next/router"
 import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 
 const SchoolCatalog: React.FC = () => {
   const [name, setName] = useState('')
   const [cnpj, setCnpj] = useState('')
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -46,6 +50,12 @@ const SchoolCatalog: React.FC = () => {
     setCnpj(cnpj)
   }
 
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
+
   return (
     <>
       {incompleteFieldsModalIsOpen && (
@@ -76,7 +86,7 @@ const SchoolCatalog: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...data]?.map((school) => (
+                {currentItems.map((school) => (
                   <tr key={school.cnpj} className="bg-white text-center">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
@@ -101,7 +111,9 @@ const SchoolCatalog: React.FC = () => {
               </tbody>
             </table>
           </div>
+          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
+
         <div className="flex justify-center items-top p-5">
           <form className="bg-white p-10 rounded-lg shadow-md ">
             <h1 className="text-center text-2xl font-bold mb-8 text-gray-900">{t.t("Select a School")}</h1>

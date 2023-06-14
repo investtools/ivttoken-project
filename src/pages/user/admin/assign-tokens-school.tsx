@@ -11,6 +11,8 @@ import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 
 const AssignTokensSchool: React.FC = () => {
   const [cnpj, setCnpj] = useState('')
@@ -18,6 +20,8 @@ const AssignTokensSchool: React.FC = () => {
   const [tokens, setTokens] = useState('')
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -32,6 +36,12 @@ const AssignTokensSchool: React.FC = () => {
 
   if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
+
+  const { goToPage, handleItemsPerPageChange, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
 
   const handleSubmit = (cnpj: string, tokens: string) => {
     if (cnpj && tokens) {
@@ -84,7 +94,7 @@ const AssignTokensSchool: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...data]?.map((school) => (
+                {currentItems.map((school) => (
                   <tr key={school.cnpj} className="bg-white text-center">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
@@ -109,6 +119,9 @@ const AssignTokensSchool: React.FC = () => {
             </table>
           </div>
         </div>
+
+        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} handleItemsPerPageChange={handleItemsPerPageChange} />
+
         <div className="flex justify-center items-top p-5">
           <form className="bg-white p-10 rounded-lg shadow-md ">
             <h1 className="text-center text-2xl font-bold mb-8 text-gray-900">{t.t("Assign Tokens")}</h1>

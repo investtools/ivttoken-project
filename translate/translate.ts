@@ -14,6 +14,15 @@ export class Translate {
                 case "Loading": return "Carregando"
                 case "Year": return "Ano"
 
+                // paginate
+                case "Page": return "Página"
+                case "of": return "de"
+                case "First": return "Primeira"
+                case "Previous": return "Anterior"
+                case "Next": return "Próxima"
+                case "Last": return "Última"
+                case "items per page": return "itens por página"
+
                 // register context
                 case "Go to Sign-Up": return "Ir Para o Cadastro"
                 case "Select Your Role": return "Selecione Sua Posição"

@@ -11,12 +11,16 @@ import { useRouter } from "next/router"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 import SwitchCatalog from "~/styles/styledComponents/utils/SwitchCatalog"
+import Filter from "~/styles/styledComponents/utils/Filter"
 
 const SchoolCatalog: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
   const [showMap, setShowMap] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(5)
+  const [search, setSearch] = useState("")
+  const [filterOption, setFilterOption] = useState<SchoolKeys>('name')
+  type SchoolKeys = 'name' | 'state' | 'city' | 'zipCode'
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -58,8 +62,11 @@ const SchoolCatalog: React.FC = () => {
   }
 
   const renderTable = () => {
+    const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+
     return (
       <>
+      <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
         <div className="overflow-x-auto">
           <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
             <thead>
@@ -78,7 +85,7 @@ const SchoolCatalog: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((school) => (
+              {filteredItems.map((school) => (
                 <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
                   <td className="p-2 border text-ivtcolor2">{school.name}</td>
                   <td className="p-2 border text-ivtcolor2">{school.state}</td>

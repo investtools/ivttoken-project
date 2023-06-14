@@ -14,6 +14,10 @@ export class Translate {
                 case "Loading": return "Carregando"
                 case "Year": return "Ano"
 
+                // filter
+                case "Search:": return "Procurar:"
+                case "Filter by:": return "Filtrar por:"
+
                 // paginate
                 case "Page": return "Página"
                 case "of": return "de"

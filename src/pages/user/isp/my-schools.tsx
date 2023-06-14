@@ -10,11 +10,15 @@ import { useState } from "react"
 import NoSchoolsISPModal from "~/styles/styledComponents/modals/NoSchoolsISPModal"
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Filter from "~/styles/styledComponents/utils/Filter"
 
 const ISPSchools: React.FC = () => {
   const [noSchoolsISPModalIsOpen, setNoSchoolsISPModal] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(5)
+  const [search, setSearch] = useState("")
+  const [filterOption, setFilterOption] = useState<SchoolKeys>('name')
+  type SchoolKeys = 'name' | 'state' | 'city' | 'zipCode'
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -41,6 +45,8 @@ const ISPSchools: React.FC = () => {
     currentPage * itemsPerPage
   )
 
+  const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+
   return (
     <>
       {noSchoolsISPModalIsOpen && (
@@ -50,8 +56,9 @@ const ISPSchools: React.FC = () => {
       <div className="p-8">
         <HomeButton />
         <div className="mt-8" />
-        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <h2 className="bg-white p-2 rounded-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("My Schools")}</h2>
+        <div className="shadow bg-white border-b border-gray-200 sm:rounded-lg">
+          <h2 className="bg-white p-2 rounded-t  text-ivtcolor2 font-bold text-2xl">{t.t("My Schools")}</h2>
+          <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
           <div className="overflow-x-auto">
             <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
               <thead>
@@ -71,7 +78,7 @@ const ISPSchools: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((school) => (
+                {filteredItems.map((school) => (
                   <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
@@ -97,7 +104,7 @@ const ISPSchools: React.FC = () => {
               </tbody>
             </table>
           </div>
-        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
+          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
       </div>
     </>

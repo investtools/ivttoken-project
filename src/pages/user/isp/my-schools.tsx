@@ -39,8 +39,27 @@ const ISPSchools: React.FC = () => {
     void router.push(`/user/isp/my-schools/school?cnpj=${cnpj}`)
   }
 
-  const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
-  const currentItems = data.slice(
+  const mapData = []
+  for (const dt of data) {
+    const add = {
+      cnpj: dt.cnpj,
+      name: dt.name,
+      state: dt.state,
+      city: dt.city,
+      zipCode: dt.zipCode,
+      address: dt.address,
+      inepCode: dt.inepCode,
+      administrator: dt.administrator,
+      email: dt.email,
+      tokens: dt.tokens,
+      connectivityReport: dt.connectivityReport
+    }
+    mapData.push(add)
+  }
+
+
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(mapData, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = mapData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )

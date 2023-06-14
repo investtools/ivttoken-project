@@ -10,10 +10,14 @@ import { Translate } from "translate/translate"
 import Underline from "~/styles/styledComponents/utils/Underline"
 import NoTransactionModal from "~/styles/styledComponents/modals/NoTransactionModal"
 import FailedToSignTransactionModal from "~/styles/styledComponents/modals/FailSignTransactionModal"
+import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 
 const UnlockIspTokens: React.FC = () => {
   const [noTransactionsModalIsOpen, setNoTransactionsModalIsOpen] = useState(false)
   const [failToSignTransactionsModalIsOpen, setFailToSignTransactionsModalIsOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
@@ -25,7 +29,14 @@ const UnlockIspTokens: React.FC = () => {
 
   if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
+  if (!pendingTransactions.data) return <ErrorMessageComponent locale={locale} />
   if (pendingTransactions.isLoading) return <LoadingComponent locale={locale} />
+
+  const { goToPage, nextPage, previousPage, totalPage } = paginateData(pendingTransactions.data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
+  const currentItems = pendingTransactions.data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
 
   const handleSign = (transactionHash: string) => {
     if (transactionHash === "-") {
@@ -64,7 +75,7 @@ const UnlockIspTokens: React.FC = () => {
   }
 
   const renderPendingTransactions = () => {
-    return pendingTransactions.data?.map((transaction, index) => (
+    return currentItems.map((transaction, index) => (
       <div key={index} className="p-4 shadow">
         <h3 className="text-ivtcolor2 font-semibold mb-1">{t.t("Transaction")} {index + 1}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -118,9 +129,10 @@ const UnlockIspTokens: React.FC = () => {
       <PageHeader title={t.t("Unlock ISP Tokens")} />
       <div className="p-8">
         <HomeButton />
-        <div className="mt-8 w-full rounded bg-white">
+        <div className="mt-8 w-full rounded bg-white border">
           <h2 className="p-2 text-ivtcolor2 font-bold text-2xl">{t.t("Pending Transactions")}</h2>
           {renderPendingTransactions()}
+          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
       </div>
     </>

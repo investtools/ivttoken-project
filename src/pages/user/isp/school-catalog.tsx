@@ -12,6 +12,7 @@ import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateD
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 import SwitchCatalog from "~/styles/styledComponents/utils/SwitchCatalog"
 import Filter from "~/styles/styledComponents/utils/Filter"
+import SchoolMap from "~/styles/styledComponents/utils/SchoolMap"
 
 const SchoolCatalog: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
@@ -52,14 +53,6 @@ const SchoolCatalog: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
-
-  const renderMap = () => {
-    return (
-      <div>
-        map here
-      </div>
-    )
-  }
 
   const renderTable = () => {
     const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
@@ -130,7 +123,7 @@ const SchoolCatalog: React.FC = () => {
               <SwitchCatalog setShowMap={setShowMap} />
             </div>
           </div>
-          {showMap ? renderMap() : renderTable()}
+          {showMap ? (<SchoolMap />) : renderTable()}
         </div>
       </div>
     </>

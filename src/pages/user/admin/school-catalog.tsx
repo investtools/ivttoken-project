@@ -11,6 +11,7 @@ import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 import Filter from "~/styles/styledComponents/utils/Filter"
 import SwitchCatalog from "~/styles/styledComponents/utils/SwitchCatalog"
+import SchoolMap from "~/styles/styledComponents/utils/SchoolMap"
 
 const SchoolCatalog: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -37,14 +38,6 @@ const SchoolCatalog: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
-
-  const renderMap = () => {
-    return (
-      <div>
-        map here
-      </div>
-    )
-  }
 
   const renderTable = () => {
     const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
@@ -102,7 +95,7 @@ const SchoolCatalog: React.FC = () => {
               <SwitchCatalog setShowMap={setShowMap} />
             </div>
           </div>
-          {showMap ? renderMap() : renderTable()}
+          {showMap ? (<SchoolMap />) : renderTable()}
         </div>
       </div>
     </>

@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import { type Schools } from '@prisma/client'
 import { Translate } from 'translate/translate'
-import 'leaflet-defaulticon-compatibility'
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import SearchIcon from '../icons/SearchIcon'
 import { api } from "~/utils/api"
 import Loading from './Loading'
@@ -68,7 +66,7 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
                         <Popup>
                             {school.name}<br />
                             {school.address}<br />
-                            {school.tokens}
+                            {school.tokens === null ? "0 GigaTokens" : `${school.tokens} GigaTokens`}
                         </Popup>
                     </Marker>
                 ))}

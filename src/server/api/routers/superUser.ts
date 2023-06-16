@@ -1,11 +1,9 @@
 import { z } from "zod"
-import { Role, Status } from "@prisma/client"
+import {  Status } from "@prisma/client"
 import { TRPCError } from "@trpc/server"
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
 import { AdminService } from "~/service/admin/adminService"
-import { type CreateSchool } from "~/service/schools/interfaces/interfaces"
 import { SchoolsService } from "~/service/schools/schoolsService"
-import { mapAdministrator } from "~/utils/functions/adminFunctions"
 import { ContractsDatabaseService } from "~/database/contractsDatabaseService"
 import { InternetServiceProviderService } from "~/service/internetServiceProvider/internetServiceProviderService"
 import { SuperUserService } from "~/service/superUser/superUserService"
@@ -44,51 +42,6 @@ export const superUserRouter = createTRPCRouter({
       } else {
         return true
       }
-    }),
-
-  createSchool: protectedProcedure.input(
-    z.object({
-      name: z.string(),
-      state: z.string(),
-      city: z.string(),
-      zipCode: z.string(),
-      address: z.string(),
-      cnpj: z.string(),
-      inepCode: z.string(),
-      email: z.string(),
-      administrator: z.string()
-    })
-  )
-    .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
-      if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
-
-      const adminService = new AdminService()
-      const adminId = await adminService.findByEmail(email)
-      if (!adminId) throw new TRPCError({ code: "UNAUTHORIZED", message: "User is not an admin" })
-
-      if (!input.name || !input.state || !input.city || !input.zipCode || !input.address || !input.inepCode || !input.email || !input.administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
-
-      const administrator = mapAdministrator(input.administrator)
-      if (!administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid administrator to create school root" })
-
-      const schoolData: CreateSchool = {
-        name: input.name,
-        state: input.state,
-        city: input.city,
-        zipCode: input.zipCode,
-        address: input.address,
-        cnpj: input.cnpj,
-        inepCode: input.inepCode,
-        email: input.email,
-        role: Role.SCHOOL,
-        administrator: administrator
-      }
-
-      const schoolsService = new SchoolsService()
-      const createSchool = await schoolsService.create(schoolData)
-
-      return createSchool
     }),
 
   assignTokensToSchool: protectedProcedure.input(

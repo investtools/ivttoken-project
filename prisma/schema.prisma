@@ -18,6 +18,8 @@ model Schools {
     cnpj                      String                   @unique
     inepCode                  String                   @unique
     email                     String                   @unique
+    lat                       String?
+    lon                       String?
     role                      Role
     administrator             Administrators
     internetServiceProviderId String?

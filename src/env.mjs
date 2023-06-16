@@ -27,6 +27,7 @@ const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  NEXT_PUBLIC_GEOLOCATION_API_KEY: process.env.NEXT_PUBLIC_GEOLOCATION_API_KEY,
   NEXT_PUBLIC_REGISTER_ISP_URL: process.env.NEXT_PUBLIC_REGISTER_ISP_URL,
   NEXT_PUBLIC_REGISTER_ADMIN_URL: process.env.NEXT_PUBLIC_REGISTER_ADMIN_URL,
   NEXT_PUBLIC_REGISTER_SUPER_USER_URL: process.env.NEXT_PUBLIC_REGISTER_SUPER_USER_URL,

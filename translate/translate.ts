@@ -14,6 +14,7 @@ export class Translate {
                 case "Loading": return "Carregando"
                 case "Year": return "Ano"
                 case "You are here!": return "Você está aqui!"
+                case "Search": return "Procurar"
 
                 // filter
                 case "Search:": return "Procurar:"

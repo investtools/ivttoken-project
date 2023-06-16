@@ -1,76 +1,79 @@
 import { useEffect, useState } from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { OpenStreetMapProvider } from 'leaflet-geosearch'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import { type Schools } from '@prisma/client'
-import { Loading } from './Loading'
 import { Translate } from 'translate/translate'
 import 'leaflet-defaulticon-compatibility'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import SearchIcon from '../icons/SearchIcon'
+import { api } from "~/utils/api"
+import Loading from './Loading'
+import { type Map } from 'leaflet'
 
 type SchoolMapProps = {
     locale: string
     schools: Schools[]
 }
 
-const provider = new OpenStreetMapProvider()
+type Coords = {
+    lat: number
+    lon: number
+}
+
+const UpdatePosition: React.FC<{ coordinates: Coords }> = ({ coordinates }) => {
+    const map: Map = useMap()
+
+    useEffect(() => {
+        if (coordinates) {
+            map.flyTo([coordinates.lat, coordinates.lon], map.getZoom())
+        }
+    }, [coordinates, map])
+    return null
+}
 
 const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
-    const [userPosition, setUserPosition] = useState<[number, number] | null>(null)
-    const [schoolPositions, setSchoolPositions] = useState<[number, number][] | null>(null)
     const [isLoaded, setIsLoaded] = useState(false)
-    const [userZip, setUserZip] = useState("10001")
+    const [userCity, setUserCity] = useState("")
+    const [coordinates, setCoordinates] = useState<{ lat: number, lon: number }>({ lat: -22.89384, lon: -43.19700 })
     const t = new Translate(locale)
+
+    const { data } = api.schools.getLatLon.useQuery({ input: userCity })
 
     useEffect(() => { setIsLoaded(typeof window !== "undefined") }, [])
 
     useEffect(() => {
-        if (!isLoaded) {
-            return
-        }
-        const fetchGeoData = async () => {
-            const userResults = await provider.search({ query: userZip })
-            if (userResults[0]) {
-                setUserPosition([userResults[0].y, userResults[0].x])
-            }
+        if (data) setCoordinates({ lat: data.lat, lon: data.lon })
+    }, [data])
 
-            const newSchoolPositions: [number, number][] = []
-            for (const school of schools) {
-                const schoolResults = await provider.search({ query: `${school.address}, ${school.city}, ${school.state}, ${school.zipCode}` })
-                if (schoolResults[0]) {
-                    newSchoolPositions.push([schoolResults[0].y, schoolResults[0].x])
-                }
-            }
-            setSchoolPositions(newSchoolPositions)
-        }
-
-        void fetchGeoData()
-    }, [schools, userZip, isLoaded])
-
-    if (!isLoaded || !schoolPositions) return <Loading locale={locale} />
+    if (!isLoaded) return <Loading locale={locale} />
 
     return (
         <div>
             <div className="flex items-center justify-center mb-2 text-ivtcolor2 font-bold">
                 <label htmlFor="search" className="mr-2">{t.t("Search:")}</label>
                 <div className="relative">
-                    <input className="rounded-full border p-1 focus:outline-none focus:ring focus:ring-ivtcolor hover:drop-shadow-xl mr-2 pl-8" placeholder={"00000-000"} id="search" type="text" value={userZip} onChange={e => setUserZip(e.target.value)} />
+                    <input className="rounded-full border-[3px] focus:border-hover border-ivtcolor p-1 focus:outline-none focus:ring focus:ring-transparent hover:drop-shadow-xl mr-2 pl-8" placeholder={"Paraty, RJ"} id="search" type="text" value={userCity} onChange={e => setUserCity(e.target.value)} />
                     <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none ">
                         <SearchIcon />
                     </div>
                 </div>
             </div>
-            <MapContainer className='map' center={userPosition} zoom={14}>
+            <MapContainer className='map' center={[coordinates.lat, coordinates.lon]} zoom={14}>
+                <UpdatePosition coordinates={coordinates} />
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={userPosition}>
+                <Marker position={[coordinates.lat, coordinates.lon]}>
                     <Popup>{t.t("You are here!")}</Popup>
                 </Marker>
-                {schoolPositions.map((pos, index) => (
-                    <Marker key={index} position={pos}>
-                        <Popup>{t.t("School")}</Popup>
+                {schools.map((school) => (
+                    <Marker key={school.id} position={[Number(school.lat), Number(school.lon)]}>
+                        <Popup>
+                            {school.name}<br />
+                            {school.address}<br />
+                            {school.tokens}
+                        </Popup>
                     </Marker>
                 ))}
             </MapContainer>
+
         </div>
     )
 }

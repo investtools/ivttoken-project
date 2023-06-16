@@ -15,7 +15,6 @@ import Filter from "~/styles/styledComponents/utils/Filter"
 import dynamic from 'next/dynamic'
 const SchoolMap = dynamic(() => import("~/styles/styledComponents/utils/SchoolMap"), { ssr: false })
 
-
 const SchoolCatalog: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
   const [showMap, setShowMap] = useState(false)

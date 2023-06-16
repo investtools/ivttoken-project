@@ -13,6 +13,7 @@ export class Translate {
                 case "null": return "-"
                 case "Loading": return "Carregando"
                 case "Year": return "Ano"
+                case "You are here!": return "Você está aqui!"
 
                 // filter
                 case "Search:": return "Procurar:"

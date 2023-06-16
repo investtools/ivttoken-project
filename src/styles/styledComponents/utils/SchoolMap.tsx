@@ -6,6 +6,7 @@ import { Loading } from './Loading'
 import { Translate } from 'translate/translate'
 import 'leaflet-defaulticon-compatibility'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
+import SearchIcon from '../icons/SearchIcon'
 
 type SchoolMapProps = {
     locale: string
@@ -18,9 +19,8 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
     const [userPosition, setUserPosition] = useState<[number, number] | null>(null)
     const [schoolPositions, setSchoolPositions] = useState<[number, number][] | null>(null)
     const [isLoaded, setIsLoaded] = useState(false)
+    const [userZip, setUserZip] = useState("10001")
     const t = new Translate(locale)
-
-    const userZip = "10001"
 
     useEffect(() => { setIsLoaded(typeof window !== "undefined") }, [])
 
@@ -47,20 +47,31 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
         void fetchGeoData()
     }, [schools, userZip, isLoaded])
 
-    if (!isLoaded || !userPosition || !schoolPositions) return <Loading locale={locale} />
+    if (!isLoaded || !schoolPositions) return <Loading locale={locale} />
 
     return (
-        <MapContainer className='map' center={userPosition} zoom={13}>
-            <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <Marker position={userPosition}>
-                <Popup>You are here</Popup>
-            </Marker>
-            {schoolPositions.map((pos, index) => (
-                <Marker key={index} position={pos}>
-                    <Popup>School {index + 1}</Popup>
+        <div>
+            <div className="flex items-center justify-center mb-2 text-ivtcolor2 font-bold">
+                <label htmlFor="search" className="mr-2">{t.t("Search:")}</label>
+                <div className="relative">
+                    <input className="rounded-full border p-1 focus:outline-none focus:ring focus:ring-ivtcolor hover:drop-shadow-xl mr-2 pl-8" placeholder={"00000-000"} id="search" type="text" value={userZip} onChange={e => setUserZip(e.target.value)} />
+                    <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none ">
+                        <SearchIcon />
+                    </div>
+                </div>
+            </div>
+            <MapContainer className='map' center={userPosition} zoom={14}>
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <Marker position={userPosition}>
+                    <Popup>{t.t("You are here!")}</Popup>
                 </Marker>
-            ))}
-        </MapContainer>
+                {schoolPositions.map((pos, index) => (
+                    <Marker key={index} position={pos}>
+                        <Popup>{t.t("School")}</Popup>
+                    </Marker>
+                ))}
+            </MapContainer>
+        </div>
     )
 }
 

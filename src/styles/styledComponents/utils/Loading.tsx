@@ -7,7 +7,7 @@ interface LoadingProps {
   locale: string
 }
 
-const Loading: React.FC<LoadingProps> = ({ locale }) => {
+export const Loading: React.FC<LoadingProps> = ({ locale }) => {
   const t = new Translate(locale)
   return (
     <div className="flex flex-col items-center justify-center p-80">

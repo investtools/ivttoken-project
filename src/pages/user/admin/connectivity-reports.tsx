@@ -41,7 +41,7 @@ const ConnectivityReports: React.FC = () => {
     currentPage * itemsPerPage
   )
 
-  const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+  const filteredItems = search ? data.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase())) : currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
 
   return (
     <>

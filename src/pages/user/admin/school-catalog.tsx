@@ -11,7 +11,8 @@ import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
 import Filter from "~/styles/styledComponents/utils/Filter"
 import SwitchCatalog from "~/styles/styledComponents/utils/SwitchCatalog"
-import SchoolMap from "~/styles/styledComponents/utils/SchoolMap"
+import dynamic from 'next/dynamic'
+const SchoolMap = dynamic(() => import("~/styles/styledComponents/utils/SchoolMap"), { ssr: false })
 
 const SchoolCatalog: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -40,7 +41,8 @@ const SchoolCatalog: React.FC = () => {
   )
 
   const renderTable = () => {
-    const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+    const filteredItems = search ? data.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase())) : currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+
     return (
       <div className="bg-white rounded-b">
         <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
@@ -95,7 +97,7 @@ const SchoolCatalog: React.FC = () => {
               <SwitchCatalog setShowMap={setShowMap} />
             </div>
           </div>
-          {showMap ? (<SchoolMap />) : renderTable()}
+          {showMap ? (<SchoolMap schools={data} userZip={""} locale={locale} />) : renderTable()}
         </div>
       </div>
     </>

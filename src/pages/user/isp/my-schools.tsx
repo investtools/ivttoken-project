@@ -64,7 +64,7 @@ const ISPSchools: React.FC = () => {
     currentPage * itemsPerPage
   )
 
-  const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+  const filteredItems = search ? mapData.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase())) : currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
 
   return (
     <>

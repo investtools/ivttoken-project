@@ -12,14 +12,16 @@ import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateD
 import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
 import SwitchCatalog from "~/styles/styledComponents/utils/SwitchCatalog"
 import Filter from "~/styles/styledComponents/utils/Filter"
-import SchoolMap from "~/styles/styledComponents/utils/SchoolMap"
+import dynamic from 'next/dynamic'
+const SchoolMap = dynamic(() => import("~/styles/styledComponents/utils/SchoolMap"), { ssr: false })
+
 
 const SchoolCatalog: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
   const [showMap, setShowMap] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(5)
   const [search, setSearch] = useState("")
+  const [itemsPerPage, setItemsPerPage] = useState(5)
   const [filterOption, setFilterOption] = useState<SchoolKeys>('name')
   type SchoolKeys = 'name' | 'state' | 'city' | 'zipCode'
 
@@ -55,11 +57,11 @@ const SchoolCatalog: React.FC = () => {
   )
 
   const renderTable = () => {
-    const filteredItems = currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
+    const filteredItems = search ? data.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase())) : currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
 
     return (
       <>
-      <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
+        <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
         <div className="overflow-x-auto">
           <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
             <thead>
@@ -123,7 +125,7 @@ const SchoolCatalog: React.FC = () => {
               <SwitchCatalog setShowMap={setShowMap} />
             </div>
           </div>
-          {showMap ? (<SchoolMap />) : renderTable()}
+          {showMap ? (<SchoolMap schools={data} userZip={""} locale={locale} />) : renderTable()}
         </div>
       </div>
     </>

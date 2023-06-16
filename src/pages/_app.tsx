@@ -9,6 +9,7 @@ import IspWalletComponent from "~/styles/styledComponents/utils/IspWalletCompone
 import SwitchLanguage from "~/styles/styledComponents/utils/SwitchLanguage"
 import BrazilIcon from "~/styles/styledComponents/icons/BrazilIcon"
 import USAIcon from "~/styles/styledComponents/icons/UsaIcon"
+import 'leaflet/dist/leaflet.css'
 
 const App: AppType = ({ Component, pageProps }) => {
   const isIsp = (api.internetServiceProviders.isIsp.useQuery()).data

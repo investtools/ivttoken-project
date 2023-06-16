@@ -9,6 +9,8 @@ export interface CreateSchool {
   cnpj: string
   inepCode: string
   email: string
+  lat: string
+  lon: string
   role: Role
   administrator: Administrators
 }

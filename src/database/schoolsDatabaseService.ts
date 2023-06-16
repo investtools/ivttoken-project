@@ -7,7 +7,7 @@ export class SchoolsDatabaseService {
         this.db = prisma.schools
     }
 
-    create(name: string, state: string, city: string, zipCode: string, address: string, cnpj: string, inepCode: string, email: string, role: Role, administrator: Administrators) {
+    create(name: string, state: string, city: string, zipCode: string, address: string, cnpj: string, inepCode: string, email: string, lat: string, lon: string, role: Role, administrator: Administrators) {
         return this.db.create({
             data: {
                 name,
@@ -18,6 +18,8 @@ export class SchoolsDatabaseService {
                 cnpj,
                 inepCode,
                 email,
+                lat,
+                lon,
                 role,
                 administrator
             }

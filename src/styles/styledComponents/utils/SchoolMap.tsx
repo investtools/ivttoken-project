@@ -73,7 +73,6 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
                     </Marker>
                 ))}
             </MapContainer>
-
         </div>
     )
 }

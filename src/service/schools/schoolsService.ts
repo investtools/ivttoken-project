@@ -11,7 +11,7 @@ export class SchoolsService {
 
     public async create(data: CreateSchool) {
         data.role = Role.SCHOOL
-        return await this.schoolDbService.create(data.name, data.state, data.city, data.zipCode, data.address, data.cnpj, data.inepCode, data.email, data.role, data.administrator)
+        return await this.schoolDbService.create(data.name, data.state, data.city, data.zipCode, data.address, data.cnpj, data.inepCode, data.email, data.lat, data.lon, data.role, data.administrator)
     }
 
     public async getAll() {

@@ -5,14 +5,13 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
 import { AdminService } from "~/service/admin/adminService"
 import { type CreateSchool } from "~/service/schools/interfaces/interfaces"
 import { SchoolsService } from "~/service/schools/schoolsService"
-import { mapAdministrator, mapRole, maskPrivateKey } from "~/utils/functions/adminFunctions"
+import { getLatLon, mapAdministrator, mapRole, maskPrivateKey } from "~/utils/functions/adminFunctions"
 import { ContractsDatabaseService } from "~/database/contractsDatabaseService"
 import { InternetServiceProviderService } from "~/service/internetServiceProvider/internetServiceProviderService"
 import { AuthorizedUsersDatabaseService } from "~/database/authorizedUsersDatabaseService"
 import { approveContractTransaction, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
 import { TransactionsToSignDatabaseService } from "~/database/transactionsToSignDatabaseService"
 import { signTransaction } from "~/utils/functions/signTransaction/signTransaction"
-
 
 export const adminRouter = createTRPCRouter({
   signTransaction: protectedProcedure.input(
@@ -155,6 +154,8 @@ export const adminRouter = createTRPCRouter({
       const administrator = mapAdministrator(input.administrator)
       if (!administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid administrator to create school root" })
 
+      const latLon = await getLatLon(input.city, input.state)
+
       const schoolData: CreateSchool = {
         name: input.name,
         state: input.state,
@@ -165,7 +166,9 @@ export const adminRouter = createTRPCRouter({
         inepCode: input.inepCode,
         email: input.email,
         role: Role.SCHOOL,
-        administrator: administrator
+        administrator: administrator,
+        lat: String(latLon?.lat),
+        lon: String(latLon?.lon)
       }
 
       const schoolsService = new SchoolsService()

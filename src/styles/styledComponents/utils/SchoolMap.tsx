@@ -4,20 +4,23 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch'
 import { type Schools } from '@prisma/client'
 import { Loading } from './Loading'
 import { Translate } from 'translate/translate'
+import 'leaflet-defaulticon-compatibility'
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 
 type SchoolMapProps = {
     locale: string
     schools: Schools[]
-    userZip: string
 }
 
 const provider = new OpenStreetMapProvider()
 
-const SchoolMap: React.FC<SchoolMapProps> = ({ schools, userZip, locale }) => {
+const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
     const [userPosition, setUserPosition] = useState<[number, number] | null>(null)
     const [schoolPositions, setSchoolPositions] = useState<[number, number][] | null>(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const t = new Translate(locale)
+
+    const userZip = "10001"
 
     useEffect(() => { setIsLoaded(typeof window !== "undefined") }, [])
 
@@ -26,7 +29,7 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, userZip, locale }) => {
             return
         }
         const fetchGeoData = async () => {
-            const userResults = await provider.search({ query: "10001" })
+            const userResults = await provider.search({ query: userZip })
             if (userResults[0]) {
                 setUserPosition([userResults[0].y, userResults[0].x])
             }
@@ -47,8 +50,8 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, userZip, locale }) => {
     if (!isLoaded || !userPosition || !schoolPositions) return <Loading locale={locale} />
 
     return (
-        <MapContainer center={userPosition} zoom={13}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <MapContainer className='map' center={userPosition} zoom={13}>
+            <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <Marker position={userPosition}>
                 <Popup>You are here</Popup>
             </Marker>

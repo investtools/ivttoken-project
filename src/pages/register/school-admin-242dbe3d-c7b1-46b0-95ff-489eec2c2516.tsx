@@ -39,7 +39,7 @@ const RegisterSchoolAdmin: React.FC = () => {
           setSentFormModalIsOpen(true);
           mutate({ name, cnpj });
         } catch (error) {
-          console.log(error);
+          console.log(error)
           return null;
         }
       } else {

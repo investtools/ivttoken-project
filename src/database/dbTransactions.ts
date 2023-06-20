@@ -1,5 +1,5 @@
-import { type Benefits, Status } from "@prisma/client";
-import { prisma } from "./prisma";
+import { type Benefits, Status } from "@prisma/client"
+import { prisma } from "./prisma"
 
 export async function approveContractTransaction(adminId: string, schoolCnpj: string, ispId: string, newTotalTokenAmount: string, newLockedTokens: string, contractId: string) {
     const relationSchoolWithISP = prisma.schools.update({

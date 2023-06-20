@@ -4,7 +4,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc"
 import { TRPCError } from "@trpc/server"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import axios from "axios"
-import { type GeolocationResponse } from "~/service/schools/interfaces/interfaces"
+import { type OpenWeatherResponse } from "~/service/schools/interfaces/interfaces"
 
 export const schoolsRouter = createTRPCRouter({
   getLatLon: publicProcedure.input(
@@ -17,10 +17,10 @@ export const schoolsRouter = createTRPCRouter({
 
       if (process.env.NEXT_PUBLIC_GEOLOCATION_API_KEY) {
         const baseUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${input.input},BR&limit=10&appid=${process.env.NEXT_PUBLIC_GEOLOCATION_API_KEY}`
-        const request = await axios.get<GeolocationResponse[]>(baseUrl)
+        const request = await axios.get<OpenWeatherResponse[]>(baseUrl)
 
         if (request.data && request.data.length > 0) {
-          const [response = {} as GeolocationResponse] = request.data
+          const [response = {} as OpenWeatherResponse] = request.data
           return {
             lat: response.lat,
             lon: response.lon

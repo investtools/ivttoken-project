@@ -154,7 +154,7 @@ export const adminRouter = createTRPCRouter({
       const administrator = mapAdministrator(input.administrator)
       if (!administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid administrator to create school root" })
 
-      const latLon = await getLatLon(input.city, input.state)
+      const latLon = await getLatLon(input.city, input.state, String(input.address.split(',')[0]))
 
       const schoolData: CreateSchool = {
         name: input.name,

@@ -66,6 +66,7 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
                         <Popup>
                             {school.name}<br />
                             {school.address}<br />
+                            {school.city}<br />
                             {school.tokens === null ? "0 GigaTokens" : `${school.tokens} GigaTokens`}
                         </Popup>
                     </Marker>

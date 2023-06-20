@@ -1,16 +1,16 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import HomeButton from "~/styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from 'next/router'
 import { Translate } from "translate/translate"
 import { useState } from "react"
 import NoSchoolsISPModal from "~/styles/styledComponents/modals/NoSchoolsISPModal"
-import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
-import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
-import Filter from "~/styles/styledComponents/utils/Filter"
+import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
+import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
+import Filter from "~/styles/styledComponents/shared/Filter"
 
 const ISPSchools: React.FC = () => {
   const [noSchoolsISPModalIsOpen, setNoSchoolsISPModal] = useState(false)

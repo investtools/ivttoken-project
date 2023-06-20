@@ -1,8 +1,8 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import HomeButton from "~/styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
@@ -10,8 +10,8 @@ import { translateSchoolKey } from "~/utils/functions/schoolAdminFunctions"
 import MiniContractsIcon from "~/styles/styledComponents/icons/MiniContractsIcon"
 import ConfirmContractModal from "~/styles/styledComponents/modals/ConfirmContractModal"
 import ContractSentModal from "~/styles/styledComponents/modals/ContractSentModal"
-import Underline from "~/styles/styledComponents/utils/Underline"
-import CardsHeader from "~/styles/styledComponents/utils/CardsHeader"
+import Underline from "~/styles/styledComponents/shared/Underline"
+import CardsHeader from "~/styles/styledComponents/shared/CardsHeader"
 
 const Contract: React.FC = () => {
   const [cnpj, setCnpj] = useState('')

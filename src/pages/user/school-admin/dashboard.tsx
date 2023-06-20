@@ -1,15 +1,15 @@
 import { api } from "~/utils/api"
 import type { NextPage } from "next"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
-import GigaTokenTitle from "~/styles/styledComponents/utils/GigaTokenTitle"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
+import GigaTokenTitle from "~/styles/styledComponents/shared/GigaTokenTitle"
 import SchoolIcon from "~/styles/styledComponents/icons/SchoolIcon"
 import ConnectivityIcon from "~/styles/styledComponents/icons/ConnectivityIcon"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import DashboardButtonLeft from "~/styles/styledComponents/utils/DashboardButtonLeft"
-import DashboardButtonRight from "~/styles/styledComponents/utils/DashboardButtonRight"
+import DashboardButtonLeft from "~/styles/styledComponents/shared/DashboardButtonLeft"
+import DashboardButtonRight from "~/styles/styledComponents/shared/DashboardButtonRight"
 
 
 const SchoolAdminDashboard: NextPage = () => {

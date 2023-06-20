@@ -1,15 +1,15 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import HomeButton from "../../../styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { formatDate, mapContractStatus } from "~/utils/functions/ispFunctions"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import Underline from "~/styles/styledComponents/utils/Underline"
+import Underline from "~/styles/styledComponents/shared/Underline"
 import { useState } from "react"
-import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
-import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 
 const ISPContracts: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)

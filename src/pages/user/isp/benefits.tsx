@@ -1,8 +1,8 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import HomeButton from "~/styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { benefitPriceByName, benefits } from "~/utils/functions/benefitsFunctions"
 import { mapBenefits } from "~/utils/functions/ispFunctions"
 import { useState } from "react"
@@ -11,8 +11,8 @@ import PurchasedBenefitModal from "~/styles/styledComponents/modals/PurchasedBen
 import NotEnoughTokensModal from "~/styles/styledComponents/modals/NotEnoughTokensModal"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import Underline from "~/styles/styledComponents/utils/Underline"
-import CardsHeader from "~/styles/styledComponents/utils/CardsHeader"
+import Underline from "~/styles/styledComponents/shared/Underline"
+import CardsHeader from "~/styles/styledComponents/shared/CardsHeader"
 
 const Benefits: React.FC = () => {
   const [purchasedBenefitModalIsOpen, setPurchasedBenefitModalIsOpen] = useState(false)

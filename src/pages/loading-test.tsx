@@ -1,6 +1,6 @@
 import type { NextPage } from "next"
 import { useRouter } from "next/router"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
 
 const LoadingTest: NextPage = () => {
   const router = useRouter()

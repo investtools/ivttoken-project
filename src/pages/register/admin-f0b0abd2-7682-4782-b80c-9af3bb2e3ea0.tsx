@@ -1,17 +1,17 @@
 import { api } from "~/utils/api"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
 import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Fragment, useState } from 'react'
 import SendIcon from "~/styles/styledComponents/icons/SendIcon"
-import HomeButton from "~/styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import HomeButton from "~/styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
 import { useRouter } from "next/router"
 import { Role } from "@prisma/client"
-import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
+import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 import { Translate } from "translate/translate"
 
 const entity = [

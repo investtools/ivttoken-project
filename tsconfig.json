@@ -35,8 +35,13 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "tests]/database.test.ts", "prisma/seed.js", "prisma/data.js"
-, "src/utils/functions/signTransaction/calcGas.js", "src/utils/functions/signTransaction/signTransaction.js", "src/styles/styledComponents/utils/SchoolMap.tsx"  ],
+    "tests]/database.test.ts",
+    "prisma/seed.js",
+    "prisma/data.js",
+    "src/utils/functions/signTransaction/calcGas.js",
+    "src/utils/functions/signTransaction/signTransaction.js",
+    "src/styles/styledComponents/shared/SchoolMap.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]

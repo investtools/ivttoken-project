@@ -1,18 +1,18 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import HomeButton from "../../../styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
+import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 import { useState } from "react"
-import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
-import Filter from "~/styles/styledComponents/utils/Filter"
-import SwitchCatalog from "~/styles/styledComponents/utils/SwitchCatalog"
+import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
+import Filter from "~/styles/styledComponents/shared/Filter"
+import SwitchCatalog from "~/styles/styledComponents/shared/SwitchCatalog"
 import dynamic from 'next/dynamic'
-const SchoolMap = dynamic(() => import("~/styles/styledComponents/utils/SchoolMap"), { ssr: false })
+const SchoolMap = dynamic(() => import("~/styles/styledComponents/shared/SchoolMap"), { ssr: false })
 
 const SchoolCatalog: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)

@@ -1,16 +1,16 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import HomeButton from "../../../styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import { useState } from "react"
 import { formatDate, mapUserRole } from "~/utils/functions/ispFunctions"
 import { entityMap } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
-import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
+import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 
 const AuthorizedUsers: React.FC = () => {
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
@@ -71,7 +71,7 @@ const AuthorizedUsers: React.FC = () => {
               </tbody>
             </table>
           </div>
-        <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
+          <Paginate totalPage={totalPage} itemsPerPage={itemsPerPage} currentPage={currentPage} goToPage={goToPage} previousPage={previousPage} nextPage={nextPage} setCurrentPage={setCurrentPage} setItemsPerPage={setItemsPerPage} />
         </div>
       </div>
     </>

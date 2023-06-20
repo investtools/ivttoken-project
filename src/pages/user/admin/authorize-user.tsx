@@ -3,18 +3,18 @@ import type { NextPage } from "next"
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Fragment, useState } from 'react'
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
-import HomeButton from "~/styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import HomeButton from "~/styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
 import SendIcon from "~/styles/styledComponents/icons/SendIcon"
 import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import { validateEmail } from "~/utils/functions/adminFunctions"
 import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModal"
-import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
+import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 
 const AuthorizeUser: NextPage = () => {
   const router = useRouter()

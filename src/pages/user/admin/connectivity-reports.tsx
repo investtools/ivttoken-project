@@ -1,15 +1,15 @@
 import { api } from "~/utils/api"
-import HomeButton from "~/styles/styledComponents/utils/HomeButton"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import HomeButton from "~/styles/styledComponents/shared/HomeButton"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from 'next/router'
 import { Translate } from "translate/translate"
 import { useState } from "react"
-import { paginateData } from "~/styles/styledComponents/utils/Paginate/paginateData"
-import Paginate from "~/styles/styledComponents/utils/Paginate/Paginate"
-import Filter from "~/styles/styledComponents/utils/Filter"
+import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
+import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
+import Filter from "~/styles/styledComponents/shared/Filter"
 
 const ConnectivityReports: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -52,7 +52,7 @@ const ConnectivityReports: React.FC = () => {
         </div>
         <div className="shadow bg-white border-b border-gray-200 sm:rounded-lg">
           <h2 className="p-2 rounded-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("Schools")}</h2>
-        <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
+          <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
           <div className="overflow-x-auto">
             <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
               <thead>

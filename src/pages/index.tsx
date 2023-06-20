@@ -1,9 +1,9 @@
 import { api } from "~/utils/api"
 import type { NextPage } from "next"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { useRouter } from 'next/router'
 import { Role } from "@prisma/client"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
 
 const Home: NextPage = () => {
   const router = useRouter()

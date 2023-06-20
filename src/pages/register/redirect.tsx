@@ -1,9 +1,9 @@
 import { api } from "~/utils/api"
 import { useRouter } from 'next/router'
 import type { NextPage } from "next"
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
 import { Translate } from "translate/translate"
 import { Role } from "@prisma/client"
 

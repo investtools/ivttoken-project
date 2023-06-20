@@ -1,13 +1,13 @@
 import { api } from "~/utils/api"
-import HomeButton from "../../../styles/styledComponents/utils/HomeButton"
+import HomeButton from "../../../styles/styledComponents/shared/HomeButton"
 import { Listbox } from '@headlessui/react'
-import LoadingComponent from "~/styles/styledComponents/utils/Loading"
+import LoadingComponent from "~/styles/styledComponents/shared/Loading"
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import PageHeader from "~/styles/styledComponents/utils/PageHeader"
+import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
 import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import SendIcon from "~/styles/styledComponents/icons/SendIcon"
-import ErrorMessageComponent from "~/styles/styledComponents/utils/ErrorMessage"
+import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
 import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
@@ -15,7 +15,7 @@ import InputMask from 'react-input-mask'
 import { validateEmail, type ViaCEPAddress } from "~/utils/functions/adminFunctions"
 import AddNumberModal from "~/styles/styledComponents/modals/AddNumberModal"
 import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModal"
-import { selectField } from "~/styles/styledComponents/utils/selectFieldForms"
+import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 
 function CreateSchool() {
   const [name, setName] = useState('')

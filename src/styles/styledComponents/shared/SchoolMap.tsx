@@ -118,7 +118,7 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale, showContractButt
                             {school.name}<br />
                             {school.address}<br />
                             {school.city}<br />
-                            {school.tokens === null ? "0 GigaTokens" : `${school.tokens} GigaTokens`}<br />
+                            {school.tokens === null ? 0 : `${school.tokens}`}  GigaTokens<br />
                             {showContractButton &&
                                 (<div className='flex items-center justify-center mt-2'><button onClick={() => handleClick(school.cnpj)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
                                     {t.t("Contract")}

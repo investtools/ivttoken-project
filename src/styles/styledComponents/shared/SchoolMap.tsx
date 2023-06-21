@@ -7,6 +7,7 @@ import { api } from "~/utils/api"
 import Loading from './Loading'
 import { type Map } from 'leaflet'
 import { Icon } from 'leaflet'
+import { useRouter } from 'next/router'
 
 const schoolIcon = new Icon({
     iconUrl: '/icon1.png',
@@ -16,7 +17,7 @@ const schoolIcon = new Icon({
     popupAnchor: [1, -34],
     shadowSize: [25, 41],
     shadowAnchor: [11, 41]
-});
+})
 
 const userIcon = new Icon({
     iconUrl: '/icon2.png',
@@ -26,12 +27,7 @@ const userIcon = new Icon({
     popupAnchor: [1, -34],
     shadowSize: [25, 41],
     shadowAnchor: [11, 41]
-});
-
-type SchoolMapProps = {
-    locale: string
-    schools: Schools[]
-}
+})
 
 type Coords = {
     lat: number
@@ -49,10 +45,17 @@ const UpdatePosition: React.FC<{ coordinates: Coords }> = ({ coordinates }) => {
     return null
 }
 
-const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
+type SchoolMapProps = {
+    showContractButton: boolean
+    locale: string
+    schools: Schools[]
+}
+
+const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale, showContractButton }) => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [userCity, setUserCity] = useState("")
     const [coordinates, setCoordinates] = useState<{ lat: number, lon: number }>({ lat: -22.89384, lon: -43.19700 })
+    const router = useRouter()
     const t = new Translate(locale)
 
     const { data } = api.schools.getLatLon.useQuery({ input: userCity })
@@ -81,6 +84,17 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
 
     if (!isLoaded) return <Loading locale={locale} />
 
+    const handleClick = (cnpj: string) => {
+        if (cnpj) {
+            try {
+                void router.push(`/user/isp/contract?cnpj=${cnpj}`)
+            } catch (error) {
+                console.log(error)
+                return null
+            }
+        }
+    }
+
     return (
         <div>
             <div className="flex items-center justify-center mb-2 text-ivtcolor2 font-bold">
@@ -104,7 +118,11 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
                             {school.name}<br />
                             {school.address}<br />
                             {school.city}<br />
-                            {school.tokens === null ? "0 GigaTokens" : `${school.tokens} GigaTokens`}
+                            {school.tokens === null ? "0 GigaTokens" : `${school.tokens} GigaTokens`}<br />
+                            {showContractButton &&
+                                (<div className='flex items-center justify-center mt-2'><button onClick={() => handleClick(school.cnpj)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                                    {t.t("Contract")}
+                                </button></div>)}
                         </Popup>
                     </Marker>
                 ))}

@@ -97,7 +97,7 @@ const SchoolCatalog: React.FC = () => {
               <SwitchCatalog setShowMap={setShowMap} />
             </div>
           </div>
-          {showMap ? (<SchoolMap schools={data} locale={locale} />) : renderTable()}
+          {showMap ? (<SchoolMap schools={data} locale={locale} showContractButton={false} />) : renderTable()}
         </div>
       </div>
     </>

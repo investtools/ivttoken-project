@@ -36,7 +36,7 @@ const SchoolCatalog: React.FC = () => {
   if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
 
-  const handleSubmit = (cnpj: string) => {
+  const handleClick = (cnpj: string) => {
     if (cnpj) {
       try {
         void router.push(`/user/isp/contract?cnpj=${cnpj}`)
@@ -93,7 +93,7 @@ const SchoolCatalog: React.FC = () => {
                   <td className="p-2 border text-ivtcolor2">{school.tokens}</td>
                   <td className="p-2 border text-ivtcolor2">
                     <button
-                      onClick={() => handleSubmit(school.cnpj)}
+                      onClick={() => handleClick(school.cnpj)}
                       className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
                     >
                       {t.t("Contract")}
@@ -124,7 +124,7 @@ const SchoolCatalog: React.FC = () => {
               <SwitchCatalog setShowMap={setShowMap} />
             </div>
           </div>
-          {showMap ? (<SchoolMap schools={data} locale={locale} />) : renderTable()}
+          {showMap ? (<SchoolMap schools={data} locale={locale} showContractButton={true} />) : renderTable()}
         </div>
       </div>
     </>

@@ -6,6 +6,27 @@ import SearchIcon from '../icons/SearchIcon'
 import { api } from "~/utils/api"
 import Loading from './Loading'
 import { type Map } from 'leaflet'
+import { Icon } from 'leaflet'
+
+const schoolIcon = new Icon({
+    iconUrl: '/icon1.png',
+    shadowUrl: '/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [25, 41],
+    shadowAnchor: [11, 41]
+});
+
+const userIcon = new Icon({
+    iconUrl: '/icon2.png',
+    shadowUrl: '/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [25, 41],
+    shadowAnchor: [11, 41]
+});
 
 type SchoolMapProps = {
     locale: string
@@ -44,19 +65,19 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
 
     useEffect(() => {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            const { latitude, longitude } = position.coords
-            setCoordinates({
-              lat: latitude,
-              lon: longitude,
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords
+                setCoordinates({
+                    lat: latitude,
+                    lon: longitude,
+                })
+            }, (error) => {
+                console.log(error)
             })
-          }, (error) => {
-            console.log(error)
-          })
         } else {
-          console.log("Geolocation is not supported by this browser.")
+            console.log("Geolocation is not supported by this browser.")
         }
-      }, [])
+    }, [])
 
     if (!isLoaded) return <Loading locale={locale} />
 
@@ -74,11 +95,11 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
             <MapContainer className='map' center={[coordinates.lat, coordinates.lon]} zoom={14}>
                 <UpdatePosition coordinates={coordinates} />
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={[coordinates.lat, coordinates.lon]}>
+                <Marker icon={userIcon} position={[coordinates.lat, coordinates.lon]}>
                     <Popup>{t.t("You are here!")}</Popup>
                 </Marker>
                 {schools.map((school) => (
-                    <Marker key={school.id} position={[Number(school.lat), Number(school.lon)]}>
+                    <Marker icon={schoolIcon} key={school.id} position={[Number(school.lat), Number(school.lon)]}>
                         <Popup>
                             {school.name}<br />
                             {school.address}<br />

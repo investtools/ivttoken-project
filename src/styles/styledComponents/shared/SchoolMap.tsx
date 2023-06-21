@@ -42,6 +42,22 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale }) => {
         if (data) setCoordinates({ lat: data.lat, lon: data.lon })
     }, [data])
 
+    useEffect(() => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords
+            setCoordinates({
+              lat: latitude,
+              lon: longitude,
+            })
+          }, (error) => {
+            console.log(error)
+          })
+        } else {
+          console.log("Geolocation is not supported by this browser.")
+        }
+      }, [])
+
     if (!isLoaded) return <Loading locale={locale} />
 
     return (

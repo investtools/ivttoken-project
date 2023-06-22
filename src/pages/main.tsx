@@ -15,32 +15,33 @@ const LoggedOutZone: NextPage = () => {
       <Header />
       <div className="p-8">
         <div className="mt-10">
-           foto a
+          foto a
         </div>
 
-        <div id='about' className="py-[500px]">
-           sobre
+        <div id='about' className="flex flex-col justify-start min-h-[1000px]">
+          sobre
         </div>
 
-        <div id='history' className="py-[500px]">
-           historia
+        <div id='history' className="flex flex-col justify-start min-h-[1000px]">
+          historia
         </div>
 
-        <div id='join' className="py-[500px]">
-           join
+        <div id='join' className="flex flex-col justify-start min-h-[1000px]">
+          join
         </div>
 
-        <div id='collaboration' className="py-[500px]">
-           collab
+        <div id='collaboration' className="flex flex-col justify-start min-h-[1000px]">
+          collab
         </div>
 
-        <div id='institutional' className="py-[500px]">
+        <div id='institutional' className="flex flex-col justify-start min-h-[1000px]">
           div institucional
         </div>
 
-        <div id='testimonials' className="py-[500px]">
+        <div id='testimonials' className="flex flex-col justify-start min-h-[1000px]">
           div testimonials
         </div>
+
       </div>
     </>
   )

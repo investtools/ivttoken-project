@@ -19,7 +19,7 @@ const Navbar = () => {
           }
         })
       },
-      { threshold: 0.5 }
+      { threshold: 0.6 }
     )
 
     sectionsId.forEach(id => {
@@ -37,7 +37,7 @@ const Navbar = () => {
 
   const handleNavigation = (id: string) => {
     const element = document.getElementById(id)
-    const headerOffset = -400
+    const headerOffset = 90
     const elementPosition = element ? element.getBoundingClientRect().top + window.pageYOffset : 0
     const offsetPosition = elementPosition - headerOffset
 

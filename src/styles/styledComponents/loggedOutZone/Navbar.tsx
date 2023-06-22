@@ -1,21 +1,56 @@
-import React from 'react'
-import Link from 'next/link'
+import React, { useState, useEffect } from 'react'
 import { Translate } from 'translate/translate'
 import { useRouter } from 'next/router'
 
+const sectionsId = ['about', 'history', 'join', 'collaboration', 'institutional', 'testimonials']
+
 const Navbar = () => {
+    const [activeSection, setActiveSection] = useState('')
     const router = useRouter()
     const locale = router.locale === undefined ? "en" : router.locale
     const t = new Translate(locale)
 
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setActiveSection(entry.target.id)
+            }
+          })
+        },
+        { threshold: 0.7 } 
+      )
+
+      sectionsId.forEach(id => {
+        const element = document.getElementById(id)
+        if (element) observer.observe(element)
+      })
+
+      return () => {
+        sectionsId.forEach(id => {
+          const element = document.getElementById(id)
+          if (element) observer.unobserve(element)
+        })
+      }
+    }, [])
+
+    const handleNavigation = (id: string) => {
+      const element = document.getElementById(id)
+      element?.scrollIntoView({ behavior: 'smooth' })
+    }
+
     return (
         <div className="flex justify-around gap-6 bg-white rounded-full p-2 px-4 text-ivtcolor2 font-bold">
-            <Link href="#about"><span className={`${window.location.hash === "#about" ? "border-b-2 border-ivtcolor2" : ""} hover:text-[#72A3A9] cursor-pointer`}>{t.t("About")}</span></Link>
-            <Link href="#history"><span className={`${window.location.hash === "#history" ? "border-b-2 border-ivtcolor2" : ""} hover:text-[#72A3A9] cursor-pointer`}>{t.t("History")}</span></Link>
-            <Link href="#join"><span className={`${window.location.hash === "#join" ? "border-b-2 border-ivtcolor2" : ""} hover:text-[#72A3A9] cursor-pointer`}>{t.t("Join")}</span></Link>
-            <Link href="#collaboration"><span className={`${window.location.hash === "#collaboration" ? "border-b-2 border-ivtcolor2" : ""} hover:text-[#72A3A9] cursor-pointer`}>{t.t("Collaboration")}</span></Link>
-            <Link href="#institutional"><span className={`${window.location.hash === "#institutional" ? "border-b-2 border-ivtcolor2" : ""} hover:text-[#72A3A9] cursor-pointer`}>{t.t("Institutional")}</span></Link>
-            <Link href="#testimonials"><span className={`${window.location.hash === "#testimonials" ? "border-b-2 border-ivtcolor2" : ""} hover:text-[#72A3A9] cursor-pointer`}>{t.t("Testimonials")}</span></Link>
+            {sectionsId.map(id => (
+              <span
+                key={id}
+                onClick={() => handleNavigation(id)}
+                className={`${activeSection === id ? "border-b-2 border-ivtcolor2" : ""} hover:text-[#72A3A9] cursor-pointer`}
+              >
+                {t.t(id.charAt(0).toUpperCase() + id.slice(1))}
+              </span>
+            ))}
         </div>
     )
 }

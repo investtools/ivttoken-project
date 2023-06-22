@@ -3,6 +3,7 @@ import React from 'react'
 import { Translate } from "translate/translate"
 import GoToMainButton from "./GoToMainButton"
 import HomeButton from './HomeButton'
+import { useRouter } from 'next/router'
 
 interface AccessDeniedProps {
   locale: string
@@ -31,19 +32,24 @@ const AccessDeniedMessage: React.FC<AccessDeniedProps> = ({ locale }) => {
 interface AccessDeniedComponentProps {
   locale: string
   isPathPublic: boolean
+  pathName: string
 }
 
-const AccessDeniedComponent: React.FC<AccessDeniedComponentProps> = ({ locale, isPathPublic }) => {
+const AccessDeniedComponent: React.FC<AccessDeniedComponentProps> = ({ locale, isPathPublic, pathName }) => {
+  const router = useRouter()
+
   return (
     <>
-      <div className="p-8 relative min-h-screen flex flex-col justify-between">
-        <div>
-          {isPathPublic ? (<HomeButton />) : (<GoToMainButton />)}
+      {pathName === '/' ? void router.push('/main') : (
+        <div className="p-8 relative min-h-screen flex flex-col justify-between">
+          <div>
+            {isPathPublic ? (<HomeButton />) : (<GoToMainButton />)}
+          </div>
+          <div className="flex-grow flex items-center justify-center">
+            <AccessDeniedMessage locale={locale} />
+          </div>
         </div>
-        <div className="flex-grow flex items-center justify-center">
-          <AccessDeniedMessage locale={locale} />
-        </div>
-      </div>
+      )}
     </>
   )
 }

@@ -48,11 +48,11 @@ const App: AppType = ({ Component, pageProps }) => {
                 </div>
               </div>
             </div>
-            {isPathPublic ? (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} />) : (<Component {...pageProps} />)}
+            {isPathPublic ? (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} pathName={router.pathname} />) : (<Component {...pageProps} />)}
           </SignedIn>
 
           <SignedOut>
-            {isPathPublic ? (<Component {...pageProps} />) : (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} />)}
+            {isPathPublic ? (<Component {...pageProps} />) : (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} pathName={router.pathname} />)}
           </SignedOut>
         </BackgroundWrapper>
       </ClerkProvider>

@@ -15,31 +15,31 @@ const LoggedOutZone: NextPage = () => {
       <Header />
       <div className="p-8">
         <div className="mt-10">
-           foto
+           foto a
         </div>
 
-        <div id='about' className="">
-          
+        <div id='about' className="py-[500px]">
+           sobre
         </div>
 
-        <div id='history' className="">
-          
+        <div id='history' className="py-[500px]">
+           historia
         </div>
 
-        <div id='join' className="">
-          
+        <div id='join' className="py-[500px]">
+           join
         </div>
 
-        <div id='collaboration' className="">
-          
+        <div id='collaboration' className="py-[500px]">
+           collab
         </div>
 
-        <div id='institutional' className="">
-          
+        <div id='institutional' className="py-[500px]">
+          div institucional
         </div>
 
-        <div id='testimonials' className="">
-          
+        <div id='testimonials' className="py-[500px]">
+          div testimonials
         </div>
       </div>
     </>

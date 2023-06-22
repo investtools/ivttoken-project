@@ -8,13 +8,27 @@ export class Translate {
     public t(string: string) {
         if (this.locale === "pt-br") {
             switch (string) {
-                case "-": return "-"
                 case "": return ""
+                case "-": return "-"
                 case "null": return "-"
-                case "Loading": return "Carregando"
                 case "Year": return "Ano"
-                case "You are here!": return "Você está aqui!"
+                case "Enter": return "Entrar"
                 case "Search": return "Procurar"
+                case "Loading": return "Carregando"
+                case "You are here!": return "Você está aqui!"
+                case "Register or Login": return "Entre ou Registre-se"
+
+                // access denied
+                case "Access Denied!": return "Acesso Negado!"
+                case "You do not have permission to access this page.": return "Você não tem permissão para acessar esta página."
+
+                // navbar 
+                case "Institutional": return "Institucional"
+                case "Collaboration": return "Colaboração"
+                case "Testimonials": return "Depoimentos"
+                case "History": return "História"
+                case "Join": return "Participe"
+                case "About": return "Sobre"
 
                 // filter
                 case "Search:": return "Procurar:"

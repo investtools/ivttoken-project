@@ -1,5 +1,5 @@
 import { type AppType } from "next/app"
-import { ClerkProvider, SignIn, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { api } from "~/utils/api"
 import "~/styles/globals.css"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
@@ -9,12 +9,21 @@ import IspWalletComponent from "~/styles/styledComponents/shared/IspWalletCompon
 import SwitchLanguage from "~/styles/styledComponents/shared/SwitchLanguage"
 import BrazilIcon from "~/styles/styledComponents/icons/BrazilIcon"
 import USAIcon from "~/styles/styledComponents/icons/UsaIcon"
+import { useRouter } from "next/router"
+import { isPublicPath } from "~/utils/functions/sharedFunctions"
+import { Translate } from "translate/translate"
+import AccessDeniedComponent from "~/styles/styledComponents/shared/AccessDenied"
 
 const App: AppType = ({ Component, pageProps }) => {
   const isIsp = (api.internetServiceProviders.isIsp.useQuery()).data
+  const router = useRouter()
+  const locale = router.locale === undefined ? "en" : router.locale
+  const t = new Translate(locale)
+
+  const isPathPublic = isPublicPath(router.pathname)
   return (
     <>
-      <PageHeader title={"Sign-in or Log-in"} />
+      <PageHeader title={t.t("Register or Login")} />
       <ClerkProvider
         appearance={{
           variables: {
@@ -39,13 +48,11 @@ const App: AppType = ({ Component, pageProps }) => {
                 </div>
               </div>
             </div>
-            <Component {...pageProps} />
+            {isPathPublic ? (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} />) : (<Component {...pageProps} />)}
           </SignedIn>
 
           <SignedOut>
-            <div className="flex justify-center p-48">
-              <SignIn />
-            </div>
+            {isPathPublic ? (<Component {...pageProps} />) : (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} />)}
           </SignedOut>
         </BackgroundWrapper>
       </ClerkProvider>

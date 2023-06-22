@@ -425,6 +425,10 @@ button:hover svg {
   transform: rotate(-5deg);
 }
 
+.loginSvgEffect:hover svg {
+  transform: rotate(5deg);
+}
+
 .loader {
   position: relative;
   width: 75px;

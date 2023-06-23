@@ -55,6 +55,15 @@ export class Translate {
                 case "Problem Solving Belief": return "Crença na Solução de Problemas"
                 case "Ethical Conduct and Transparency": return "Conduta Ética e Transparência"
                 case "Empathetic and Altruistic Relations": return "Relações Empáticas e Altruístas"
+                case "Our Pillars": return "Nossos Pilares"
+                case "Transparency": return "Transparência"
+
+                // institutional
+                case "Our Team": return "Nosso Time"
+                case "Blockchain Head": return "Head de Blockchain"
+                case "Software Engineer": return "Engenheiro de Software"
+                case "Project Manager": return "Gerente de Projeto"
+                case "Commercial Director": return "Diretor Comercial"
 
                 // testimonials
                 case "This team's project is truly revolutionary. The focus on connecting underprivileged schools to the internet is not only a practical necessity but a powerful means of driving social change. The promise of equal access to education and resources is something we should all be working towards.": return "O projeto dessa equipe é verdadeiramente revolucionário. O foco em conectar escolas carentes à internet não é apenas uma necessidade prática, mas um poderoso meio de promover a mudança social. A promessa de acesso igual à educação e aos recursos é algo para o qual todos devemos trabalhar."

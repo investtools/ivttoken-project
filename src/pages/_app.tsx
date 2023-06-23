@@ -31,7 +31,7 @@ const App: AppType = ({ Component, pageProps }) => {
             colorBackground: 'transparent',
             colorInputBackground: 'transparent',
             colorInputText: '#285966',
-            borderRadius: '1px',
+            borderRadius: '0px',
             fontSize: '14px',
             fontWeight: {
               normal: 300,

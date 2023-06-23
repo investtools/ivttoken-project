@@ -31,7 +31,7 @@ export class Translate {
                 case "Diagnosis": return "Diagnóstico"
                 case "Through the Connected School Index, we ensure schools are prepared and equipped to participate in the GigaToken program.": return "Por meio do Índice Escola Conectada, garantimos que as escolas estão preparadas e equipadas para participar do programa GigaToken."
                 case "Connection": return "Conexão"
-                case "We forge connections between schools and local internet providers, thereby ensuring the expansion and sustainability of our project.": return "Forjamos conexões entre escolas e provedores de internet locais, garantindo assim a expansão e sustentabilidade do nosso projeto."
+                case "We forge connections between schools and local internet providers, thereby ensuring the expansion and sustainability of our project.": return "Criamos conexões entre escolas e provedores de internet locais, garantindo assim a expansão e sustentabilidade do nosso projeto."
                 case "Monitoring": return "Monitoramento"
                 case "We keep a real-time check on the connectivity in schools using our dedicated platform, ensuring secure and high-quality internet access for students.": return "Fazemos um acompanhamento em tempo real da conectividade nas escolas usando nossa plataforma dedicada, garantindo acesso seguro e de alta qualidade à internet para os alunos."
                 case "Measurement": return "Mensuração"

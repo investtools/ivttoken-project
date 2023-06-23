@@ -30,7 +30,14 @@ const App: AppType = ({ Component, pageProps }) => {
             colorPrimary: '#285966',
             colorBackground: 'transparent',
             colorInputBackground: 'transparent',
-            borderRadius: '10px'
+            colorInputText: '#285966',
+            borderRadius: '1px',
+            fontSize: '14px',
+            fontWeight: {
+              normal: 300,
+              medium: 400,
+              bold: 500
+            }
           }
         }}
       >

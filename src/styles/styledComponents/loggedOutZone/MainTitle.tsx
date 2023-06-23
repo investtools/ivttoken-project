@@ -17,7 +17,7 @@ const MainTitle: React.FC = () => {
   return (
     <>
       <div className="h-screen bg-main flex p-12">
-        <div className="w-6/12 text-start flex flex-col justify-center items-start font-bold text-white p-8 z-50">
+        <div className="w-6/12 text-start flex flex-col justify-center items-start font-bold text-white p-8 z-40">
           <h2 className="text-7xl mb-4 leading-[5rem]">{t.t("Connecting schools worldwide")}</h2>
           <div>
             <button

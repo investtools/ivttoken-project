@@ -5,6 +5,7 @@ import MainTitle from "~/styles/styledComponents/loggedOutZone/MainTitle"
 import About from "~/styles/styledComponents/loggedOutZone/about/About"
 import History from "~/styles/styledComponents/loggedOutZone/History"
 import Pillars from "~/styles/styledComponents/loggedOutZone/Pillars"
+import Testimonials from "~/styles/styledComponents/loggedOutZone/testimonials/Testimonials"
 
 const LoggedOutZone: NextPage = () => {
   return (
@@ -35,7 +36,7 @@ const LoggedOutZone: NextPage = () => {
         </div>
 
         <div id='testimonials'>
-          <About />
+          <Testimonials />
         </div>
       </div>
     </>

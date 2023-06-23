@@ -20,8 +20,8 @@ const Cards: React.FC<CardsProps> = ({ path, title, description }) => {
             <path strokeLinecap="round" strokeLinejoin="round" d={path} />
           </svg>
           <div className="grid">
-          <span className="text-ivtcolor2hover text-xl font-bold mb-2">{t.t(title)}</span>
-          <span className="text-ivtcolor2hover">{t.t(description)}</span>
+            <span className="text-ivtcolor2hover text-xl font-bold mb-2">{t.t(title)}</span>
+            <span className="text-ivtcolor2hover">{t.t(description)}</span>
           </div>
         </div>
       </div>

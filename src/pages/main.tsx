@@ -5,7 +5,6 @@ import MainTitle from "~/styles/styledComponents/loggedOutZone/MainTitle"
 import About from "~/styles/styledComponents/loggedOutZone/about/About"
 
 const LoggedOutZone: NextPage = () => {
-
   return (
     <>
       <PageHeader title={"Giga Token"} />
@@ -13,28 +12,28 @@ const LoggedOutZone: NextPage = () => {
       <MainTitle />
 
       <div className="p-8">
-        <div id='about'>
+        <div id='about' className="mb-8">
           <About />
         </div>
 
-        <div id='history' className="flex flex-col justify-start min-h-[1000px]">
-          historia
+        <div id='history' className="mb-8">
+          <About />
         </div>
 
-        <div id='join' className="flex flex-col justify-start min-h-[1000px]">
-          join
+        <div id='join' className="mb-8">
+          <About />
         </div>
 
-        <div id='collaboration' className="flex flex-col justify-start min-h-[1000px]">
-          collab
+        <div id='collaboration' className="mb-8">
+          <About />
         </div>
 
-        <div id='institutional' className="flex flex-col justify-start min-h-[1000px]">
-          div institucional
+        <div id='institutional' className="mb-8">
+          <About />
         </div>
 
-        <div id='testimonials' className="flex flex-col justify-start min-h-[1000px]">
-          div testimonials
+        <div id='testimonials'>
+          <About />
         </div>
       </div>
     </>

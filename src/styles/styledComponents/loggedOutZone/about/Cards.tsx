@@ -14,12 +14,16 @@ const Cards: React.FC<CardsProps> = ({ path, title, description }) => {
 
   return (
     <>
-      <div className="hover:scale-110 duration-500 grid card-shadow rounded p-6 flex items-start">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[150px] h-[150px] text-hover mx-auto">
-          <path strokeLinecap="round" strokeLinejoin="round" d={path} />
-        </svg>
-        <span className="text-ivtcolor2hover text-xl font-bold mt-2">{t.t(title)}</span>
-        <span className="text-ivtcolor2hover">{t.t(description)}</span>
+      <div className="hover:scale-110 duration-500 grid card-shadow grid-cols-1 rounded p-6 flex flex-col justify-between items-start">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`${title === "Monitoring" ? "" : ""} w-[150px] h-[150px] text-hover mx-auto`}>
+            <path strokeLinecap="round" strokeLinejoin="round" d={path} />
+          </svg>
+          <div className="grid">
+          <span className="text-ivtcolor2hover text-xl font-bold mb-2">{t.t(title)}</span>
+          <span className="text-ivtcolor2hover">{t.t(description)}</span>
+          </div>
+        </div>
       </div>
     </>
   )

@@ -28,10 +28,9 @@ const App: AppType = ({ Component, pageProps }) => {
         appearance={{
           variables: {
             colorPrimary: '#285966',
-            colorBackground: 'transparent',
             colorInputBackground: 'transparent',
             colorInputText: '#285966',
-            borderRadius: '0px',
+            borderRadius: '3px',
             fontSize: '14px',
             fontWeight: {
               normal: 300,

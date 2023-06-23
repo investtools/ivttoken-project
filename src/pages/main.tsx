@@ -4,6 +4,7 @@ import Header from "../styles/styledComponents/loggedOutZone/Header"
 import MainTitle from "~/styles/styledComponents/loggedOutZone/MainTitle"
 import About from "~/styles/styledComponents/loggedOutZone/about/About"
 import History from "~/styles/styledComponents/loggedOutZone/History"
+import Pillars from "~/styles/styledComponents/loggedOutZone/Pillars"
 
 const LoggedOutZone: NextPage = () => {
   return (
@@ -21,8 +22,8 @@ const LoggedOutZone: NextPage = () => {
           <History />
         </div>
 
-        <div id='join' className="mb-8">
-          <About />
+        <div id='pillars' className="mb-8">
+          <Pillars />
         </div>
 
         <div id='collaboration' className="mb-8">

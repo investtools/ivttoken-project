@@ -42,6 +42,20 @@ export class Translate {
                 case "Born with a focus only on solutions for brokerage firms, Investtools has always grown in search of important and unprecedented solutions for the financial market. In 2009, Perform It is developed as an innovative software where the client could have full control of the investment flow of his asset management firm. In 2014, under the command of new partners, the company was re-founded. In 2017, new products and companies emerge, such as Grana Capital, Arcon It and Blockchain Studio. In the last four years, we have considerably increased the number of clients, expanded our team and continued to develop new technological tools. ": return "Nascemos com um foco apenas em soluções para corretoras de valores, a Investtools sempre cresceu em busca de soluções importantes e inéditas para o mercado financeiro. Em 2009, o Perform It é desenvolvido como um software inovador onde o cliente poderia ter controle total do fluxo de investimentos de sua gestora de ativos. Em 2014, sob o comando de novos parceiros, a empresa foi refundada. Em 2017, surgem novos produtos e empresas, como Grana Capital, Arcon It e Blockchain Studio. Nos últimos quatro anos, aumentamos consideravelmente o número de clientes, expandimos nossa equipe e continuamos a desenvolver novas ferramentas tecnológicas."
                 case "This is just the beginning of a path with many innovations ahead, always developing the best solutions for the market.": return "Este é apenas o começo de um caminho com muitas inovações pela frente, sempre desenvolvendo as melhores soluções para o mercado."
                 case "We are driven by the challenge of constant innovation and user satisfaction. We work to become a reference in the market, as a company of technological excellence and a reference in the financial area.": return "Somos movidos pelo desafio da inovação constante e pela satisfação do usuário. Trabalhamos para nos tornar uma referência no mercado, como uma empresa de excelência tecnológica e uma referência na área financeira."
+                case "Purpose": return "Propósito"
+                case "We drive societal transformation through connectivity.": return "Impulsionamos a transformação da sociedade por meio da conectividade."
+                case "Mission": return "Missão"
+                case "To connect people to quality internet to make world a place with more opportunities for all through education.": return "Conectar pessoas à internet de qualidade para fazer do mundo um lugar com mais oportunidades para todos a partir da educação."
+                case "Vision": return "Visão"
+                case "A world where all people, regardless of gender, ethnicity or social class, have access to inclusive, connected, equitable, and quality education.": return "Um mundo onde todas as pessoas, independentemente de gênero, etnia ou classe social, tenham acesso a uma educação inclusiva, conectada, equitativa e de qualidade."
+                case "Values": return "Valores"
+                case "Quality Focus": return "Ênfase na Qualidade"
+                case "Promoting Equality": return "Promoção da Igualdade"
+                case "Innovation and Excellence": return "Inovação e Excelência"
+                case "Problem Solving Belief": return "Crença na Solução de Problemas"
+                case "Ethical Conduct and Transparency": return "Conduta Ética e Transparência"
+                case "Empathetic and Altruistic Relations": return "Relações Empáticas e Altruístas"
+
 
                 // access denied
                 case "Access Denied!": return "Acesso Negado!"
@@ -52,7 +66,7 @@ export class Translate {
                 case "Collaboration": return "Colaboração"
                 case "Testimonials": return "Depoimentos"
                 case "History": return "História"
-                case "Join": return "Participe"
+                case "Pillars": return "Pilares"
                 case "About": return "Sobre"
 
                 // filter

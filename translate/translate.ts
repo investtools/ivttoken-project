@@ -26,6 +26,16 @@ export class Translate {
                 case "Connected Schools": return "Escolas Conectadas"
                 case "Register School": return "Registrar Escola"
                 case "Register ISP": return "Registrar Provedor"
+                case "About The Project": return "Sobre o Projeto"
+                case "Project Giga Token is a blockchain initiative aimed at global connectivity. It uses a digital currency to reward ISP's for connecting schools, promoting equal internet access and enhancing educational opportunities worldwide.": return "O Projeto Giga Token é uma iniciativa de blockchain voltada para a conectividade global. Ele usa uma moeda digital para recompensar os provedores de serviços de Internet por conectar escolas, promovendo acesso igual à internet e aprimorando oportunidades educacionais em todo o mundo."
+                case "Diagnosis": return "Diagnóstico"
+                case "Through the Connected School Index, we ensure schools are prepared and equipped to participate in the GigaToken program.": return "Por meio do Índice Escola Conectada, garantimos que as escolas estão preparadas e equipadas para participar do programa GigaToken."
+                case "Connection": return "Conexão"
+                case "We forge connections between schools and local internet providers, thereby ensuring the expansion and sustainability of our project.": return "Forjamos conexões entre escolas e provedores de internet locais, garantindo assim a expansão e sustentabilidade do nosso projeto."
+                case "Monitoring": return "Monitoramento"
+                case "We keep a real-time check on the connectivity in schools using our dedicated platform, ensuring secure and high-quality internet access for students.": return "Fazemos um acompanhamento em tempo real da conectividade nas escolas usando nossa plataforma dedicada, garantindo acesso seguro e de alta qualidade à internet para os alunos."
+                case "Measurement": return "Mensuração"
+                case "We measure the impact of our efforts through predetermined indicators. This process is vital to demonstrate how high-speed internet can significantly enhance student performance.": return "Medimos o impacto de nossos esforços por meio de indicadores predefinidos. Este processo é vital para demonstrar como a internet de alta velocidade pode melhorar significativamente o desempenho dos alunos."
 
 
                 // access denied

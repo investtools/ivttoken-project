@@ -2,6 +2,7 @@ import type { NextPage } from "next"
 import PageHeader from "../styles/styledComponents/shared/PageHeader"
 import Header from "../styles/styledComponents/loggedOutZone/Header"
 import MainTitle from "~/styles/styledComponents/loggedOutZone/MainTitle"
+import About from "~/styles/styledComponents/loggedOutZone/about/About"
 
 const LoggedOutZone: NextPage = () => {
 
@@ -9,13 +10,11 @@ const LoggedOutZone: NextPage = () => {
     <>
       <PageHeader title={"Giga Token"} />
       <Header />
-      <div id='home'>
-        <MainTitle />
-      </div>
+      <MainTitle />
 
       <div className="p-8">
-        <div id='about' className="flex flex-col justify-start min-h-[1000px]">
-          sobre
+        <div id='about'>
+          <About />
         </div>
 
         <div id='history' className="flex flex-col justify-start min-h-[1000px]">

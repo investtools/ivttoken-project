@@ -19,9 +19,14 @@ export class Translate {
                 case "Register or Login": return "Entre ou Registre-se"
 
                 // main
+                case "Internet Service Providers": return "Provedores de Serviço de Internet"
                 case "Connecting schools worldwide": return "Conectando escolas pelo mundo"
+                case "Schools Using Connection": return "Escolas Usando Conexão"
+                case "Benefited Students": return "Estudantes Beneficiados"
+                case "Connected Schools": return "Escolas Conectadas"
                 case "Register School": return "Registrar Escola"
                 case "Register ISP": return "Registrar Provedor"
+
 
                 // access denied
                 case "Access Denied!": return "Acesso Negado!"

@@ -9,8 +9,9 @@ const LoggedOutZone: NextPage = () => {
     <>
       <PageHeader title={"Giga Token"} />
       <Header />
-
-      <MainTitle />
+      <div id='home'>
+        <MainTitle />
+      </div>
 
       <div className="p-8">
         <div id='about' className="flex flex-col justify-start min-h-[1000px]">

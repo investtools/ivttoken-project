@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Translate } from 'translate/translate'
 import { useRouter } from 'next/router'
 
-const sectionsId = ['about', 'history', 'join', 'collaboration', 'institutional', 'testimonials']
+const sectionsId = ['home', 'about', 'history', 'join', 'collaboration', 'institutional', 'testimonials']
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('')

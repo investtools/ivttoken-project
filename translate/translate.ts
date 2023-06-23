@@ -18,6 +18,11 @@ export class Translate {
                 case "You are here!": return "Você está aqui!"
                 case "Register or Login": return "Entre ou Registre-se"
 
+                // main
+                case "Connecting schools worldwide": return "Conectando escolas pelo mundo"
+                case "Register School": return "Registrar Escola"
+                case "Register ISP": return "Registrar Provedor"
+
                 // access denied
                 case "Access Denied!": return "Acesso Negado!"
                 case "You do not have permission to access this page.": return "Você não tem permissão para acessar esta página."

@@ -27,7 +27,10 @@ const App: AppType = ({ Component, pageProps }) => {
       <ClerkProvider
         appearance={{
           variables: {
-            colorPrimary: '#285966'
+            colorPrimary: '#285966',
+            colorBackground: 'transparent',
+            colorInputBackground: 'transparent',
+            borderRadius: '10px'
           }
         }}
       >

@@ -37,7 +37,7 @@ const Navbar = () => {
 
   const handleNavigation = (id: string) => {
     const element = document.getElementById(id)
-    const headerOffset = 90
+    const headerOffset = 70
     const elementPosition = element ? element.getBoundingClientRect().top + window.pageYOffset : 0
     const offsetPosition = elementPosition - headerOffset
 

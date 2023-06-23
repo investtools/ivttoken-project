@@ -3,6 +3,7 @@ import PageHeader from "../styles/styledComponents/shared/PageHeader"
 import Header from "../styles/styledComponents/loggedOutZone/Header"
 import MainTitle from "~/styles/styledComponents/loggedOutZone/MainTitle"
 import About from "~/styles/styledComponents/loggedOutZone/about/About"
+import History from "~/styles/styledComponents/loggedOutZone/History"
 
 const LoggedOutZone: NextPage = () => {
   return (
@@ -17,7 +18,7 @@ const LoggedOutZone: NextPage = () => {
         </div>
 
         <div id='history' className="mb-8">
-          <About />
+          <History />
         </div>
 
         <div id='join' className="mb-8">

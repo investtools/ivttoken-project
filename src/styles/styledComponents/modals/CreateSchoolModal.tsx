@@ -43,7 +43,7 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
     const locale = router.locale === undefined ? 'en' : router.locale
     const t = new Translate(locale)
 
-    const { mutate, isLoading } = api.admin.createSchool.useMutation()
+    const { mutate, isLoading } = api.schools.schoolToBeApproved.useMutation()
     useEffect(() => {
         if (buttonRef.current) {
             setOptionsWidth(buttonRef.current.getBoundingClientRect().width)
@@ -97,9 +97,8 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
                         enterTo="opacity-100 scale-100"
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100 scale-100"
-                        leaveTo="opacity-0 scale-95"
-                    >
-                        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        leaveTo="opacity-0 scale-95">
+                        <div className="inline-block align-bottom bg-transparent px-4 pt-5 pb-4 text-left overflow-hidden  transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <>
                                 {sentFormModalIsOpen && (
                                     <FormSentModal closeModal={() => setSentFormModalIsOpen(false)} locale={locale} />
@@ -297,8 +296,7 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
                                     </div>
                                     <div className="flex items-center justify-center mt-6">
                                         <button
-                                            onClick={(event) => {
-                                                event.preventDefault()
+                                            onClick={() => {
                                                 handleSubmit(
                                                     name,
                                                     state,
@@ -311,6 +309,7 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
                                                     email,
                                                     administrator
                                                 )
+                                                closeModal()
                                             }}
                                             type="submit"
                                             style={{ marginBottom: "0.5rem" }}

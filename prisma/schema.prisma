@@ -172,6 +172,27 @@ model SignedTransactions {
     updatedAt       DateTime  @updatedAt
 }
 
+model SchoolsToBeApproved {
+    id                        String                   @id @default(uuid())
+    name                      String
+    state                     String
+    city                      String
+    zipCode                   String
+    address                   String
+    cnpj                      String                   @unique
+    inepCode                  String                   @unique
+    email                     String                   @unique
+    role                      Role
+    administrator             Administrators
+    createdAt                 DateTime                 @default(now())
+    updatedAt                 DateTime                 @updatedAt
+
+    @@index([cnpj])
+    @@index([email])
+    @@index([city])
+    @@index([state])
+}
+
 enum ConnectionQuality {
     LOW
     MEDIUM

@@ -2,11 +2,50 @@ import { z } from "zod"
 import { SchoolsService } from "~/service/schools/schoolsService"
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc"
 import { TRPCError } from "@trpc/server"
-import { administratorNameMapping } from "~/utils/functions/adminFunctions"
+import { administratorNameMapping, mapAdministrator } from "~/utils/functions/adminFunctions"
 import axios from "axios"
 import { type OpenWeatherResponse } from "~/service/schools/interfaces/interfaces"
+import { Role } from "@prisma/client"
+import { prisma } from "~/database/prisma"
 
 export const schoolsRouter = createTRPCRouter({
+  schoolToBeApproved: publicProcedure.input(
+    z.object({
+      name: z.string(),
+      state: z.string(),
+      city: z.string(),
+      zipCode: z.string(),
+      address: z.string(),
+      cnpj: z.string(),
+      inepCode: z.string(),
+      email: z.string(),
+      administrator: z.string()
+    })
+  )
+    .mutation(async ({ input }) => {
+      if (!input.name || !input.state || !input.city || !input.zipCode || !input.address || !input.inepCode || !input.email || !input.administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
+
+      const administrator = mapAdministrator(input.administrator)
+      if (!administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid administrator to create school root" })
+
+      const createSchool = await prisma.schoolsToBeApproved.create({
+        data: {
+          name: input.name,
+          state: input.state,
+          city: input.city,
+          zipCode: input.zipCode,
+          address: input.address,
+          cnpj: input.cnpj,
+          inepCode: input.inepCode,
+          email: input.email,
+          role: Role.SCHOOL,
+          administrator: administrator
+        }
+      })
+
+      return createSchool
+    }),
+
   getLatLon: publicProcedure.input(
     z.object({
       input: z.string()

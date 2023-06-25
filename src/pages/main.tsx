@@ -7,6 +7,7 @@ import History from "~/styles/styledComponents/loggedOutZone/History"
 import Pillars from "~/styles/styledComponents/loggedOutZone/Pillars"
 import Testimonials from "~/styles/styledComponents/loggedOutZone/testimonials/Testimonials"
 import Institutional from "~/styles/styledComponents/loggedOutZone/institutional/Institutional"
+import ArrowUp from "~/styles/styledComponents/shared/ArrowUp"
 
 const LoggedOutZone: NextPage = () => {
   return (
@@ -28,10 +29,6 @@ const LoggedOutZone: NextPage = () => {
           <Pillars />
         </div>
 
-        <div id='transparency' className="mb-8">
-          <About />
-        </div>
-
         <div id='institutional' className="mb-8">
           <Institutional />
         </div>
@@ -39,6 +36,7 @@ const LoggedOutZone: NextPage = () => {
         <div id='testimonials'>
           <Testimonials />
         </div>
+        <ArrowUp />
       </div>
     </>
   )

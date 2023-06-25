@@ -1,13 +1,17 @@
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
+import CreateSchoolModal from "../modals/CreateSchoolModal"
+import { useState } from "react"
 
 const MainTitle: React.FC = () => {
+  const [createSchoolModalIsOpen, setCreateSchoolModalIsOpen] = useState(false)
+
   const router = useRouter()
   const locale = router.locale === undefined ? "en" : router.locale
   const t = new Translate(locale)
 
   const clickSchool = () => {
-    alert('clicou escola')
+    setCreateSchoolModalIsOpen(true)
   }
 
   const clickISP = () => {
@@ -16,6 +20,9 @@ const MainTitle: React.FC = () => {
 
   return (
     <>
+      {createSchoolModalIsOpen && (
+        <CreateSchoolModal closeModal={() => setCreateSchoolModalIsOpen(false)} isOpen={createSchoolModalIsOpen} />
+      )}
       <div id="home" className="h-screen bg-main flex">
         <div className="w-6/12 text-start flex flex-col justify-center items-start font-bold text-white p-8 z-40 ml-12">
           <h2 className="text-7xl mb-4 leading-[5rem]">{t.t("Connecting schools worldwide")}</h2>

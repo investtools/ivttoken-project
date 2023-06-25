@@ -106,7 +106,7 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
         "type": "section",
         "text": {
             "type": "plain_text",
-            "text": ":warning: Please, :warning:",
+            "text": ':warning: Please, remember do mark this message as "Done" after adding it to catalog :warning:',
             "emoji": true
         }
     }

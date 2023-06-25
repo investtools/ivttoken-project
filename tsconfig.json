@@ -41,7 +41,7 @@
     "src/utils/functions/signTransaction/calcGas.js",
     "src/utils/functions/signTransaction/signTransaction.js",
     "src/styles/styledComponents/shared/SchoolMap.tsx"
-  ],
+, "src/utils/functions/slackFunctions.ts"  ],
   "exclude": [
     "node_modules"
   ]

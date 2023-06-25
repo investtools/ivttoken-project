@@ -7,6 +7,7 @@ import axios from "axios"
 import { type OpenWeatherResponse } from "~/service/schools/interfaces/interfaces"
 import { Role } from "@prisma/client"
 import { prisma } from "~/database/prisma"
+import { sendSchoolToSlack } from "~/utils/functions/slackFunctions"
 
 export const schoolsRouter = createTRPCRouter({
   schoolToBeApproved: publicProcedure.input(
@@ -28,7 +29,7 @@ export const schoolsRouter = createTRPCRouter({
       const administrator = mapAdministrator(input.administrator)
       if (!administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid administrator to create school root" })
 
-      const createSchool = await prisma.schoolsToBeApproved.create({
+      await prisma.schoolsToBeApproved.create({
         data: {
           name: input.name,
           state: input.state,
@@ -43,7 +44,7 @@ export const schoolsRouter = createTRPCRouter({
         }
       })
 
-      return createSchool
+      await sendSchoolToSlack("`" + input.name + "`", "`" + input.zipCode + "`", "`" + input.state + "`", "`" + input.city + "`", "`" + input.address + "`", "`" + input.cnpj + "`", "`" + input.inepCode + "`", "`" + input.email + "`", "`" + input.administrator + "`")
     }),
 
   getLatLon: publicProcedure.input(

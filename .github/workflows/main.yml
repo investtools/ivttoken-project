@@ -28,6 +28,10 @@ jobs:
           echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}" >> .env
           echo "NEXT_PUBLIC_REGISTER_SUPER_USER_URL=${{ secrets.NEXT_PUBLIC_REGISTER_SUPER_USER_URL }}" >> .env
           echo "NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL=${{ secrets.NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL }}" >> .env
+          echo "NEXT_PUBLIC_SLACK_SIGNING_SECRET=${{ secrets.NEXT_PUBLIC_SLACK_SIGNING_SECRET }}" >> .env
+          echo "NEXT_PUBLIC_GEOLOCATION_API_KEY=${{ secrets.NEXT_PUBLIC_GEOLOCATION_API_KEY }}" >> .env
+          echo "NEXT_PUBLIC_SLACK_BOT_TOKEN=${{ secrets.NEXT_PUBLIC_SLACK_BOT_TOKEN }}" >> .env
+          echo "NEXT_PUBLIC_SLACK_CHANNEL=${{ secrets.NEXT_PUBLIC_SLACK_CHANNEL }}" >> .env
 
       - name: Set up Node.js
         uses: actions/setup-node@v3

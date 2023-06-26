@@ -14,7 +14,7 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
         "type": "header",
         "text": {
             "type": "plain_text",
-            "text": ":ivt: New School Sent",
+            "text": "New School Sent",
             "emoji": true
         }
     },
@@ -105,15 +105,15 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
     {
         "type": "section",
         "text": {
-            "type": "plain_text",
-            "text": ':warning: Please, remember do mark this message as "Done" after adding it to catalog :warning:',
-            "emoji": true
+            "type": "mrkdwn",
+            "text": ':warning: *Remember to mark this message as _"Done"_ after adding the school to catalog* :warning:'
         }
     }
-]
+    ]
 
     if (process.env.NEXT_PUBLIC_SLACK_CHANNEL) {
         return await app.client.chat.postMessage({
+            text: 'New School',
             token: token,
             channel: process.env.NEXT_PUBLIC_SLACK_CHANNEL,
             blocks

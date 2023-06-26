@@ -122,7 +122,7 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
                                             <XMark />
                                         </button>
                                     </div>
-                                    <h1 className="text-center text-2xl font-bold mb-8 text-ivtcolor2">{t.t("Create New School")}</h1>
+                                    <h1 className="text-center text-2xl font-bold mb-8 text-ivtcolor2">{t.t("Send School To Analysis")}</h1>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="flex flex-col mb-4">
                                             <label htmlFor="name" className="mb-2 font-bold text-lg text-ivtcolor2">

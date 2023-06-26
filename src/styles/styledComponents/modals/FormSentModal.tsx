@@ -1,6 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { useRouter } from 'next/router'
 import { Translate } from "translate/translate"
 
 
@@ -11,18 +10,12 @@ interface IncompleteFieldsModalProps {
 
 export default function FormSentModal({ closeModal, locale }: IncompleteFieldsModalProps) {
   const [isOpen] = useState(true)
-  const router = useRouter()
   const t = new Translate(locale)
-
-  const handleModalClose = () => {
-    void router.push('/')
-    closeModal
-  }
 
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-40" onClose={handleModalClose}>
+        <Dialog as="div" className="relative z-40" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -64,10 +57,7 @@ export default function FormSentModal({ closeModal, locale }: IncompleteFieldsMo
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-ivtcolor2 px-4 py-2 text-sm font-medium text-white hover:bg-ivtcolor2hover focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={(event) => {
-                        event.preventDefault()
-                        handleModalClose
-                      }}
+                      onClick={closeModal}
                     >
                       {t.t("Got it!")}
                     </button>

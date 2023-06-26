@@ -2,9 +2,11 @@ import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import CreateSchoolModal from "../modals/CreateSchoolModal"
 import { useState } from "react"
+import RegisterISPModal from "../modals/RegisterISPModal"
 
 const MainTitle: React.FC = () => {
   const [createSchoolModalIsOpen, setCreateSchoolModalIsOpen] = useState(false)
+  const [registerISPModalIsOpen, setRegisterISPModalIsOpen] = useState(false)
 
   const router = useRouter()
   const locale = router.locale === undefined ? "en" : router.locale
@@ -15,11 +17,14 @@ const MainTitle: React.FC = () => {
   }
 
   const clickISP = () => {
-    alert('clicou isp')
+    setRegisterISPModalIsOpen(true)
   }
 
   return (
     <>
+      {registerISPModalIsOpen && (
+        <RegisterISPModal closeModal={() => setRegisterISPModalIsOpen(false)} />
+      )}
       {createSchoolModalIsOpen && (
         <CreateSchoolModal closeModal={() => setCreateSchoolModalIsOpen(false)} isOpen={createSchoolModalIsOpen} />
       )}

@@ -106,7 +106,7 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": ':warning: *Remember to mark this message as _"Done"_ after adding the school to catalog* :warning:'
+            "text": ':warning: *Remember to mark this message as _"Done"_ after approving* :warning:'
         }
     }
     ]
@@ -114,6 +114,76 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
     if (process.env.NEXT_PUBLIC_SLACK_CHANNEL) {
         return await app.client.chat.postMessage({
             text: 'New School',
+            token: token,
+            channel: process.env.NEXT_PUBLIC_SLACK_CHANNEL,
+            blocks
+        })
+    }
+}
+
+export async function sendIspToSlack(name: string, cnpj: string,  email: string) {
+    const blocks = [{
+        "type": "header",
+        "text": {
+            "type": "plain_text",
+            "text": "New Internet Service Provider Sent",
+            "emoji": true
+        }
+    },
+    {
+        "type": "divider"
+    },
+    {
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": `*Name:* ${name}`
+        }
+    },
+    {
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": `*E-Mail:* ${email}`
+        }
+    },
+    {
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": `*CNPJ:* ${cnpj}`
+        }
+    },
+    {
+        "type": "actions",
+        "elements": [
+            {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Approve :white_check_mark:",
+                    "emoji": true
+                },
+                "value": "add_to_catalog",
+                "url": "https://www.linkedin.com/in/murillolamberti/"
+            }
+        ]
+    },
+    {
+        "type": "divider"
+    },
+    {
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": ':warning: *Remember to mark this message as _"Done"_ after approving* :warning:'
+        }
+    }
+    ]
+
+    if (process.env.NEXT_PUBLIC_SLACK_CHANNEL) {
+        return await app.client.chat.postMessage({
+            text: 'New ISP',
             token: token,
             channel: process.env.NEXT_PUBLIC_SLACK_CHANNEL,
             blocks

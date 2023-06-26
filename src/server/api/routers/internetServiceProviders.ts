@@ -3,14 +3,37 @@ import { type CreateInternetServiceProvider } from './../../../service/internetS
 import { TRPCError } from "@trpc/server"
 import { z } from "zod"
 import { InternetServiceProviderDatabaseService } from "~/database/internetServiceProviderDatabaseService"
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
 import { InternetServiceProviderService } from '~/service/internetServiceProvider/internetServiceProviderService';
 import { SchoolsService } from '~/service/schools/schoolsService';
 import { benefitPriceByName, mapBenefitType } from '~/utils/functions/benefitsFunctions';
 import { ContractsDatabaseService } from '~/database/contractsDatabaseService';
 import { ispBuyBenefitsTransaction } from '~/database/dbTransactions';
+import { prisma } from '~/database/prisma';
+import { sendIspToSlack } from '~/utils/functions/slackFunctions';
 
 export const internetServiceProvidersRouter = createTRPCRouter({
+  ispToBeApproved: publicProcedure.input(
+    z.object({
+      name: z.string(),
+      cnpj: z.string(),
+      email: z.string()
+    })
+  )
+    .mutation(async ({ input }) => {
+      if (!input.name || !input.cnpj || !input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
+
+      await prisma.internetServiceProviderToBeApproved.create({
+        data: {
+          name: input.name,
+          cnpj: input.cnpj,
+          email: input.email
+        }
+      })
+
+      await sendIspToSlack("`" + input.name + "`", "`" + input.cnpj + "`", "`" + input.email + "`")
+    }),
+
   isIsp: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })

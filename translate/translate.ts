@@ -57,6 +57,8 @@ export class Translate {
                 case "Empathetic and Altruistic Relations": return "Relações Empáticas e Altruístas"
                 case "Our Pillars": return "Nossos Pilares"
                 case "Transparency": return "Transparência"
+                case "Send School To Analysis": return "Enviar Escola Para Análise"
+                case "Send Provider To Analysis": return "Enviar Provedor Para Análise"
 
                 // institutional
                 case "Our Team": return "Nosso Time"

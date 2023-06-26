@@ -3,7 +3,6 @@ import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { api } from "~/utils/api"
 import "~/styles/globals.css"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
-import BackgroundWrapper from "~/styles/styledComponents/shared/BackgroundWrapper"
 import Footer from "~/styles/styledComponents/shared/Footer"
 import IspWalletComponent from "~/styles/styledComponents/shared/IspWalletComponent"
 import SwitchLanguage from "~/styles/styledComponents/shared/SwitchLanguage"
@@ -40,7 +39,6 @@ const App: AppType = ({ Component, pageProps }) => {
           }
         }}
       >
-        <BackgroundWrapper>
           <SignedIn>
             <div className="z-30 fixed w-full py-2 bg-gradient-to-r border-b from-ivtcolor2 via-hover to-ivtcolor2">
               <div className="w-10/12 mx-auto flex justify-between items-center">
@@ -63,7 +61,6 @@ const App: AppType = ({ Component, pageProps }) => {
           <SignedOut>
             {isPathPublic ? (<Component {...pageProps} />) : (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} pathName={router.pathname} />)}
           </SignedOut>
-        </BackgroundWrapper>
       </ClerkProvider>
       <Footer />
     </>

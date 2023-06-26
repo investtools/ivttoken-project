@@ -26,7 +26,7 @@ const MainTitle: React.FC = () => {
         <RegisterISPModal closeModal={() => setRegisterISPModalIsOpen(false)} />
       )}
       {createSchoolModalIsOpen && (
-        <CreateSchoolModal closeModal={() => setCreateSchoolModalIsOpen(false)} isOpen={createSchoolModalIsOpen} />
+        <CreateSchoolModal closeModal={() => setCreateSchoolModalIsOpen(false)} />
       )}
       <div id="home" className="h-screen bg-main flex">
         <div className="w-6/12 text-start flex flex-col justify-center items-start font-bold text-white p-8 z-40 ml-12">

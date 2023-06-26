@@ -59,6 +59,8 @@ export class Translate {
                 case "Transparency": return "Transparência"
                 case "Send School To Analysis": return "Enviar Escola Para Análise"
                 case "Send Provider To Analysis": return "Enviar Provedor Para Análise"
+                case "Send School": return "Enviar Escola"
+                case "Send Provider": return "Enviar Provedor"
 
                 // institutional
                 case "Our Team": return "Nosso Time"

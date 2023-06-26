@@ -10,78 +10,79 @@ const app = new App({
 })
 
 export async function sendSchoolToSlack(schoolName: string, zipCode: string, state: string, city: string, address: string, cnpj: string, inepCode: string, email: string, administrator: string) {
-    const blocks = [{
+    const blocks = [
+        {
+            "type": "divider"
+        },
+        {
         "type": "header",
         "text": {
             "type": "plain_text",
-            "text": "New School Sent",
+            "text": "➡ New School Sent",
             "emoji": true
         }
     },
     {
-        "type": "divider"
-    },
-    {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*School's Name:* ${schoolName}`
+            "text": `*∙ School's Name:* ${schoolName}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*Zip Code:* ${zipCode}`
+            "text": `*∙ Zip Code:* ${zipCode}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*State:* ${state}`
+            "text": `*∙ State:* ${state}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*City:* ${city}`
+            "text": `*∙ City:* ${city}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*Address:* ${address}`
+            "text": `*∙ Address:* ${address}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*CNPJ:* ${cnpj}`
+            "text": `*∙ CNPJ:* ${cnpj}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*Inep Code:* ${inepCode}`
+            "text": `*∙ Inep Code:* ${inepCode}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*E-Mail:* ${email}`
+            "text": `*∙ E-Mail:* ${email}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*Administrator:* ${administrator}`
+            "text": `*∙ Administrator:* ${administrator}`
         }
     },
     {
@@ -100,14 +101,14 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
         ]
     },
     {
-        "type": "divider"
-    },
-    {
         "type": "section",
         "text": {
             "type": "mrkdwn",
             "text": ':warning: *Remember to mark this message as _"Done"_ after approving* :warning:'
         }
+    },
+    {
+        "type": "divider"
     }
     ]
 
@@ -122,36 +123,37 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
 }
 
 export async function sendIspToSlack(name: string, cnpj: string,  email: string) {
-    const blocks = [{
+    const blocks = [
+        {
+            "type": "divider"
+        },
+        {
         "type": "header",
         "text": {
             "type": "plain_text",
-            "text": "New Internet Service Provider Sent",
+            "text": "➡ New Internet Service Provider Sent",
             "emoji": true
         }
     },
     {
-        "type": "divider"
-    },
-    {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*Name:* ${name}`
+            "text": `*∙ Name:* ${name}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*E-Mail:* ${email}`
+            "text": `*∙ E-Mail:* ${email}`
         }
     },
     {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": `*CNPJ:* ${cnpj}`
+            "text": `*∙ CNPJ:* ${cnpj}`
         }
     },
     {
@@ -170,14 +172,14 @@ export async function sendIspToSlack(name: string, cnpj: string,  email: string)
         ]
     },
     {
-        "type": "divider"
-    },
-    {
         "type": "section",
         "text": {
             "type": "mrkdwn",
             "text": ':warning: *Remember to mark this message as _"Done"_ after approving* :warning:'
         }
+    },
+    {
+        "type": "divider"
     }
     ]
 

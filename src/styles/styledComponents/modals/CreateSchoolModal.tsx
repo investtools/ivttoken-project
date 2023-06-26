@@ -6,10 +6,8 @@ import { Translate } from "translate/translate"
 import { api } from '~/utils/api'
 import { validateEmail, type ViaCEPAddress } from '~/utils/functions/adminFunctions'
 import SendIcon from '../icons/SendIcon'
-import LoadingComponent from '../shared/Loading'
 import PageHeader from '../shared/PageHeader'
 import { selectField } from '../shared/selectFieldForms'
-import AddNumberModal from './AddNumberModal'
 import FormSentModal from './FormSentModal'
 import IncompleteFieldsModal from './IncompleteFieldsModal'
 import InvalidEmailModal from './InvalidEmailModal'
@@ -17,11 +15,11 @@ import InputMask from 'react-input-mask'
 import XMark from '../icons/XMarkIcon'
 
 interface CreateSchoolModalProps {
-    isOpen: boolean
     closeModal: () => void
 }
 
-function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
+function CreateSchoolModal({ closeModal }: CreateSchoolModalProps) {
+    const [isOpen] = useState(true)
     const [name, setName] = useState('')
     const [state, setState] = useState('')
     const [city, setCity] = useState('')
@@ -34,7 +32,6 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
     const [administrator, setAdministrator] = useState('')
     const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
     const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
-    const [AddNumberModalIsOpen, setAddNumberModalIsOpen] = useState(false)
     const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
     const [optionsWidth, setOptionsWidth] = useState(0)
     const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -43,13 +40,12 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
     const locale = router.locale === undefined ? 'en' : router.locale
     const t = new Translate(locale)
 
-    const { mutate, isLoading } = api.schools.schoolToBeApproved.useMutation()
+    const { mutate } = api.schools.schoolToBeApproved.useMutation()
     useEffect(() => {
         if (buttonRef.current) {
             setOptionsWidth(buttonRef.current.getBoundingClientRect().width)
         }
     }, [administrator])
-    if (isLoading) return <LoadingComponent locale={locale} />
 
     const handleSubmit = (name: string, state: string, city: string, zipCode: string, address: string, number: number, cnpj: string, inepCode: string, email: string, administrator: string) => {
         if (name && state && city && zipCode && address && cnpj && inepCode && email && administrator && number) {
@@ -82,6 +78,11 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
         }
     }
 
+    const handleCloseSentFormModal = () => {
+        setSentFormModalIsOpen(false)
+        closeModal()
+    }
+
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto z-40" onClose={closeModal}>
@@ -101,13 +102,10 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
                         <div className="inline-block align-bottom bg-transparent px-4 pt-5 pb-4 text-left overflow-hidden  transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <>
                                 {sentFormModalIsOpen && (
-                                    <FormSentModal closeModal={() => setSentFormModalIsOpen(false)} locale={locale} />
+                                    <FormSentModal closeModal={handleCloseSentFormModal} locale={locale} />
                                 )}
                                 {incompleteFieldsModalIsOpen && (
                                     <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
-                                )}
-                                {AddNumberModalIsOpen && (
-                                    <AddNumberModal closeModal={() => setAddNumberModalIsOpen(false)} locale={locale} />
                                 )}
                                 {invalidEmailIsOpen && (
                                     <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />
@@ -296,27 +294,14 @@ function CreateSchoolModal({ isOpen, closeModal }: CreateSchoolModalProps) {
                                     </div>
                                     <div className="flex items-center justify-center mt-6">
                                         <button
-                                            onClick={() => {
-                                                handleSubmit(
-                                                    name,
-                                                    state,
-                                                    city,
-                                                    zipCode,
-                                                    address,
-                                                    Number(number),
-                                                    cnpj,
-                                                    inepCode,
-                                                    email,
-                                                    administrator
-                                                )
-                                                closeModal()
+                                            onClick={(event) => {
+                                                event.preventDefault()
+                                                handleSubmit(name, state, city, zipCode, address, Number(number), cnpj, inepCode, email, administrator)
                                             }}
-                                            type="submit"
-                                            style={{ marginBottom: "0.5rem" }}
                                             className="w-1/2 border border-transparent shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
                                         >
                                             <span className="flex items-center justify-center">
-                                                {t.t("Create School")}
+                                                {t.t("Send School")}
                                                 <SendIcon />
                                             </span>
                                         </button>

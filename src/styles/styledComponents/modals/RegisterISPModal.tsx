@@ -7,7 +7,6 @@ import { validateEmail } from '~/utils/functions/adminFunctions'
 import SendIcon from '../icons/SendIcon'
 import PageHeader from '../shared/PageHeader'
 import { selectField } from '../shared/selectFieldForms'
-import AddNumberModal from './AddNumberModal'
 import FormSentModal from './FormSentModal'
 import IncompleteFieldsModal from './IncompleteFieldsModal'
 import InvalidEmailModal from './InvalidEmailModal'
@@ -25,7 +24,6 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
     const [email, setEmail] = useState('')
     const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
     const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
-    const [AddNumberModalIsOpen, setAddNumberModalIsOpen] = useState(false)
     const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
 
     const router = useRouter()
@@ -76,9 +74,6 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                 )}
                                 {incompleteFieldsModalIsOpen && (
                                     <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
-                                )}
-                                {AddNumberModalIsOpen && (
-                                    <AddNumberModal closeModal={() => setAddNumberModalIsOpen(false)} locale={locale} />
                                 )}
                                 {invalidEmailIsOpen && (
                                     <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />
@@ -152,7 +147,7 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                                     className="text-white font-bold py-2 px-4 rounded-full gradient-animation"
                                                 >
                                                     <span className="flex items-center">
-                                                        {t.t("Register Internet Provider")}
+                                                        {t.t("Send Provider")}
                                                         <SendIcon />
                                                     </span>
                                                 </button>

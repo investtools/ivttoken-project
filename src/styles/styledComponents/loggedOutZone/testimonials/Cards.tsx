@@ -16,9 +16,8 @@ const Cards: React.FC<CardsProps> = ({ path, name, description }) => {
 
   function getLinkedinUrl() {
     switch (name) {
-      case "Bill Gates": return "https://www.linkedin.com/in/williamhgates/"
-      case "Michelle Obama": return "https://www.google.com/search?q=michelle+obama&oq=michelle+obama&aqs=chrome.0.69i59l2j69i60l3.1681j0j4&sourceid=chrome&ie=UTF-8"
-      case "Satya Nadella": return "https://www.linkedin.com/in/satyanadella/"
+      case "": return ""
+      default: return "https://www.linkedin.com/in/murillolamberti/"
     }
   }
   const linkedinUrl = getLinkedinUrl()

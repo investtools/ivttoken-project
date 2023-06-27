@@ -33,7 +33,7 @@ const AdminDashboard: NextPage = () => {
   return (
     <>
       <PageHeader title="Giga Token - ADMIN" />
-      <main className="flex h-screen justify-center items-center">
+      <main className="flex justify-center items-center mt-12">
         <div className="w-full max-w-3xl p-6 flex flex-col items-center space-y-4">
           <GigaTokenTitle locale={locale} />
           <div className="grid grid-cols-2 gap-4 w-full">

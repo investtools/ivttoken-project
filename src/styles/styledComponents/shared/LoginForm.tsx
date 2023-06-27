@@ -21,7 +21,7 @@ const LoginForm: React.FC<LoginProps> = ({ pageName }) => {
                         
                         <Link href='https://giga.global/'>
                             <span className='hover:opacity-[.85] flex justify-center'>
-                                <Image src="/giga-blue2.png" width={220} height={50} alt="Giga Logo" />
+                                <Image src="/giga-blue.png" width={220} height={50} alt="Giga Logo" />
                             </span>
                         </Link>
                     </div>

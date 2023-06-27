@@ -38,7 +38,8 @@ export const adminContextCaller: User = {
   }],
   phoneNumbers: [],
   web3Wallets: [],
-  externalAccounts: []
+  externalAccounts: [],
+  imageUrl: ""
 }
 
 export const ispContextCaller: User = {
@@ -79,7 +80,8 @@ export const ispContextCaller: User = {
   }],
   phoneNumbers: [],
   web3Wallets: [],
-  externalAccounts: []
+  externalAccounts: [],
+  imageUrl: ""
 }
 
 export const schoolTest = {

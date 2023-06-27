@@ -14,6 +14,20 @@ import NothingToApproveModal from "~/styles/styledComponents/modals/NothingToApp
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import Filter from "~/styles/styledComponents/shared/Filter"
 
+type SchoolData = {
+  cnpj: string,
+  name: string,
+  state: string,
+  city: string,
+  zipCode: string,
+  address: string,
+  inepCode: string,
+  administrator: string,
+  email: string,
+  id: string,
+  createdAt: string
+}
+
 const ApproveISP: React.FC = () => {
   const [approvedModalIsOpen, setApprovedModalIsOpen] = useState(false)
   const [search, setSearch] = useState("")
@@ -36,7 +50,7 @@ const ApproveISP: React.FC = () => {
   if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
 
-  const mapData: unknown[] = []
+  const mapData: SchoolData[] = []
   for (const dt of data) {
     const add = {
       cnpj: dt.cnpj,
@@ -49,7 +63,7 @@ const ApproveISP: React.FC = () => {
       administrator: dt.administrator,
       email: dt.email,
       id: dt.id,
-      createdAt: dt.createdAt
+      createdAt: String(dt.createdAt)
     }
     mapData.push(add)
   }

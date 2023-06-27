@@ -37,6 +37,7 @@ export function mapAdministrator(administrator: string) {
         case 'estado': return Administrators.STATE
         case 'municipality': return Administrators.MUNICIPALITY
         case 'município': return Administrators.MUNICIPALITY
+        default: return Administrators.STATE
     }
 }
 

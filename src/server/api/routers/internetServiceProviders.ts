@@ -1,18 +1,36 @@
-import { Role, Status } from '@prisma/client';
-import { type CreateInternetServiceProvider } from './../../../service/internetServiceProvider/interfaces/interfaces';
+import { Role, Status } from '@prisma/client'
+import { type CreateInternetServiceProvider } from './../../../service/internetServiceProvider/interfaces/interfaces'
 import { TRPCError } from "@trpc/server"
 import { z } from "zod"
 import { InternetServiceProviderDatabaseService } from "~/database/internetServiceProviderDatabaseService"
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
-import { InternetServiceProviderService } from '~/service/internetServiceProvider/internetServiceProviderService';
-import { SchoolsService } from '~/service/schools/schoolsService';
-import { benefitPriceByName, mapBenefitType } from '~/utils/functions/benefitsFunctions';
-import { ContractsDatabaseService } from '~/database/contractsDatabaseService';
-import { ispBuyBenefitsTransaction } from '~/database/dbTransactions';
-import { prisma } from '~/database/prisma';
-import { sendIspToSlack } from '~/utils/functions/slackFunctions';
+import { InternetServiceProviderService } from '~/service/internetServiceProvider/internetServiceProviderService'
+import { SchoolsService } from '~/service/schools/schoolsService'
+import { benefitPriceByName, mapBenefitType } from '~/utils/functions/benefitsFunctions'
+import { ContractsDatabaseService } from '~/database/contractsDatabaseService'
+import { ispBuyBenefitsTransaction } from '~/database/dbTransactions'
+import { prisma } from '~/database/prisma'
+import { sendIspToSlack } from '~/utils/functions/slackFunctions'
 
 export const internetServiceProvidersRouter = createTRPCRouter({
+getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
+
+    const ispToBeApproved = await prisma.internetServiceProviderToBeApproved.findMany()
+
+    if (ispToBeApproved.length > 0) {
+      return ispToBeApproved
+    } else {
+      return [{
+        email: "-",
+        name: "-",
+        cnpj: "-",
+        createdAt: "-"
+    }]
+    }
+  }),
+
   ispToBeApproved: publicProcedure.input(
     z.object({
       name: z.string(),

@@ -2,6 +2,7 @@ import type { NextPage } from "next"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import TableIcon from "~/styles/styledComponents/icons/TableIcon"
 import UnlockedIcon from "~/styles/styledComponents/icons/UnlockedIcon"
+import ApproveSchoolIcon from "~/styles/styledComponents/icons/ApproveSchoolIcon"
 import SchoolIcon from "~/styles/styledComponents/icons/SchoolIcon"
 import GigaTokenTitle from "~/styles/styledComponents/shared/GigaTokenTitle"
 import { api } from "~/utils/api"
@@ -16,6 +17,7 @@ import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import DashboardButtonLeft from "~/styles/styledComponents/shared/DashboardButtonLeft"
 import DashboardButtonRight from "~/styles/styledComponents/shared/DashboardButtonRight"
+import ApproveUserIcon from "~/styles/styledComponents/icons/ApproveUserIcon"
 
 const AdminDashboard: NextPage = () => {
   const isAdmin = api.admin.isAdmin.useQuery()
@@ -35,7 +37,6 @@ const AdminDashboard: NextPage = () => {
         <div className="w-full max-w-3xl p-6 flex flex-col items-center space-y-4">
           <GigaTokenTitle locale={locale} />
           <div className="grid grid-cols-2 gap-4 w-full">
-
             <DashboardButtonLeft title={t.t("Create School")} link={"create-school"} RightIcon={SchoolIcon} />
             <DashboardButtonRight title={t.t("School Catalog")} link={"school-catalog"} RightIcon={TableIcon} />
             <DashboardButtonLeft title={t.t("Connectivity Reports")} link={"connectivity-reports"} RightIcon={ConnectivityIcon} />
@@ -44,6 +45,8 @@ const AdminDashboard: NextPage = () => {
             <DashboardButtonRight title={t.t("Unlock ISP Tokens")} link={"unlock-isp-tokens"} RightIcon={UnlockedIcon} />
             <DashboardButtonLeft title={t.t("Authorize User")} link={"authorize-user"} RightIcon={AuthorizeUserIcon} />
             <DashboardButtonRight title={t.t("Authorized Users")} link={"authorized-users"} RightIcon={AuthorizedIcon} />
+            <DashboardButtonLeft title={t.t("Approve School")} link={"approve/school"} RightIcon={ApproveSchoolIcon} />
+            <DashboardButtonRight title={t.t("Approve Provider")} link={"approve/isp"} RightIcon={ApproveUserIcon} />
           </div>
         </div>
       </main>

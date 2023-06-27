@@ -10,6 +10,31 @@ import { prisma } from "~/database/prisma"
 import { sendSchoolToSlack } from "~/utils/functions/slackFunctions"
 
 export const schoolsRouter = createTRPCRouter({
+  getSchoolsToBeApproved: publicProcedure.query(async ({ ctx }) => {
+    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
+
+    const schoolsToBeApproved = await prisma.schoolsToBeApproved.findMany()
+
+    if (schoolsToBeApproved.length > 0) {
+      return schoolsToBeApproved
+    } else {
+      return [{
+        name: "-",
+        state: "-",
+        city: "-",
+        zipCode: "-",
+        address: "-",
+        cnpj: "-",
+        inepCode: "-",
+        email: "-",
+        administrator: "-",
+        createdAt: "-",
+        id: "-"
+      }]
+    }
+  }),
+
   schoolToBeApproved: publicProcedure.input(
     z.object({
       name: z.string(),

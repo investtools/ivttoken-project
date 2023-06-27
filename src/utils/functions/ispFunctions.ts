@@ -8,7 +8,7 @@ export function formatDate(dataISO: string) {
     const horas = data.getHours().toString().padStart(2, '0')
     const minutos = data.getMinutes().toString().padStart(2, '0')
 
-    return `${dia}/${mes}/${ano} ${horas}:${minutos}`
+    return `${dia}/${mes}/${ano} - ${horas}:${minutos}`
 }
 
 export function getTwoDigitsYear(dataISO: string) {

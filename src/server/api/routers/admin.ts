@@ -9,11 +9,38 @@ import { getLatLon, mapAdministrator, mapRole, maskPrivateKey } from "~/utils/fu
 import { ContractsDatabaseService } from "~/database/contractsDatabaseService"
 import { InternetServiceProviderService } from "~/service/internetServiceProvider/internetServiceProviderService"
 import { AuthorizedUsersDatabaseService } from "~/database/authorizedUsersDatabaseService"
-import { approveContractTransaction, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
+import { approveContractTransaction, approveISP, approveSchool, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
 import { TransactionsToSignDatabaseService } from "~/database/transactionsToSignDatabaseService"
 import { signTransaction } from "~/utils/functions/signTransaction/signTransaction"
 
 export const adminRouter = createTRPCRouter({
+  approveSchool: protectedProcedure.input(
+    z.object({
+      schoolId: z.string()
+    })
+  )
+    .mutation(async ({ input, ctx }) => {
+      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+      return await approveSchool(input.schoolId)
+    }),
+
+  approveISP: protectedProcedure.input(
+    z.object({
+      email: z.string()
+    })
+  )
+    .mutation(async ({ input, ctx }) => {
+      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+      const adminService = new AdminService()
+      const adminId = (await adminService.searchByEmail(email)).id
+
+      return await approveISP(input.email, adminId)
+    }),
+
   signTransaction: protectedProcedure.input(
     z.object({
       transactionHash: z.string(),

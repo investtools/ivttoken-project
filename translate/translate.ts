@@ -18,6 +18,15 @@ export class Translate {
                 case "You are here!": return "Você está aqui!"
                 case "Register or Login": return "Entre ou Registre-se"
 
+                // approve
+                case "Provider successfully approved!": return "Provedor Aprovado!"
+                case "School successfully approved!": return "Escola Aprovada!"
+                case "Stay Here": return "Ficar Aqui"
+                case "Go To": return "Ir Para"
+                case "Oops! Nothing to approve here...": return "Opa! Não há nada para aprovar aqui..."
+                case "There are currently no pending providers to approve.": return "Atualmente não há provedores para aprovar."
+                case "There are currently no pending schools to approve.": return "Atualmente não há escolas para aprovar."
+
                 // main
                 case "Internet Service Providers": return "Provedores de Serviço de Internet"
                 case "Connecting schools worldwide": return "Conectando escolas pelo mundo"
@@ -61,6 +70,8 @@ export class Translate {
                 case "Send Provider To Analysis": return "Enviar Provedor Para Análise"
                 case "Send School": return "Enviar Escola"
                 case "Send Provider": return "Enviar Provedor"
+                case "Please note that the submitted school will be subject to review by an administrator before being approved. Thank you for your patience.": return "Por favor, note que a escola enviada estará sujeita à revisão de um administrador antes de ser aprovada. Agradecemos a sua paciência."
+                case "Please note that the submitted provider will be subject to review by an administrator before being approved. Thank you for your patience.": return "Por favor, note que o provedor enviado estará sujeito à revisão de um administrador antes de ser aprovado. Agradecemos a sua paciência."
 
                 // institutional
                 case "Our Team": return "Nosso Time"
@@ -139,6 +150,10 @@ export class Translate {
                 case "Proceed with contract": return "Continuar com o contrato"
 
                 // admin context
+                case "Providers To Approve": return "Provedores Para Aprovar"
+                case "Schools To Approve": return "Escolas Para Aprovar"
+                case "Approve School": return "Aprovar Escola"
+                case "Approve Provider": return "Aprovar Provedor"
                 case "Create School": return "Criar Escola"
                 case "School Catalog": return "Catálogo de Escolas"
                 case "Assign Tokens to School": return "Atribuir Tokens à Escola"

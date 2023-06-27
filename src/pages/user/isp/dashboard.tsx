@@ -10,7 +10,7 @@ import BenefitsIcon from "~/styles/styledComponents/icons/BenefitsIcon"
 import ContractsIcon from "~/styles/styledComponents/icons/ContractsIcon"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import SchoolIcon from "~/styles/styledComponents/icons/SchoolIcon"
+import SchoolIcon from "~/styles/styledComponents/icons/ApproveSchoolIcon"
 import DashboardButtonRight from "~/styles/styledComponents/shared/DashboardButtonRight"
 import DashboardButtonLeft from "~/styles/styledComponents/shared/DashboardButtonLeft"
 

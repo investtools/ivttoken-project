@@ -96,7 +96,7 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                                     {t.t("Company Name")}:
                                                 </label>
                                                 <input
-                                                    placeholder="John Doe"
+                                                    placeholder={t.t("Company Name")}
                                                     type="text"
                                                     id="name"
                                                     value={name}
@@ -152,6 +152,9 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                                     </span>
                                                 </button>
                                             </div>
+                                            <span className="text-gray-500 flex text-center mt-4">
+                                                {t.t("Please note that the submitted provider will be subject to review by an administrator before being approved. Thank you for your patience.")}
+                                            </span>
                                         </form>
                                     </div>
                                 </div>

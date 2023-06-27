@@ -92,11 +92,11 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
                 "type": "button",
                 "text": {
                     "type": "plain_text",
-                    "text": "Add To Catalog :white_check_mark:",
+                    "text": "Approve :white_check_mark:",
                     "emoji": true
                 },
                 "value": "add_to_catalog",
-                "url": "https://www.linkedin.com/in/murillolamberti/"
+                "url": "https://ivttoken.vercel.app/pt-br/user/admin/approve/school"
             }
         ]
     },
@@ -167,7 +167,7 @@ export async function sendIspToSlack(name: string, cnpj: string,  email: string)
                     "emoji": true
                 },
                 "value": "add_to_catalog",
-                "url": "https://www.linkedin.com/in/murillolamberti/"
+                "url": "https://ivttoken.vercel.app/pt-br/user/admin/approve/isp"
             }
         ]
     },

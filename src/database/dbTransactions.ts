@@ -1,5 +1,6 @@
-import { type Benefits, Status } from "@prisma/client"
+import { type Benefits, Status, Role } from "@prisma/client"
 import { prisma } from "./prisma"
+import { getLatLon, mapAdministrator } from "~/utils/functions/adminFunctions"
 
 export async function approveContractTransaction(adminId: string, schoolCnpj: string, ispId: string, newTotalTokenAmount: string, newLockedTokens: string, contractId: string) {
     const relationSchoolWithISP = prisma.schools.update({
@@ -93,4 +94,58 @@ export async function unlockIspTokens(cnpj: string, tokensToUnlock: string) {
     })
 
     return await prisma.$transaction([unlockTokens])
+}
+
+export async function approveISP(email: string, adminId: string) {
+    const authorizeUser = prisma.authorizedUsers.create({
+        data: {
+            email,
+            role: Role.ISP,
+            adminId
+        }
+    })
+
+    const deletePendingISP = prisma.internetServiceProviderToBeApproved.delete({
+        where: {
+            email
+        }
+    })
+
+    return await prisma.$transaction([authorizeUser, deletePendingISP])
+}
+
+export async function approveSchool(pendingSchoolId: string) {
+    const pendingSchool = await prisma.schoolsToBeApproved.findFirstOrThrow({
+        where: {
+            id: pendingSchoolId
+        }
+    })
+
+    const latLon = await getLatLon(pendingSchool.city, pendingSchool.state, String(pendingSchool.address.split(',')[0]))
+    const administrator = mapAdministrator(pendingSchool.administrator)
+
+    const createSchool = prisma.schools.create({
+        data: {
+            name: pendingSchool.name,
+            state: pendingSchool.state,
+            city: pendingSchool.city,
+            zipCode: pendingSchool.zipCode,
+            address: pendingSchool.address,
+            cnpj: pendingSchool.cnpj,
+            inepCode: pendingSchool.inepCode,
+            email: pendingSchool.email,
+            lat: String(latLon?.lat),
+            lon: String(latLon?.lon),
+            role: Role.SCHOOL,
+            administrator: administrator
+        }
+    })
+
+    const deletePendingSchool = prisma.schoolsToBeApproved.delete({
+        where: {
+            id: pendingSchoolId
+        }
+    })
+
+    return await prisma.$transaction([createSchool, deletePendingSchool])
 }

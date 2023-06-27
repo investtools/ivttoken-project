@@ -21,7 +21,7 @@ const App: AppType = ({ Component, pageProps }) => {
 
   const isPathPublic = isPublicPath(router.pathname)
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <PageHeader title={t.t("Register or Login")} />
       <ClerkProvider
         appearance={{
@@ -39,6 +39,7 @@ const App: AppType = ({ Component, pageProps }) => {
           }
         }}
       >
+        <div className="flex-grow">
           <SignedIn>
             <div className="z-30 fixed w-full py-2 bg-gradient-to-r border-b from-ivtcolor2 via-hover to-ivtcolor2">
               <div className="w-10/12 mx-auto flex justify-between items-center">
@@ -61,10 +62,12 @@ const App: AppType = ({ Component, pageProps }) => {
           <SignedOut>
             {isPathPublic ? (<Component {...pageProps} />) : (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} pathName={router.pathname} />)}
           </SignedOut>
+        </div>
       </ClerkProvider>
       <Footer />
-    </>
+    </div>
   )
 }
 
 export default api.withTRPC(App)
+

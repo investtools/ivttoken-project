@@ -306,6 +306,9 @@ function CreateSchoolModal({ closeModal }: CreateSchoolModalProps) {
                                             </span>
                                         </button>
                                     </div>
+                                    <span className="text-gray-500 flex text-center mt-4">
+                                        {t.t("Please note that the submitted school will be subject to review by an administrator before being approved. Thank you for your patience.")}
+                                    </span>
                                 </form>
                             </>
                         </div>

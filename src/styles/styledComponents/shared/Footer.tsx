@@ -40,9 +40,9 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="flex flex-col items-center space-y-8 ">
-            <Image src="/images/assinaturawhite.svg" width={150} height={50} alt="InvestTools" />
-            <Image src="/uniceflogo.png" width={150} height={50} alt="Unicef" />
-            <Image src="/giga.png" width={100} height={50} alt="Unicef" />
+            <Image src="/images/assinaturawhite.svg" width={150} height={50} alt="InvestTools Logo" />
+            <Image src="/giga.png" width={100} height={50} alt="Giga Logo" />
+            <Image src="/uniceflogo.png" width={150} height={50} alt="Unicef Logo" />
           </div>
         </div>
       </div>

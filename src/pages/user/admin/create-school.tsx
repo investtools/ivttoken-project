@@ -101,11 +101,11 @@ function CreateSchool() {
       <div className="p-8">
         <HomeButton />
         <div className="flex justify-center items-top p-5">
-          <form className="bg-white p-10 rounded-lg shadow-md">
-            <h1 className="text-center text-2xl font-bold mb-8 text-gray-900">{t.t("Create New School")}</h1>
+          <form className="bg-white p-10 rounded-lg ">
+            <h1 className="text-center text-2xl font-bold mb-8 text-ivtcolor2">{t.t("Create New School")}</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col mb-4">
-                <label htmlFor="name" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="name" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("School's Name")}:
                 </label>
                 <input
@@ -119,7 +119,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="zipCode" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="zipCode" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("Zip Code")}:
                 </label>
                 <InputMask
@@ -137,7 +137,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="state" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="state" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("State")}:
                 </label>
                 <input
@@ -151,7 +151,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="city" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="city" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("City")}:
                 </label>
                 <input
@@ -165,7 +165,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="address" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="address" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("Address")}:
                 </label>
                 <input
@@ -179,7 +179,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="number" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="number" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("Number")}:
                 </label>
                 <input
@@ -193,7 +193,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="cnpj" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="cnpj" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("Cnpj")}:
                 </label>
                 <InputMask
@@ -208,7 +208,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="inepCode" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="inepCode" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("Inep Code")}:
                 </label>
                 <InputMask
@@ -223,7 +223,7 @@ function CreateSchool() {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <label htmlFor="email" className="mb-2 font-bold text-lg text-gray-900">
+                <label htmlFor="email" className="mb-2 font-bold text-lg text-ivtcolor2">
                   {t.t("E-Mail")}:
                 </label>
                 <input
@@ -239,7 +239,7 @@ function CreateSchool() {
               <div className="flex flex-col mb-4">
                 <label
                   htmlFor="administrator"
-                  className="mb-2 font-bold text-lg text-gray-900"
+                  className="mb-2 font-bold text-lg text-ivtcolor2"
                 >
                   {t.t("Administrator")}:
                 </label>

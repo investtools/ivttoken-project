@@ -5,7 +5,7 @@ import HomeIcon from '../icons/HomeIcon'
 
 const HomeButton: React.FC = () => {
   return (
-    <div className="mt-10 flex items-center justify-start">
+    <div className="mt-10 flex items-center justify-start z-50 relative">
       <Link href={'/'}>
         <span className='drop-shadow-2xl hover:opacity-[.85] md:grid-cols-2'>
           <div className="bg-white p-2 rounded drop-shadow-2xl flex items-center">

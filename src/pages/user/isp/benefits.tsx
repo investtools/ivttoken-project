@@ -69,7 +69,7 @@ const Benefits: React.FC = () => {
         <HomeButton />
         <div className="mt-8 max-w-6xl">
           <div className="bg-white p-4 my-4 rounded shadow">
-            <CardsHeader title={t.t("Benefits")} />
+            <CardsHeader title={t.t("Balance")} />
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-gray-900">
               {Object.keys(data).map((key, index) => {
                 if (key === "tokenAmount" || key === "unlockedTokens" || key === "lockedTokens" || key === "spentTokens" || key === "tokensHistory") {

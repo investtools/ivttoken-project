@@ -1,6 +1,5 @@
 import { api } from "~/utils/api"
 import { useState } from 'react'
-import HomeButton from "../../../styles/styledComponents/shared/HomeButton"
 import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
 import LoadingComponent from "~/styles/styledComponents/shared/Loading"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
@@ -14,6 +13,7 @@ import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 import Filter from "~/styles/styledComponents/shared/Filter"
+import HomeButton from "~/styles/styledComponents/shared/HomeButton"
 
 const AssignTokensSchool: React.FC = () => {
   const [cnpj, setCnpj] = useState('')
@@ -128,9 +128,9 @@ const AssignTokensSchool: React.FC = () => {
 
         <div className="flex justify-center items-top p-5">
           <form className="bg-white p-10 rounded-lg shadow-md ">
-            <h1 className="text-center text-2xl font-bold mb-8 text-gray-900">{t.t("Assign Tokens")}</h1>
+            <h1 className="text-center text-2xl font-bold mb-8 text-ivtcolor2">{t.t("Assign Tokens")}</h1>
             <div className="flex flex-col mb-4">
-              <label htmlFor="name" className="mb-2 font-bold text-lg text-gray-900">
+              <label htmlFor="name" className="mb-2 font-bold text-lg text-ivtcolor2">
                 {t.t("Selected School")}:
               </label>
               <input
@@ -142,7 +142,7 @@ const AssignTokensSchool: React.FC = () => {
               />
             </div>
             <div className="flex flex-col mb-4">
-              <label htmlFor="state" className="mb-2 font-bold text-lg text-gray-900">
+              <label htmlFor="state" className="mb-2 font-bold text-lg text-ivtcolor2">
                 Tokens:
               </label>
               <input

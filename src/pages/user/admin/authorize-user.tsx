@@ -69,9 +69,9 @@ const AuthorizeUser: NextPage = () => {
         <HomeButton />
         <div className="flex justify-center items-top p-5">
           <form className="bg-white p-10 rounded-lg shadow-md">
-            <h1 className="text-center text-2xl font-bold mb-8 text-gray-900">{t.t("Credentials")}</h1>
+            <h1 className="text-center text-2xl font-bold mb-8 text-ivtcolor2">{t.t("Credentials")}</h1>
             <div className="flex flex-col mb-4">
-              <label htmlFor="email" className="mb-2 font-bold text-lg text-gray-900">
+              <label htmlFor="email" className="mb-2 font-bold text-lg text-ivtcolor2">
                 E-mail:
               </label>
               <input

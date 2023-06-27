@@ -61,9 +61,9 @@ const RegisterISP: React.FC = () => {
           <div>
             <div className="flex justify-center items-top p-5">
               <form className="bg-white p-10 rounded-lg shadow-md">
-                <h1 className="text-center text-2xl font-bold mb-8 text-gray-900">{t.t("Register Your Credentials")}</h1>
+                <h1 className="text-center text-2xl font-bold mb-8 text-ivtcolor2">{t.t("Register Your Credentials")}</h1>
                 <div className="flex flex-col mb-4">
-                  <label htmlFor="name" className="mb-2 font-bold text-lg text-gray-900">
+                  <label htmlFor="name" className="mb-2 font-bold text-lg text-ivtcolor2">
                     {t.t("Company Name")}:
                   </label>
                   <input
@@ -77,7 +77,7 @@ const RegisterISP: React.FC = () => {
                   />
                 </div>
                 <div className="flex flex-col mb-4">
-                  <label htmlFor="cnpj" className="mb-2 font-bold text-lg text-gray-900">
+                  <label htmlFor="cnpj" className="mb-2 font-bold text-lg text-ivtcolor2">
                     {t.t("Cnpj")}:
                   </label>
                   <InputMask

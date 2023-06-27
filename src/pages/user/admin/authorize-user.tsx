@@ -15,6 +15,7 @@ import { Translate } from "translate/translate"
 import { validateEmail } from "~/utils/functions/adminFunctions"
 import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModal"
 import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
+import React from "react"
 
 const AuthorizeUser: NextPage = () => {
   const router = useRouter()
@@ -22,10 +23,10 @@ const AuthorizeUser: NextPage = () => {
   const t = new Translate(locale)
 
   const roles = [
-    { userRole: t.t("Role") },
-    { userRole: "Admin" },
-    { userRole: "Internet Service Provider" },
-    { userRole: "School Administrator" }
+    t.t("Role"),
+    "Admin",
+    "Internet Service Provider",
+    "School Administrator"
   ]
 
   const [email, setEmail] = useState('')
@@ -40,10 +41,10 @@ const AuthorizeUser: NextPage = () => {
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
   if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
 
-  const handleSubmit = (email: string, selected: { userRole: string } | undefined) => {
-    if (selected && selected.userRole !== "Role" && selected.userRole !== "Posição" && email) {
+  const handleSubmit = (email: string, selectedRole: string) => {
+    if (selectedRole && selectedRole !== t.t("Role") && email) {
       if (validateEmail(email)) {
-        authorizeUser.mutate({ email: email, role: selected.userRole })
+        authorizeUser.mutate({ email: email, role: selectedRole })
         setFormSentModalIsOpen(true)
       } else {
         setInvalidEmailIsOpen(true)
@@ -87,7 +88,9 @@ const AuthorizeUser: NextPage = () => {
             <Listbox value={selected} onChange={(e) => setSelected(e)}>
               <div className="relative mt-1 mb-4">
                 <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-ivtcolor sm:text-sm">
-                  <span className="text-gray-900 block truncate">{selected?.userRole === undefined ? selected?.userRole : t.t(selected.userRole)}</span>
+                  <span className="text-gray-900 block truncate">
+                    {selected === t.t("Role") ? t.t('Role') : t.t(String(selected))}
+                  </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon
                       className="h-5 w-5 text-gray-400"
@@ -117,7 +120,7 @@ const AuthorizeUser: NextPage = () => {
                               className={`block truncate ${selected ? 'font-medium' : 'font-normal'
                                 }`}
                             >
-                              {t.t(userRole.userRole)}
+                              {t.t(userRole)}
                             </span>
                             {selected ? (
                               <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-ivtcolor2">
@@ -136,7 +139,9 @@ const AuthorizeUser: NextPage = () => {
               <button
                 onClick={(event) => {
                   event.preventDefault()
-                  handleSubmit(email, selected)
+                  if (selected !== undefined) {
+                    handleSubmit(email, selected)
+                  }
                 }}
                 className="border border-transparent shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
               >

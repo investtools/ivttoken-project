@@ -13,10 +13,19 @@ import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModa
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 import XMark from '../icons/XMarkIcon'
+import type { inferRouterInputs } from '@trpc/server'
+import { type AppRouter } from '~/server/api/root'
+
+type RouterInput = inferRouterInputs<AppRouter>
+type PageMutate = RouterInput['admin']['createSchool']
+type ModalMutate = RouterInput['schools']['schoolToBeApproved']
+
+type PageMutateFunction = (input: PageMutate) => void
+type ModalMutateFunction = (input: ModalMutate) => void
 
 type CreateSchoolComponentProps = {
   isModal: boolean
-  mutate: Function
+  mutate: PageMutateFunction | ModalMutateFunction
   closeModal: () => void
 }
 
@@ -51,8 +60,13 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const handleSubmit = (name: string, state: string, city: string, zipCode: string, address: string, number: number, cnpj: string, inepCode: string, email: string, administrator: string) => {
     if (name && state && city && zipCode && address && cnpj && inepCode && email && administrator && number) {
       if (validateEmail(email)) {
-        administrator = String(administrator)
-        mutate({ name, state, city, zipCode, address: address + ", " + String(number), cnpj, inepCode, email, administrator })
+        const inputData = { name, state, city, zipCode, address: address + ", " + String(number), cnpj, inepCode, email, administrator: String(administrator) }
+
+        if (isModal) {
+          (mutate as ModalMutateFunction)(inputData as ModalMutate)
+        } else {
+          (mutate as PageMutateFunction)(inputData as PageMutate)
+        }
         setSentFormModalIsOpen(true)
       } else {
         setInvalidEmailIsOpen(true)
@@ -79,16 +93,21 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
     }
   }
 
-  const handleCloseSentFormModal = () => {
+  const handleCloseModal = () => {
     setSentFormModalIsOpen(false)
     closeModal()
+  }
+
+  const handleSent = () => {
+    setSentFormModalIsOpen(false)
+    void router.push('/')
   }
 
   return (
     <>
       <PageHeader title={t.t("Create School")} />
       {sentFormModalIsOpen && (
-        <FormSentModal closeModal={isModal ? handleCloseSentFormModal : () => setSentFormModalIsOpen(false)} locale={locale} />
+        <FormSentModal closeModal={isModal ? handleCloseModal : handleSent} locale={locale} />
       )}
       {incompleteFieldsModalIsOpen && (
         <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
@@ -138,7 +157,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
                 id="zipCode"
                 value={zipCode}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setZipCode(e.target.value);
+                  setZipCode(e.target.value)
                   void fetchAddress(e.target.value)
                 }}
                 required

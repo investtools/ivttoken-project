@@ -1,5 +1,5 @@
-import { Dialog, Listbox, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react'
 import { api } from '~/utils/api'
 import CreateSchoolComponent from '../shared/CreateSchoolComponent'
 

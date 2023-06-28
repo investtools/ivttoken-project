@@ -18,6 +18,7 @@ import { Translate } from "translate/translate"
 import DashboardButtonLeft from "~/styles/styledComponents/shared/DashboardButtonLeft"
 import DashboardButtonRight from "~/styles/styledComponents/shared/DashboardButtonRight"
 import ApproveUserIcon from "~/styles/styledComponents/icons/ApproveUserIcon"
+import TicketIcon from "~/styles/styledComponents/icons/TicketIcon"
 
 const AdminDashboard: NextPage = () => {
   const isAdmin = api.admin.isAdmin.useQuery()
@@ -36,7 +37,7 @@ const AdminDashboard: NextPage = () => {
       <main className="flex justify-center items-center mt-12">
         <div className="w-full max-w-3xl p-6 flex flex-col items-center space-y-4">
           <GigaTokenTitle locale={locale} />
-          <div className="grid grid-cols-2 gap-4 w-full">
+          <div className="grid grid-cols-3 gap-4 w-full">
             <DashboardButtonLeft title={t.t("Create School")} link={"create-school"} RightIcon={SchoolIcon} />
             <DashboardButtonRight title={t.t("School Catalog")} link={"school-catalog"} RightIcon={TableIcon} />
             <DashboardButtonLeft title={t.t("Connectivity Reports")} link={"connectivity-reports"} RightIcon={ConnectivityIcon} />
@@ -47,6 +48,8 @@ const AdminDashboard: NextPage = () => {
             <DashboardButtonRight title={t.t("Authorized Users")} link={"authorized-users"} RightIcon={AuthorizedIcon} />
             <DashboardButtonLeft title={t.t("Approve School")} link={"approve/school"} RightIcon={ApproveSchoolIcon} />
             <DashboardButtonRight title={t.t("Approve Provider")} link={"approve/isp"} RightIcon={ApproveUserIcon} />
+            <DashboardButtonLeft title={t.t("Opened Tickets")} link={"tickets/opened"} RightIcon={TicketIcon} />
+            <DashboardButtonRight title={t.t("Closed Tickets")} link={"tickets/closed"} RightIcon={TicketIcon} />
           </div>
         </div>
       </main>

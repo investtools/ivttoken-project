@@ -38,7 +38,11 @@ export class Translate {
                 case "Your Name": return "Seu Nome"
                 case "Your E-Mail": return "Seu E-Mail"
                 case "Subject": return "Assunto"
-                case "Description": return "Descrição"
+                case "Message": return "Mensagem"
+
+                // admin handle tickets
+                case "Opened Tickets": return "Tickets Abertos"
+                case "Closed Tickets": return "Tickets Fechados"
 
                 // main
                 case "Internet Service Providers": return "Provedores de Serviço de Internet"

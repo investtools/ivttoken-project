@@ -211,6 +211,7 @@ model Tickets {
     email     String
     subject   String
     message   String
+    isOpen    Boolean
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 

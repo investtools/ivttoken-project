@@ -16,7 +16,53 @@ import { prisma } from "~/database/prisma"
 import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
 
 export const adminRouter = createTRPCRouter({
-  sendTicket: publicProcedure.input(
+  getOpenTicket: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+    const tickets = await prisma.tickets.findMany({
+      where: {
+        isOpen: true
+      }
+    })
+
+    if (tickets.length > 0) {
+      return tickets
+    } else {
+      return [{
+        name: "-",
+        email: "-",
+        subject: "-",
+        message: "-",
+        id: "-"
+      }]
+    }
+  }),
+
+  getClosedTickets: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+    const tickets = await prisma.tickets.findMany({
+      where: {
+        isOpen: false
+      }
+    })
+
+    if (tickets.length > 0) {
+      return tickets
+    } else {
+      return [{
+        name: "-",
+        email: "-",
+        subject: "-",
+        message: "-",
+        id: "-"
+      }]
+    }
+  }),
+
+  openTicket: publicProcedure.input(
     z.object({
       name: z.string(),
       email: z.string(),
@@ -32,7 +78,23 @@ export const adminRouter = createTRPCRouter({
           name: input.name,
           email: input.email,
           subject: input.subject,
-          message: input.message
+          message: input.message,
+          isOpen: true
+        }
+      })
+    }),
+
+  closeTicket: publicProcedure.input(
+    z.object({
+      ticketId: z.string()
+    })
+  )
+    .mutation(async ({ input }) => {
+      return await prisma.tickets.update({
+        where: {
+          id: input.ticketId
+        }, data: {
+          isOpen: false
         }
       })
     }),

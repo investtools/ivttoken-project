@@ -21,7 +21,7 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
     const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
     const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
 
-    const { mutate } = api.admin.sendTicket.useMutation()
+    const { mutate } = api.admin.openTicket.useMutation()
 
     const router = useRouter()
     const t = new Translate(locale)

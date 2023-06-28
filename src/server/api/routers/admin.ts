@@ -16,7 +16,7 @@ import { prisma } from "~/database/prisma"
 import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
 
 export const adminRouter = createTRPCRouter({
-  getOpenTicket: protectedProcedure.query(async ({ ctx }) => {
+  getOpenedTickets: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
@@ -34,7 +34,8 @@ export const adminRouter = createTRPCRouter({
         email: "-",
         subject: "-",
         message: "-",
-        id: "-"
+        id: "-",
+        createdAt: "-"
       }]
     }
   }),
@@ -57,7 +58,8 @@ export const adminRouter = createTRPCRouter({
         email: "-",
         subject: "-",
         message: "-",
-        id: "-"
+        id: "-",
+        updatedAt: "-"
       }]
     }
   }),
@@ -94,7 +96,8 @@ export const adminRouter = createTRPCRouter({
         where: {
           id: input.ticketId
         }, data: {
-          isOpen: false
+          isOpen: false,
+          updatedAt: new Date()
         }
       })
     }),

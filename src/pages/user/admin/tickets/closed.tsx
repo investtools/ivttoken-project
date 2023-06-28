@@ -8,6 +8,7 @@ import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 import HomeButton from "~/styles/styledComponents/shared/HomeButton"
+import { formatDate } from "~/utils/functions/ispFunctions"
 
 const ClosedTickets: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -42,6 +43,7 @@ const ClosedTickets: React.FC = () => {
                                 <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Subject")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Message")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Closed At")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,6 +53,7 @@ const ClosedTickets: React.FC = () => {
                                     <td className="p-2 border text-ivtcolor2">{ticket.email}</td>
                                     <td className="p-2 border text-ivtcolor2">{ticket.subject}</td>
                                     <td className="p-2 border text-ivtcolor2">{ticket.message}</td>
+                                    <td className="p-2 border text-ivtcolor2">{formatDate(String(ticket.updatedAt))}</td>
                                 </tr>
                             ))}
                         </tbody>

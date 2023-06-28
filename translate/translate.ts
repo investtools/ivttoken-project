@@ -43,6 +43,11 @@ export class Translate {
                 // admin handle tickets
                 case "Opened Tickets": return "Tickets Abertos"
                 case "Closed Tickets": return "Tickets Fechados"
+                case "Close": return "Fechar"
+                case "Oops! There are no tickets to close...": return "Opa! Não há tickets para fechar..."
+                case "Ticket Closed!": return "Ticked Fechado!"
+                case "This ticket has been successfully closed.": return "Este ticket foi fechado com sucesso."
+                case "Closed At": return "Fechado Dia"
 
                 // main
                 case "Internet Service Providers": return "Provedores de Serviço de Internet"

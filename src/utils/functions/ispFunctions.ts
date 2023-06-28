@@ -1,5 +1,6 @@
 export function formatDate(dataISO: string) {
     if (dataISO === "NONE") return "-"
+    if (dataISO === "-") return "-"
 
     const data = new Date(dataISO)
     const dia = data.getDate().toString().padStart(2, '0')

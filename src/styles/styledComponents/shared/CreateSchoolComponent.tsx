@@ -349,7 +349,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
                 )
               }}
               type="submit"
-              className="w-1/2 border border-transparent shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation">
+              className="w-1/2 border border-transparent shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation">
               <span className="flex items-center justify-center">
                 {t.t("Create School")}
                 <SendIcon />

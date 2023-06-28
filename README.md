@@ -27,8 +27,12 @@ Additionally, you will need to create a `.env` file at the root of the project w
 DATABASE_URL=
 CLERK_SECRET_KEY=
 CLERK_FRONTEND_API=
+NEXT_PUBLIC_SLACK_CHANNEL=
+NEXT_PUBLIC_SLACK_BOT_TOKEN=
 NEXT_PUBLIC_REGISTER_ISP_URL=
 NEXT_PUBLIC_REGISTER_ADMIN_URL=
+NEXT_PUBLIC_GEOLOCATION_API_KEY=
+NEXT_PUBLIC_SLACK_SIGNING_SECRET=
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 NEXT_PUBLIC_REGISTER_SUPER_USER_URL=
 NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL=
@@ -80,8 +84,10 @@ This project uses GitHub Actions to implement a Continuous Integration/Continuou
 Contributions to this project are welcome. To contribute, please fork the repository, make your changes, and submit a pull request.
 ## Contact
 
-If you have any questions or comments about this project, feel free to get in touch.
-- [InvestTools](https://investtools.com.br/)
+If you have any questions or comments about this project, feel free to open a issue!
+- [Issue Template](ISSUE_TEMPLATE.md)
+- [Issues](https://github.com/investtools/ivttoken_frontend/issues)
+- [Ticket](https://ivttoken.vercel.app/dev/open-ticket)
 
 ## Code of Conduct
 We are committed to fostering a welcoming and inclusive community. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) for more information.

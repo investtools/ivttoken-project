@@ -1,5 +1,5 @@
 import { Listbox } from '@headlessui/react'
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
 import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import SendIcon from "~/styles/styledComponents/icons/SendIcon"
@@ -255,7 +255,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
               <Listbox value={administrator} onChange={(e) => setAdministrator(e.valueOf())}>
                 <Listbox.Button ref={buttonRef} className="h-full relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-ivtcolor sm:text-sm">
                   <span className="block truncate text-gray-900">
-                    {administrator || t.t("Select an Administrator")}
+                    {t.t(administrator) || t.t("Select an Administrator")}
                   </span>
                   <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
@@ -266,19 +266,48 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
                     className={({ active }) =>
                       `${active ? "text-white bg-ivtcolor" : "text-gray-900"
                       } cursor-default select-none relative py-2 pl-10 pr-4`}
-                    value={t.t("State")}
+                    value="State"
                   >
-                    {t.t("State")}
+                    {({ selected }) => (
+                      <>
+                        <span
+                          className={`block truncate ${selected ? 'font-medium' : 'font-normal'
+                            }`}
+                        >
+                          {t.t("State")}
+                        </span>
+                        {selected ? (
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-ivtcolor2">
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </>
+                    )}
                   </Listbox.Option>
                   <Listbox.Option
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-ivtcolor text-white' : 'text-gray-900'
                       }`
                     }
-                    value={t.t("Municipality")}
+                    value="Municipality"
                   >
-                    {t.t("Municipality")}
+                    {({ selected }) => (
+                      <>
+                        <span
+                          className={`block truncate ${selected ? 'font-medium' : 'font-normal'
+                            }`}
+                        >
+                          {t.t("Municipality")}
+                        </span>
+                        {selected ? (
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-ivtcolor2">
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </>
+                    )}
                   </Listbox.Option>
+
                 </Listbox.Options>
               </Listbox>
             </div>

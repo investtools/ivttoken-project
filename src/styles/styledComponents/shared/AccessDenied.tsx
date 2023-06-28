@@ -1,7 +1,7 @@
 import { FaLock } from 'react-icons/fa'
 import React from 'react'
 import { Translate } from "translate/translate"
-import GoToMainButton from "./GoToMainButton"
+import GoToMainIvtLogoButton from "./GoToMainIvtLogoButton"
 import HomeButton from './HomeButton'
 import { useRouter } from 'next/router'
 
@@ -43,7 +43,7 @@ const AccessDeniedComponent: React.FC<AccessDeniedComponentProps> = ({ locale, i
       {pathName === '/' ? void router.push('/main') : (
         <div className="p-8 relative min-h-screen flex flex-col justify-between">
           <div>
-            {isPathPublic ? (<HomeButton />) : (<GoToMainButton />)}
+            {isPathPublic ? (<HomeButton />) : (<GoToMainIvtLogoButton />)}
           </div>
           <div className="flex-grow flex items-center justify-center">
             <AccessDeniedMessage locale={locale} />

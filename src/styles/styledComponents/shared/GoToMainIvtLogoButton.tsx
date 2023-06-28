@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import HomeIcon from '../icons/HomeIcon'
 
-const GoToMainButton: React.FC = () => {
+const GoToMainIvtLogoButton: React.FC = () => {
   return (
     <div className="flex items-center justify-start">
       <Link href={'/main'}>
@@ -20,4 +20,4 @@ const GoToMainButton: React.FC = () => {
   )
 }
 
-export default GoToMainButton
+export default GoToMainIvtLogoButton

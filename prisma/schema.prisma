@@ -173,19 +173,19 @@ model SignedTransactions {
 }
 
 model SchoolsToBeApproved {
-    id                        String                   @id @default(uuid())
-    name                      String
-    state                     String
-    city                      String
-    zipCode                   String
-    address                   String
-    cnpj                      String                   @unique
-    inepCode                  String                   @unique
-    email                     String                   @unique
-    role                      Role
-    administrator             Administrators
-    createdAt                 DateTime                 @default(now())
-    updatedAt                 DateTime                 @updatedAt
+    id            String         @id @default(uuid())
+    name          String
+    state         String
+    city          String
+    zipCode       String
+    address       String
+    cnpj          String         @unique
+    inepCode      String         @unique
+    email         String         @unique
+    role          Role
+    administrator Administrators
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
 
     @@index([cnpj])
     @@index([email])
@@ -193,17 +193,28 @@ model SchoolsToBeApproved {
     @@index([state])
 }
 
-
 model InternetServiceProviderToBeApproved {
-    id                String              @id @default(uuid())
-    name              String
-    cnpj              String              @unique
-    email             String              @unique
-    createdAt         DateTime            @default(now())
-    updatedAt         DateTime            @updatedAt
+    id        String   @id @default(uuid())
+    name      String
+    cnpj      String   @unique
+    email     String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     @@index([email])
     @@index([cnpj])
+}
+
+model Tickets {
+    id        String   @id @default(uuid())
+    name      String
+    email     String
+    subject   String
+    message   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([email])
 }
 
 enum ConnectionQuality {

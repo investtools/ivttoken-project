@@ -27,6 +27,19 @@ export class Translate {
                 case "There are currently no pending providers to approve.": return "Atualmente não há provedores para aprovar."
                 case "There are currently no pending schools to approve.": return "Atualmente não há escolas para aprovar."
 
+                // dev area
+                case "Developer": return "Desenvolvedor"
+                case "GitHub Repository": return "Repositório no Github"
+                case "Open Ticket": return "Abrir Ticket"
+                case "Documentation": return "Documentação"
+
+                // dev open ticket
+                case "Send": return "Enviar"
+                case "Your Name": return "Seu Nome"
+                case "Your E-Mail": return "Seu E-Mail"
+                case "Subject": return "Assunto"
+                case "Description": return "Descrição"
+
                 // main
                 case "Internet Service Providers": return "Provedores de Serviço de Internet"
                 case "Connecting schools worldwide": return "Conectando escolas pelo mundo"

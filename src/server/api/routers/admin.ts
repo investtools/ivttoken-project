@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { Entity, Role, Status } from "@prisma/client"
 import { TRPCError } from "@trpc/server"
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
 import { AdminService } from "~/service/admin/adminService"
 import { type CreateSchool } from "~/service/schools/interfaces/interfaces"
 import { SchoolsService } from "~/service/schools/schoolsService"
@@ -12,8 +12,31 @@ import { AuthorizedUsersDatabaseService } from "~/database/authorizedUsersDataba
 import { approveContractTransaction, approveISP, approveSchool, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
 import { TransactionsToSignDatabaseService } from "~/database/transactionsToSignDatabaseService"
 import { signTransaction } from "~/utils/functions/signTransaction/signTransaction"
+import { prisma } from "~/database/prisma"
+import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
 
 export const adminRouter = createTRPCRouter({
+  sendTicket: publicProcedure.input(
+    z.object({
+      name: z.string(),
+      email: z.string(),
+      subject: z.string(),
+      message: z.string()
+    })
+  )
+    .mutation(async ({ input }) => {
+      await sendTicketToSlack("`" + input.name + "`", "`" + input.email + "`", "`" + input.subject + "`", "`" + input.message + "`")
+
+      return await prisma.tickets.create({
+        data: {
+          name: input.name,
+          email: input.email,
+          subject: input.subject,
+          message: input.message
+        }
+      })
+    }),
+
   approveSchool: protectedProcedure.input(
     z.object({
       schoolId: z.string()

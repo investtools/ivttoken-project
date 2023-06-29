@@ -92,17 +92,6 @@ export class SchoolsDatabaseService {
         })
     }
 
-    relationWithSchoolAdmin(cnpj: string, schoolAdminId: string) {
-        return this.db.update({
-            where: {
-                cnpj
-            },
-            data: {
-                schoolAdminId
-            }
-        })
-    }
-
     quantifyTokensToSchool(cnpj: string, tokens: string) {
         return this.db.update({
             where: {
@@ -127,17 +116,6 @@ export class SchoolsDatabaseService {
             include: {
                 internetServiceProvider: false,
                 contracts: true
-            }
-        })
-    }
-
-    searchBySchoolAdminId(schoolAdminId: string) {
-        return this.db.findFirstOrThrow({
-            where: {
-                schoolAdminId
-            }, 
-            include: {
-                connectivityReport: true
             }
         })
     }

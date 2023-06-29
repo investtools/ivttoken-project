@@ -62,10 +62,6 @@ export class SchoolsService {
         return await this.schoolDbService.relationWithISP(cnpj, internetServiceProviderId)
     }
 
-    public async relationWithSchoolAdmin(cnpj: string, schoolAdminId: string) {
-        return await this.schoolDbService.relationWithSchoolAdmin(cnpj, schoolAdminId)
-    }
-
     public async quantifyTokensToSchool(cnpj: string, tokens: string) {
         return await this.schoolDbService.quantifyTokensToSchool(cnpj, tokens)
     }
@@ -97,9 +93,5 @@ export class SchoolsService {
             }
         }
         return noTokensSchools
-    }
-
-    public async searchBySchoolAdminId(schoolAdminId: string) {
-        return await this.schoolDbService.searchBySchoolAdminId(schoolAdminId)
     }
 }

@@ -13,7 +13,7 @@ const Documentation: NextPage = () => {
     return (
         <>
             <PageHeader title={t.t("Open Ticket")} />
-            <NoNavbarHeader />
+            <NoNavbarHeader dev={false} />
             <div className="min-h-screen flex items-center">
                 <TicketFormComponent locale={locale} />
             </div>

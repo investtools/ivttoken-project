@@ -19,7 +19,7 @@ const DevDashboard: NextPage = () => {
     return (
         <>
             <PageHeader title={t.t("Developer")} />
-            <NoNavbarHeader />
+            <NoNavbarHeader dev={true} />
             <main className="flex justify-center items-center mt-12 ">
                 <div className="w-full max-w-3xl p-6 flex flex-col items-center space-y-4">
                     <GigaTokenTitle locale={locale} />

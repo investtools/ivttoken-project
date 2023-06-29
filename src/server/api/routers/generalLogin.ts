@@ -3,7 +3,6 @@ import { TRPCError } from "@trpc/server"
 import { GeneralLoginService } from "~/service/generalLogin/generalLoginService"
 import { AuthorizedUsersDatabaseService } from "~/database/authorizedUsersDatabaseService"
 
-
 export const generalLoginRouter = createTRPCRouter({
   userHasAccount: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress

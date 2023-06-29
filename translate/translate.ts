@@ -40,6 +40,38 @@ export class Translate {
                 case "Open Ticket": return "Abrir Ticket"
                 case "Documentation": return "Documentação"
 
+                // dev docs
+                case "Overview": return "Visão Geral"
+                case "Providers": return "Provedores"
+                case "Project Overview": return "Visão Geral do Projeto"
+                case "Technologies Used": return "Tecnologias Usadas"
+                case "Database": return "Banco de Dados"
+                case "Testing": return "Testes"
+                case "Contributing": return "Contribuições"
+                case "About the Project": return "Sobre o Projeto"
+                case "This open-source project aims to provide a comprehensive platform for schools management. Built with modern, cutting-edge technologies, the platform provides a range of features from account management to schools approval system. It provides public and protected routes for easy integration with other services.":
+                    return "Este projeto open-source tem como objetivo fornecer uma plataforma abrangente para a gestão de escolas. Construída com tecnologias modernas e de ponta, a plataforma oferece uma série de recursos, desde a gestão de contas até o sistema de aprovação de escolas. Ela fornece rotas públicas e protegidas para fácil integração com outros serviços."
+                case "We encourage contributions of all forms. Please refer to the documentation for technical details. If you have any questions or need help understanding a part of the codebase, feel free to open an ":
+                    return "Incentivamos contribuições de todas as formas. Por favor, consulte a documentação para detalhes técnicos. Se você tiver alguma dúvida ou precisar de ajuda para entender uma parte do código, sinta-se à vontade para abrir uma "
+                case " or a ": return " ou um "
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+                case "": return ""
+
                 // dev open ticket
                 case "Send": return "Enviar"
                 case "Your Name": return "Seu Nome"

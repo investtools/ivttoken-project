@@ -14,7 +14,7 @@ const Cards: React.FC<CardsProps> = ({ path, title, description }) => {
 
   return (
     <>
-      <div className="hover:scale-110 border-4 border-transparent hover:border-hover transition duration-500 grid card-shadow grid-cols-1 rounded p-6 flex flex-col justify-between items-start transform">
+      <div className="hover:scale-110 border-4 border-transparent hover:border-hover transition duration-500 grid card-shadow grid-cols-1 rounded p-6 flex-col justify-between items-start transform">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`${title === "Monitoring" ? "" : ""} w-[150px] h-[150px] text-hover mx-auto`}>
             <path strokeLinecap="round" strokeLinejoin="round" d={path} />

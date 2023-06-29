@@ -8,7 +8,7 @@ const Overview: React.FC = () => {
     const t = new Translate(locale)
 
     return (
-        <div id="overview" className="p-8 max-w-6xl mx-auto bg-white rounded-b-2xl">
+        <div id="overview" className="border-2 border-ivtcolor2 p-8 max-w-6xl mx-auto bg-white rounded-b-2xl">
             <h1 className="text-4xl font-bold mb-6 text-ivtcolor2">{t.t("Project Overview")}</h1>
             <h2 className="text-2xl font-bold mb-4 text-ivtcolor2">{t.t("Technologies Used")}</h2>
 

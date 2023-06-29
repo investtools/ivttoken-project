@@ -233,6 +233,7 @@ enum Benefits {
 }
 
 enum Role {
+    SCHOOL
     ADMIN
     ISP
 }

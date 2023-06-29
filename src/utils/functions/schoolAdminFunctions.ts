@@ -85,22 +85,3 @@ export function mapConnectionQuality(connectionQuality: string) {
     case "medium": return ConnectionQuality.MEDIUM
   }
 }
-
-export const translateSchoolKey = (key: string) => {
-  const translationMap = {
-    Name: 'Name',
-    State: 'State',
-    City: 'City',
-    ZipCode: 'Zip Code',
-    Address: 'Address',
-    CNPJ: 'Cnpj',
-    InepCode: 'Inep Code',
-    Admnistrator: 'Administrator',
-    EMail: 'E-Mail',
-    Tokens: "Tokens",
-    Provider: 'Provider',
-    Reports: 'Reports'
-  }
-
-  return translationMap[key as keyof typeof translationMap] || key
-}

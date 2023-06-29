@@ -1,3 +1,22 @@
+export const translateSchoolKey = (key: string) => {
+    const translationMap = {
+        Name: 'Name',
+        State: 'State',
+        City: 'City',
+        ZipCode: 'Zip Code',
+        Address: 'Address',
+        CNPJ: 'Cnpj',
+        InepCode: 'Inep Code',
+        Admnistrator: 'Administrator',
+        EMail: 'E-Mail',
+        Tokens: "Tokens",
+        Provider: 'Provider',
+        Reports: 'Reports'
+    }
+
+    return translationMap[key as keyof typeof translationMap] || key
+}
+
 export function formatDate(dataISO: string) {
     if (dataISO === "NONE") return "-"
     if (dataISO === "-") return "-"
@@ -15,7 +34,7 @@ export function formatDate(dataISO: string) {
 export function getTwoDigitsYear(dataISO: string) {
     if (dataISO === "NONE") return ""
     if (dataISO === "") return ""
-    
+
     const data = new Date(dataISO)
     const ano = data.getFullYear().toString()
     return ano.slice(2)
@@ -24,12 +43,12 @@ export function getTwoDigitsYear(dataISO: string) {
 export function getFullYear(dataISO: string) {
     if (dataISO === "NONE") return "-"
     if (dataISO === "") return ""
-    
+
     const data = new Date(dataISO)
     return data.getFullYear().toString()
 }
 
-export function getMonth(dataISO: string) {   
+export function getMonth(dataISO: string) {
     const data = new Date(dataISO)
     return data.getMonth()
 }

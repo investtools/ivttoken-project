@@ -27,7 +27,6 @@ model Schools {
     contracts                 Contracts[]
     connectivityReport        ConnectivityReport[]
     internetServiceProvider   InternetServiceProvider? @relation(fields: [internetServiceProviderId], references: [id])
-    schoolAdmin               SchoolAdmin?             @relation(fields: [schoolAdminId], references: [id])
     createdAt                 DateTime                 @default(now())
     updatedAt                 DateTime                 @updatedAt
 
@@ -39,19 +38,6 @@ model Schools {
     @@index([schoolAdminId])
 }
 
-model SchoolAdmin {
-    id                 String               @id @default(uuid())
-    name               String
-    email              String               @unique
-    role               Role
-    schools            Schools[]
-    connectivityReport ConnectivityReport[]
-    createdAt          DateTime             @default(now())
-    updatedAt          DateTime             @updatedAt
-
-    @@index([email])
-}
-
 model ConnectivityReport {
     id                     String            @id @default(uuid())
     month                  Months
@@ -60,8 +46,6 @@ model ConnectivityReport {
     averageSpeed           Int
     connectivityPercentage String
     schoolId               String
-    schoolAdminId          String
-    schoolAdmin            SchoolAdmin       @relation(fields: [schoolAdminId], references: [id])
     school                 Schools           @relation(fields: [schoolId], references: [id])
     createdAt              DateTime          @default(now())
     updatedAt              DateTime          @updatedAt

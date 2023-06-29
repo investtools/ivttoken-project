@@ -48,7 +48,7 @@ const MainTitle: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 font-bold p-8 mx-auto flex justify-between items-center text-center bg-white mt-[-100px]">
+      <div className="grid grid-cols-4 font-bold p-8 mx-auto justify-between items-center text-center bg-white mt-[-100px]">
         <div className="grid">
           <span className="text-hover text-6xl">219</span>
           <span className="text-ivtcolor2hover mt-2">{t.t("Connected Schools")}</span>

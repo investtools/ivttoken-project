@@ -12,6 +12,8 @@ import IncompleteFieldsModal from './IncompleteFieldsModal'
 import InvalidEmailModal from './InvalidEmailModal'
 import InputMask from 'react-input-mask'
 import XMark from '../icons/XMarkIcon'
+import Captcha from '../shared/Captcha'
+import CaptchaModal from './CaptchaModal'
 
 interface RegisterISPModalProps {
     closeModal: () => void
@@ -25,6 +27,8 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
     const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
     const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
     const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
+    const [captchaModalIsOpen, setCaptchaModalIsOpen] = useState(false)
+    const [verified, setVerified] = useState(false)
 
     const router = useRouter()
     const locale = router.locale === undefined ? 'en' : router.locale
@@ -33,16 +37,11 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
     const { mutate } = api.internetServiceProviders.ispToBeApproved.useMutation()
 
     const handleSubmit = (name: string, cnpj: string, email: string) => {
-        if (name && cnpj && email) {
-            if (validateEmail(email)) {
-                mutate({ name, cnpj, email })
-                setSentFormModalIsOpen(true)
-            } else {
-                setInvalidEmailIsOpen(true)
-            }
-        } else {
-            setIncompleteFieldsModalIsOpen(true)
-        }
+        if (!name || !cnpj || !email) return setIncompleteFieldsModalIsOpen(true)
+        if (validateEmail(email) === false) return setInvalidEmailIsOpen(true)
+        if (verified === false) return setCaptchaModalIsOpen(true)
+        mutate({ name, cnpj, email })
+        setSentFormModalIsOpen(true)
     }
 
     const handleCloseSentFormModal = () => {
@@ -50,10 +49,15 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
         closeModal()
     }
 
+    const handleCaptchaResponse = (response: string | null): void => {
+        if (response) {
+            setVerified(true)
+        }
+    }
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto z-40" onClose={closeModal}>
+            <Dialog as="div" className="fixed inset-0 overflow-y-auto z-40" onClose={closeModal}>
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <div className="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -77,6 +81,9 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                 )}
                                 {invalidEmailIsOpen && (
                                     <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />
+                                )}
+                                {captchaModalIsOpen && (
+                                    <CaptchaModal closeModal={() => setCaptchaModalIsOpen(false)} locale={locale} />
                                 )}
                                 <PageHeader title={t.t("Register ISP")} />
                                 <div>
@@ -138,7 +145,11 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                                 />
                                             </div>
 
-                                            <div className="flex justify-center">
+                                            <div>
+                                                <Captcha onChange={handleCaptchaResponse} />
+                                            </div>
+
+                                            <div className="flex justify-center mt-2">
                                                 <button
                                                     onClick={(event) => {
                                                         event.preventDefault()

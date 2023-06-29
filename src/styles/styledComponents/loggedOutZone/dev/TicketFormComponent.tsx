@@ -7,6 +7,8 @@ import IncompleteFieldsModal from '../../modals/IncompleteFieldsModal'
 import InvalidEmailModal from '../../modals/InvalidEmailModal'
 import { useRouter } from 'next/router'
 import { api } from '~/utils/api'
+import CaptchaModal from '../../modals/CaptchaModal'
+import Captcha from '../../shared/Captcha'
 
 type TicketFormComponentProps = {
     locale: string
@@ -20,6 +22,8 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
     const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
     const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
     const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
+    const [captchaModalIsOpen, setCaptchaModalIsOpen] = useState(false)
+    const [verified, setVerified] = useState(false)
 
     const { mutate } = api.admin.openTicket.useMutation()
 
@@ -27,21 +31,22 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
     const t = new Translate(locale)
 
     const handleSubmit = (name: string, email: string, subject: string, message: string) => {
-        if (name && email && subject && message) {
-            if (validateEmail(email)) {
-                mutate({ name, email, subject, message })
-                setSentFormModalIsOpen(true)
-            } else {
-                setInvalidEmailIsOpen(true)
-            }
-        } else {
-            setIncompleteFieldsModalIsOpen(true)
-        }
+        if (!name || !email || !subject || !message) return setIncompleteFieldsModalIsOpen(true)
+        if (validateEmail(email) === false) return setInvalidEmailIsOpen(true)
+        if (verified === false) return setCaptchaModalIsOpen(true)
+        mutate({ name, email, subject, message })
+        setSentFormModalIsOpen(true)
     }
 
     const handleCloseModal = () => {
         setSentFormModalIsOpen(false)
         void router.push('/dev')
+    }
+
+    const handleCaptchaResponse = (response: string | null): void => {
+        if (response) {
+            setVerified(true)
+        }
     }
 
     return (
@@ -54,6 +59,9 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
             )}
             {invalidEmailIsOpen && (
                 <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />
+            )}
+            {captchaModalIsOpen && (
+                <CaptchaModal closeModal={() => setCaptchaModalIsOpen(false)} locale={locale} />
             )}
             <form className="hover:scale-110 duration-500 bg-white w-full max-w-lg mx-auto mt-5 px-4 py-3 border-2 border-transparent rounded shadow hover:shadow-2xl hover:border-ivtcolor2">
                 <div>
@@ -100,7 +108,7 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
                         onChange={(e) => setSubject(e.target.value)}
                     />
                 </div>
-                <div className="mb-6">
+                <div className="mb-2">
                     <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="message">
                         {t.t("Message")}
                     </label>
@@ -112,6 +120,11 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
                         onChange={(e) => setMessage(e.target.value)}
                     />
                 </div>
+
+                <div className='flex justify-center mb-2'>
+                    <Captcha onChange={handleCaptchaResponse} />
+                </div>
+
                 <div className="flex items-center justify-center">
                     <button
                         onClick={(event) => {

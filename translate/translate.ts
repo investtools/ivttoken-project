@@ -18,6 +18,13 @@ export class Translate {
                 case "You are here!": return "Você está aqui!"
                 case "Register or Login": return "Entre ou Registre-se"
 
+                // captcha modal
+                case "CAPTCHA Verification Incomplete": return "Verificação do CAPTCHA Incompleta"
+                case "It seems like you haven't completed the CAPTCHA verification yet.": return "Parece que você ainda não completou a verificação do CAPTCHA."
+                case "This step is necessary to protect our site from spam and abusive activities.": return "Este passo é necessário para proteger nosso site de spam e atividades abusivas."
+                case "Please ensure you've successfully filled out the CAPTCHA before submitting the form.": return "Por favor, certifique-se de ter preenchido corretamente o CAPTCHA antes de enviar o formulário."
+                case "Thank you for your understanding!": return "Obrigado pela sua compreensão!"
+
                 // approve
                 case "Provider successfully approved!": return "Provedor Aprovado!"
                 case "School successfully approved!": return "Escola Aprovada!"

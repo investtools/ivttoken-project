@@ -15,6 +15,8 @@ import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 import XMark from '../icons/XMarkIcon'
 import type { inferRouterInputs } from '@trpc/server'
 import { type AppRouter } from '~/server/api/root'
+import CaptchaModal from '../modals/CaptchaModal'
+import Captcha from './Captcha'
 
 type RouterInput = inferRouterInputs<AppRouter>
 type PageMutate = RouterInput['admin']['createSchool']
@@ -41,6 +43,8 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [email, setEmail] = useState('')
   const [administrator, setAdministrator] = useState('')
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
+  const [captchaModalIsOpen, setCaptchaModalIsOpen] = useState(false)
+  const [verified, setVerified] = useState(false)
   const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
   const [AddNumberModalIsOpen, setAddNumberModalIsOpen] = useState(false)
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
@@ -58,22 +62,19 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   }, [administrator])
 
   const handleSubmit = (name: string, state: string, city: string, zipCode: string, address: string, number: number, cnpj: string, inepCode: string, email: string, administrator: string) => {
-    if (name && state && city && zipCode && address && cnpj && inepCode && email && administrator && number) {
-      if (validateEmail(email)) {
-        const inputData = { name, state, city, zipCode, address: address + ", " + String(number), cnpj, inepCode, email, administrator: String(administrator) }
+    if (!name || !state || !city || !zipCode || !address || !cnpj || !inepCode || !email || !administrator || !number) return setIncompleteFieldsModalIsOpen(true)
+    if (validateEmail(email) === false) return setInvalidEmailIsOpen(true)
 
-        if (isModal) {
-          (mutate as ModalMutateFunction)(inputData as ModalMutate)
-        } else {
-          (mutate as PageMutateFunction)(inputData as PageMutate)
-        }
-        setSentFormModalIsOpen(true)
-      } else {
-        setInvalidEmailIsOpen(true)
+    const inputData = { name, state, city, zipCode, address: address + ", " + String(number), cnpj, inepCode, email, administrator: String(administrator) }
+    if (isModal) {
+      if (verified === false) {
+        return setCaptchaModalIsOpen(true)
       }
+      (mutate as ModalMutateFunction)(inputData as ModalMutate)
     } else {
-      setIncompleteFieldsModalIsOpen(true)
+      (mutate as PageMutateFunction)(inputData as PageMutate)
     }
+    setSentFormModalIsOpen(true)
   }
 
   const fetchAddress = async (zipCode: string) => {
@@ -103,6 +104,12 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
     void router.push('/')
   }
 
+  const handleCaptchaResponse = (response: string | null): void => {
+    if (response) {
+      setVerified(true)
+    }
+  }
+
   return (
     <>
       <PageHeader title={t.t("Create School")} />
@@ -117,6 +124,9 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
       )}
       {invalidEmailIsOpen && (
         <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />
+      )}
+      {captchaModalIsOpen && (
+        <CaptchaModal closeModal={() => setCaptchaModalIsOpen(false)} locale={locale} />
       )}
       <div className="flex justify-center items-top p-5">
         <form className="bg-white p-10 rounded-lg ">
@@ -331,7 +341,14 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
               </Listbox>
             </div>
           </div>
-          <div className="flex items-center justify-center mt-6">
+
+          {isModal && (
+            <div className='flex justify-center mt-2'>
+              <Captcha onChange={handleCaptchaResponse} />
+            </div>
+          )}
+
+          <div className="flex items-center justify-center mt-4">
             <button
               onClick={(event) => {
                 event.preventDefault()

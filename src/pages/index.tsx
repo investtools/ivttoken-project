@@ -24,10 +24,8 @@ const Home: NextPage = () => {
     const userRole: Role = userInfo.data
 
     switch (userRole) {
-      case Role.SUPER_USER: void router.push('/user/super-user/dashboard'); break
       case Role.ADMIN: void router.push('/user/admin/dashboard'); break
       case Role.ISP: void router.push('/user/isp/dashboard'); break
-      case Role.SCHOOL: void router.push('/user/school-admin/dashboard'); break
     }
   }
 

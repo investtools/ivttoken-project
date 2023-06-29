@@ -74,22 +74,6 @@ async function main() {
         }
     })
 
-    const authorizeSchool = await prisma.authorizedUsers.create({
-        data: {
-            email: "ivttoken.school@gmail.com",
-            role: Role.SCHOOL,
-            adminId: admin1.id
-        }
-    })
-
-    const schoolAdmin = await prisma.schoolAdmin.create({
-        data: {
-            name: "InvestTools School Admin",
-            email: "ivttoken.school@gmail.com",
-            role: Role.SCHOOL
-        }
-    })
-
     const schoolB = await prisma.schools.create({
         data: {
             name: "Escola B",
@@ -102,7 +86,6 @@ async function main() {
             email: "escolaB@example.com",
             role: Role.SCHOOL,
             administrator: Administrators.MUNICIPALITY,
-            schoolAdminId: schoolAdmin.id, 
             tokens: "1000"
         }
     })
@@ -115,7 +98,7 @@ async function main() {
         }
     })
 
-    console.log({ schoolA, authorizeAdmin1, admin2, authorizeAdmin2, authorizeIsp, authorizeSchool, contract })
+    console.log({ schoolA, authorizeAdmin1, admin2, authorizeAdmin2, authorizeIsp, contract })
 }
 
 main()

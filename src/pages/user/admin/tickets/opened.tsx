@@ -11,6 +11,7 @@ import HomeButton from "~/styles/styledComponents/shared/HomeButton"
 import NoTicketsModal from "~/styles/styledComponents/modals/NoTickets"
 import TicketClosedModal from "~/styles/styledComponents/modals/TicketClosedModal"
 import { formatDate } from "~/utils/functions/ispFunctions"
+import SwitchTickets from "~/styles/styledComponents/shared/SwitchTicketsButton"
 
 const OpenedTickets: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -106,6 +107,7 @@ const OpenedTickets: React.FC = () => {
                 <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg mt-8">
                     <div className="flex justify-between rounded">
                         <h2 className="p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{t.t("Opened Tickets")}</h2>
+                        <SwitchTickets path={"closed"} locale={locale} />
                     </div>
                     {renderTable()}
                 </div>

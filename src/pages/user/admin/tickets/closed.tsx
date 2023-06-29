@@ -9,6 +9,7 @@ import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 import HomeButton from "~/styles/styledComponents/shared/HomeButton"
 import { formatDate } from "~/utils/functions/ispFunctions"
+import SwitchTicketsButton from "~/styles/styledComponents/shared/SwitchTicketsButton"
 
 const ClosedTickets: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -72,6 +73,7 @@ const ClosedTickets: React.FC = () => {
                 <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg mt-8">
                     <div className="flex justify-between rounded">
                         <h2 className="p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{t.t("Closed Tickets")}</h2>
+                        <SwitchTicketsButton path={"opened"} locale={locale} />
                     </div>
                     {renderTable()}
                 </div>

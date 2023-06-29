@@ -29,7 +29,7 @@ export class Translate {
 
                 // dev area
                 case "Developer": return "Desenvolvedor"
-                case "GitHub Repository": return "Repositório no Github"
+                case "GitHub Repository": return "Repositório no GitHub"
                 case "Open Ticket": return "Abrir Ticket"
                 case "Documentation": return "Documentação"
 

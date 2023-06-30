@@ -25,7 +25,7 @@ const Paginate: React.FC<PaginateProps> = ({ totalPage, itemsPerPage, currentPag
     const t = new Translate(locale)
 
     return (
-        <div className="flex justify-between items-center p-3 bg-white rounded-b">
+        <div className="flex justify-between items-center p-3 rounded-b">
             <button className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full" onClick={() => goToPage(1)} disabled={currentPage === 1}>
                 {t.t("First")}
             </button>

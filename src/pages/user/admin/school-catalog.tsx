@@ -1,7 +1,6 @@
 import { api } from "~/utils/api"
 import HomeButton from "../../../styles/styledComponents/shared/HomeButton"
 import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/shared/Loading"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import { useRouter } from "next/router"
@@ -30,9 +29,8 @@ const SchoolCatalog: React.FC = () => {
   const { data, isLoading } = api.schools.getAll.useQuery()
 
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
-  if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
-  if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
+  const loading = isAdmin.isLoading || isLoading
 
   const { goToPage, nextPage, previousPage, totalPage } = paginateData(data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
   const currentItems = data.slice(
@@ -44,7 +42,7 @@ const SchoolCatalog: React.FC = () => {
     const filteredItems = search ? data.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase())) : currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
 
     return (
-      <div className="bg-white rounded-b">
+      <div className=" rounded-b">
         <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
         <div className="overflow-x-auto">
           <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
@@ -64,7 +62,7 @@ const SchoolCatalog: React.FC = () => {
             </thead>
             <tbody>
               {filteredItems.map((school) => (
-                <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
+                <tr key={school.cnpj} className={`text-center ${loading ? "card__skeleton" : "hover:bg-gray-200"}`}>
                   <td className="p-2 border text-ivtcolor2">{school.name}</td>
                   <td className="p-2 border text-ivtcolor2">{school.state}</td>
                   <td className="p-2 border text-ivtcolor2">{school.city}</td>

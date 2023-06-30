@@ -6,6 +6,7 @@ import SchoolsRouter from '~/styles/styledComponents/loggedOutZone/dev/docs/Scho
 import LoginRouter from '~/styles/styledComponents/loggedOutZone/dev/docs/LoginRouter'
 import HeaderDevDocs from '~/styles/styledComponents/loggedOutZone/dev/docs/HeaderDevDocs'
 import ArrowUp from '~/styles/styledComponents/shared/ArrowUp'
+import Instructions from '~/styles/styledComponents/loggedOutZone/dev/docs/Instructions'
 
 const Documentation: React.FC = () => {
     return (
@@ -13,6 +14,7 @@ const Documentation: React.FC = () => {
             <HeaderDevDocs />
             <div className='space-y-10 mt-10'>
                 <Overview />
+                <Instructions />
                 <AdminRouter />
                 <SchoolsRouter />
                 <ProvidersRouter />

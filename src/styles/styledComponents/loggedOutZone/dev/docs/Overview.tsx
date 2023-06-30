@@ -52,7 +52,7 @@ const Overview: React.FC = () => {
                 <div>
                     <h2 className="text-2xl font-bold mb-2 text-ivtcolor2">{t.t("About the Project")}</h2>
                     <p className="indent font-bold">
-                        {t.t("This open-source project aims to provide a comprehensive platform for schools management. Built with modern, cutting-edge technologies, the platform provides a range of features from account management to schools approval system. It provides public and protected routes for easy integration with other services.")}
+                        {t.t("Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet. The project utilizes a blockchain - based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet. ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection. These tokens can be exchanged for tax incentives or other rewards. The project is designed to enhance educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.")}
                     </p>
                 </div>
 

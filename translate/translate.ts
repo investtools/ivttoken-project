@@ -42,6 +42,7 @@ export class Translate {
 
                 // dev docs
                 case "Overview": return "Visão Geral"
+                case "Instructions": return "Instruções"
                 case "Providers": return "Provedores"
                 case "Project Overview": return "Visão Geral do Projeto"
                 case "Technologies Used": return "Tecnologias Usadas"
@@ -49,8 +50,8 @@ export class Translate {
                 case "Testing": return "Testes"
                 case "Contributing": return "Contribuições"
                 case "About the Project": return "Sobre o Projeto"
-                case "This open-source project aims to provide a comprehensive platform for schools management. Built with modern, cutting-edge technologies, the platform provides a range of features from account management to schools approval system. It provides public and protected routes for easy integration with other services.":
-                    return "Este projeto open-source tem como objetivo fornecer uma plataforma abrangente para a gestão de escolas. Construída com tecnologias modernas e de ponta, a plataforma oferece uma série de recursos, desde a gestão de contas até o sistema de aprovação de escolas. Ela fornece rotas públicas e protegidas para fácil integração com outros serviços."
+                case "Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet. The project utilizes a blockchain - based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet. ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection. These tokens can be exchanged for tax incentives or other rewards. The project is designed to enhance educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.":
+                    return "Giga Token é um projeto de impacto social em colaboração com a UNICEF que visa reduzir a divisão digital conectando escolas carentes à internet. O projeto utiliza um token baseado em blockchain, GigaToken (GIGA), para incentivar provedores de internet (ISPs) a conectar as escolas à internet. Os ISPs podem ganhar GigaTokens conectando escolas à internet e garantindo a qualidade da conexão. Esses tokens podem ser trocados por incentivos fiscais ou outras recompensas. O projeto é pensado para melhorar as oportunidades educacionais para estudantes carentes, fornecendo acesso a recursos on - line e promovendo a inclusão digital."
                 case "We encourage contributions of all forms. Please refer to the documentation for technical details. If you have any questions or need help understanding a part of the codebase, feel free to open an ":
                     return "Incentivamos contribuições de todas as formas. Por favor, consulte a documentação para detalhes técnicos. Se você tiver alguma dúvida ou precisar de ajuda para entender uma parte do código, sinta-se à vontade para abrir uma "
                 case " or a ": return " ou um "
@@ -62,6 +63,32 @@ export class Translate {
                 case "Login Router": return "Rota Login"
                 case "Protected": return "Protegido"
                 case "Public": return "Público"
+                case "Environment Setup": return "Configuração do Ambiente"
+                case "Copy": return "Copiar"
+                case "Copied": return "Copiado"
+                case "Before you begin, you will need to install ": return "Antes de começar, você precisará instalar o "
+                case " and ": return " e o "
+                case " (which comes with Node.js) on your machine.": return " (que vem com o Node.js) em sua máquina."
+                case "Additionally, you will need to create a ": return "Além disso, você precisará criar um arquivo "
+                case " file at the root of the project with the following environment variables": return " na raiz do projeto com as seguintes variáveis de ambiente"
+                case "Fill in the fields with the appropriate information.": return "Preencha os campos com as informações apropriadas."
+                case "Installation Instructions": return "Instruções de Instalação"
+                case "Clone this repository to your local machine:": return "Clone este repositório para sua máquina local:"
+                case "Navigate to the project directory:": return "Navegue para o diretório do projeto:"
+                case "Install the project dependencies:": return "Instale as dependências do projeto:"
+                case "Prepare the local database:": return "Prepare o banco de dados local:"
+                case "Running the Project": return "Executando o Projeto"
+                case "To run the project locally, use the following command:": return "Para executar o projeto localmente, use o seguinte comando:"
+                case "The project will run on port 3000 unless you have set a different port in your .env file.": return "O projeto será executado na porta 3000, a menos que você tenha configurado uma porta diferente no seu arquivo .env."
+                case "Running the Tests": return "Executando os Testes"
+                case "To run the tests, use the following command:": return "Para executar os testes, use o seguinte comando:"
+                case "Building the Project": return "Buildando o Projeto"
+                case "To build the project for production, use the following command:": return "Para buildar projeto para produção, use o seguinte comando:"
+                case "This project uses GitHub Actions to implement a Continuous Integration/Continuous Delivery (CI/CD) pipeline. The pipeline is triggered whenever a new commit is made to the main branch. It installs dependencies, prepares the local database, runs tests, and builds the project for production.": return "Este projeto utiliza o GitHub Actions para implementar um pipeline de Integração Contínua/Entrega Contínua (CI/CD). O pipeline é acionado sempre que um novo commit é feito na branch main. Ele instala dependências, prepara o banco de dados local, executa testes e builda o projeto para produção."
+                case "Contribution": return "Contribuição"
+                case "Contributions to this project are welcome. To contribute, please fork the repository, make your changes, and submit a pull request.": return "As contribuições para este projeto são bem-vindas. Para contribuir, por favor, faça um fork do repositório, faça suas alterações e envie um pull request."
+                case "Contact": return "Contato"
+                case "If you have any questions or comments about this project, feel free to open a issue!": return "Se você tiver alguma dúvida ou comentário sobre este projeto, sinta-se à vontade para abrir uma issue!"
 
                 // login docs description
                 case "checks if the user already has an account": return "verifica se o usuário já possui uma conta"
@@ -131,7 +158,7 @@ export class Translate {
                 case "Closed At": return "Fechado Dia"
 
                 // main
-                case "Internet Service Providers": return "Provedores de Serviço de Internet"
+                case "Internet Service Providers": return "Provedores de Internet"
                 case "Connecting schools worldwide": return "Conectando escolas pelo mundo"
                 case "Schools Using Connection": return "Escolas Usando Conexão"
                 case "Benefited Students": return "Estudantes Beneficiados"
@@ -139,7 +166,7 @@ export class Translate {
                 case "Register School": return "Registrar Escola"
                 case "Register ISP": return "Registrar Provedor"
                 case "About The Project": return "Sobre o Projeto"
-                case "Project Giga Token is a blockchain initiative aimed at global connectivity. It uses a digital currency to reward ISP's for connecting schools, promoting equal internet access and enhancing educational opportunities worldwide.": return "O Projeto Giga Token é uma iniciativa de blockchain voltada para a conectividade global. Ele usa uma moeda digital para recompensar os provedores de serviços de Internet por conectar escolas, promovendo acesso igual à internet e aprimorando oportunidades educacionais em todo o mundo."
+                case "Project Giga Token is a blockchain initiative aimed at global connectivity. It uses a digital currency to reward ISP's for connecting schools, promoting equal internet access and enhancing educational opportunities worldwide.": return "O Projeto Giga Token é uma iniciativa de blockchain voltada para a conectividade global. Ele usa uma moeda digital para recompensar os provedores de Internet por conectar escolas, promovendo acesso igual à internet e aprimorando oportunidades educacionais em todo o mundo."
                 case "Diagnosis": return "Diagnóstico"
                 case "Through the Connected School Index, we ensure schools are prepared and equipped to participate in the GigaToken program.": return "Por meio do Índice Escola Conectada, garantimos que as escolas estão preparadas e equipadas para participar do programa GigaToken."
                 case "Connection": return "Conexão"
@@ -375,7 +402,7 @@ export class Translate {
 
                 // giga token title
                 case "Giga Token is a social impact project in collaboration with UNICEF that aims to bridge the digital divide by connecting underprivileged schools to the internet.": return "Giga Token é um projeto de impacto social em colaboração com a UNICEF que visa reduzir a divisão digital conectando escolas carentes à internet."
-                case "The project uses a blockchain-based token, GigaToken (GIGA), to incentivize internet service providers (ISPs) to connect schools to the internet.": return "O projeto utiliza um token baseado em blockchain, GigaToken (GIGA), para incentivar provedores de serviços de internet (ISPs) a conectar as escolas à internet."
+                case "The project uses a blockchain-based token, GigaToken (GIGA), to incentivize internet service providers (ISPs) to connect schools to the internet.": return "O projeto utiliza um token baseado em blockchain, GigaToken (GIGA), para incentivar provedores de internet (ISPs) a conectar as escolas à internet."
                 case "ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.": return "Os ISPs podem ganhar GigaTokens conectando escolas à internet e garantindo a qualidade da conexão."
                 case "These tokens can then be exchanged for tax incentives or other rewards.": return "Esses tokens podem ser trocados por incentivos fiscais ou outras recompensas."
                 case "The project is designed to improve educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.": return "O projeto é pensado para melhorar as oportunidades educacionais para estudantes carentes, fornecendo acesso a recursos on-line e promovendo a inclusão digital."

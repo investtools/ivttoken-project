@@ -1,6 +1,6 @@
 [![Test](https://github.com/investtools/ivttoken_frontend/actions/workflows/main.yml/badge.svg)](https://github.com/investtools/ivttoken_frontend/actions/workflows/main.yml) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-# GigaToken API
+# GigaToken Project
 
 Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet.  
 The project utilizes a blockchain-based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet.  
@@ -27,6 +27,7 @@ Additionally, you will need to create a `.env` file at the root of the project w
 DATABASE_URL=
 CLERK_SECRET_KEY=
 CLERK_FRONTEND_API=
+NEXT_PUBLIC_CAPTCHA_KEY=
 NEXT_PUBLIC_SLACK_CHANNEL=
 NEXT_PUBLIC_SLACK_BOT_TOKEN=
 NEXT_PUBLIC_REGISTER_ISP_URL=
@@ -34,7 +35,6 @@ NEXT_PUBLIC_REGISTER_ADMIN_URL=
 NEXT_PUBLIC_GEOLOCATION_API_KEY=
 NEXT_PUBLIC_SLACK_SIGNING_SECRET=
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL=
 ```
 Fill in the fields with the appropriate information.
 ## Installation Instructions
@@ -42,11 +42,11 @@ Fill in the fields with the appropriate information.
 To start developing, follow the instructions below:
 1. Clone this repository to your local machine:
 ```
-git clone git@github.com:investtools/ivttoken-api.git
+git clone git@github.com:investtools/ivttoken-project.git
 ```
 2. Navigate to the project directory:
 ```
-cd ivttoken-api
+cd ivttoken-project
 ```
 3. Install the project dependencies:
 ```

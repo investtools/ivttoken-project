@@ -8,7 +8,6 @@ import Pillars from "~/styles/styledComponents/loggedOutZone/Pillars"
 import Testimonials from "~/styles/styledComponents/loggedOutZone/testimonials/Testimonials"
 import Institutional from "~/styles/styledComponents/loggedOutZone/institutional/Institutional"
 import ArrowUp from "~/styles/styledComponents/shared/ArrowUp"
-import Roadmap from "~/styles/styledComponents/loggedOutZone/Roadmap"
 
 const LoggedOutZone: NextPage = () => {
   return (
@@ -38,9 +37,9 @@ const LoggedOutZone: NextPage = () => {
           <Testimonials />
         </div>
 
-        <div id='roadmap'>
+        {/* <div id='roadmap'>
           <Roadmap />
-        </div>
+        </div> */}
         <ArrowUp />
       </div>
     </>

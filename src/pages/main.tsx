@@ -36,10 +36,6 @@ const LoggedOutZone: NextPage = () => {
         <div id='testimonials' className="mb-8">
           <Testimonials />
         </div>
-
-        {/* <div id='roadmap'>
-          <Roadmap />
-        </div> */}
         <ArrowUp />
       </div>
     </>

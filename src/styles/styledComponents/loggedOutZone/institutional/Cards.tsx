@@ -28,7 +28,7 @@ const Cards: React.FC<CardsProps> = ({ path, name, description }) => {
 
   return (
     <>
-      <div className="hover:scale-110 border-4 border-transparent hover:border-hover transition duration-500 grid card-shadow grid-cols-1 rounded p-6 flex flex-col justify-between items-start transform">
+      <div className="hover:scale-110 border-4 border-transparent hover:border-hover transition duration-500 grid card-shadow grid-cols-1 rounded p-6 flex-col justify-between items-start transform">
         <div>
           <div className="border-4 border-ivtcolor2">
             <Image src={path} alt="team members pic" width={800} height={50} />

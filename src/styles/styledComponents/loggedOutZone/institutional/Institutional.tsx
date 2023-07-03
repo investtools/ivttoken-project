@@ -14,7 +14,7 @@ const Institutional: React.FC = () => {
           <span className="text-ivtcolor2 text-3xl font-bold">{t.t("Our Team")}</span>
         </div>
 
-        <div className="grid grid-cols-3 rounded-b gap-8 p-8 mx-auto flex justify-between items-start text-center bg-white items-stretch">
+        <div className="grid grid-cols-3 rounded-b gap-8 p-8 mx-auto  justify-between items-start text-center bg-white">
           <Cards name={"David Gibbin"} path={"/david.png"} description={"CEO"} />
           <Cards name={"Marco Jardim"} path={"/marco.png"} description={"Blockchain Head"} />
           <Cards name={"Murillo Lamberti"} path={"/murillo.png"} description={"Software Engineer"} />

@@ -28,7 +28,6 @@ CREATE TABLE "Schools" (
     "zipCode" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "tokens" TEXT,
-    "cnpj" TEXT NOT NULL,
     "inepCode" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "lat" TEXT,
@@ -194,16 +193,10 @@ CREATE TABLE "Tickets" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Schools_cnpj_key" ON "Schools"("cnpj");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Schools_inepCode_key" ON "Schools"("inepCode");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Schools_email_key" ON "Schools"("email");
-
--- CreateIndex
-CREATE INDEX "Schools_cnpj_idx" ON "Schools"("cnpj");
 
 -- CreateIndex
 CREATE INDEX "Schools_email_idx" ON "Schools"("email");

@@ -6,7 +6,6 @@ export interface CreateSchool {
   city: string
   zipCode: string
   address: string
-  cnpj: string
   inepCode: string
   email: string
   lat: string

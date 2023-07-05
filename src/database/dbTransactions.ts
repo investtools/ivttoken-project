@@ -2,10 +2,10 @@ import { type Benefits, Status, Role } from "@prisma/client"
 import { prisma } from "./prisma"
 import { getLatLon, mapAdministrator } from "~/utils/functions/adminFunctions"
 
-export async function approveContractTransaction(adminId: string, schoolCnpj: string, ispId: string, newTotalTokenAmount: string, newLockedTokens: string, contractId: string) {
+export async function approveContractTransaction(adminId: string, schoolEmail: string, ispId: string, newTotalTokenAmount: string, newLockedTokens: string, contractId: string) {
     const relationSchoolWithISP = prisma.schools.update({
         where: {
-            cnpj: schoolCnpj
+            email: schoolEmail
         },
         data: {
             internetServiceProviderId: ispId
@@ -131,7 +131,6 @@ export async function approveSchool(pendingSchoolId: string) {
             city: pendingSchool.city,
             zipCode: pendingSchool.zipCode,
             address: pendingSchool.address,
-            cnpj: pendingSchool.cnpj,
             inepCode: pendingSchool.inepCode,
             email: pendingSchool.email,
             lat: String(latLon?.lat),

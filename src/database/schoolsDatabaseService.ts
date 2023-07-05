@@ -50,29 +50,6 @@ export class SchoolsDatabaseService {
         })
     }
 
-    searchByCnpj(cnpj: string) {
-        return this.db.findUniqueOrThrow({
-            where: {
-                cnpj
-            },
-            include: {
-                connectivityReport: true
-            }
-        })
-    }
-
-
-    findByCnpj(cnpj: string) {
-        return this.db.findUnique({
-            where: {
-                cnpj
-            },
-            include: {
-                connectivityReport: true
-            }
-        })
-    }
-
     findById(id: string) {
         return this.db.findUniqueOrThrow({
             where: {

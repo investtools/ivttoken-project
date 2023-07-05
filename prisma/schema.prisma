@@ -15,7 +15,6 @@ model Schools {
     zipCode                   String
     address                   String
     tokens                    String?
-    cnpj                      String                   @unique
     inepCode                  String                   @unique
     email                     String                   @unique
     lat                       String?
@@ -29,7 +28,6 @@ model Schools {
     createdAt                 DateTime                 @default(now())
     updatedAt                 DateTime                 @updatedAt
 
-    @@index([cnpj])
     @@index([email])
     @@index([city])
     @@index([state])

@@ -8,8 +8,8 @@ const History: React.FC = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-ivtcolor2 via-hover to-ivtcolor2 rounded-lg flex items-center justify-center border-2 border-white">
-        <div className="text-center p-6 grid grid-cols-1 gap-5 w-1/2 bg-white">
+      <div className="md:bg-gradient-to-r from-ivtcolor2 via-hover to-ivtcolor2 rounded-lg flex items-center justify-center md:border-2 bg-transparent">
+        <div className="text-center p-6 grid gap-5 md:w-1/2 bg-white md:rounded-none rounded-lg">
           <span className="text-ivtcolor2 text-3xl font-bold">{t.t("Our History")}</span>
           <span className="text-ivtcolor2hover">{t.t("We emerged in 2007 with an ambitious goal.")}</span>
           <span className="text-ivtcolor2hover">{t.t("We are a company focused on the best technology solutions for the financial market, operating with excellence in service and with a high level of technological innovation.")}</span>

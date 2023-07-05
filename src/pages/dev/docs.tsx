@@ -12,7 +12,7 @@ const Documentation: React.FC = () => {
     return (
         <>
             <HeaderDevDocs />
-            <div className='space-y-10 mt-10'>
+            <div className='space-y-10 md:mt-10 mt-24'>
                 <Overview />
                 <Instructions />
                 <AdminRouter />

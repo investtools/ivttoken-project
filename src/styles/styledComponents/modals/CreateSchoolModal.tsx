@@ -26,7 +26,7 @@ function CreateSchoolModal({ closeModal }: CreateSchoolModalProps) {
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95">
-                        <div className="inline-block align-bottom bg-transparent px-4 pt-5 pb-4 text-left overflow-hidden  transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        <div className="md:mt-6 mt-20 inline-block align-bottom bg-transparent px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <CreateSchoolComponent isModal={true} mutate={mutate} closeModal={closeModal} />
                         </div>
                     </Transition.Child>

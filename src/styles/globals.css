@@ -26,20 +26,7 @@ body {
 .bg-main {
   position: relative;
   background-image: url('/children.png');
-  background-repeat: no-repeat;
   background-size: cover;
-  background-position: center -100px;
-}
-
-.blur-background {
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(5px);
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
 }
 
 ::-webkit-scrollbar {

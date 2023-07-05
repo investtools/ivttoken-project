@@ -129,7 +129,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
         <CaptchaModal closeModal={() => setCaptchaModalIsOpen(false)} locale={locale} />
       )}
       <div className="flex justify-center items-top p-5">
-        <form className="bg-white p-10 rounded-lg ">
+        <form className="bg-white p-10 rounded-lg">
           {isModal &&
             (<div className="flex justify-end">
               <button
@@ -366,7 +366,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
                 )
               }}
               type="submit"
-              className="w-1/2 border border-transparent shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation">
+              className="whitespace-nowrap md:w-1/2 border border-transparent shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation">
               <span className="flex items-center justify-center">
                 {t.t("Create School")}
                 <SendIcon />

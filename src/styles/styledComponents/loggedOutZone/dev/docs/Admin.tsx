@@ -10,8 +10,8 @@ const AdminRouter: React.FC = () => {
 
     return (
         <div id="admin" className="border-2 border-ivtcolor2 p-8 max-w-6xl mx-auto bg-white rounded-2xl">
-            <h1 className="text-4xl font-bold mb-6 text-ivtcolor2">{t.t("Administrator Router")}</h1>
-            <div className='grid grid-cols-3 gap-8'>
+            <h1 className="md:text-4xl text-3xl font-bold mb-6 text-ivtcolor2">{t.t("Administrator Router")}</h1>
+            <div className='grid md:grid-cols-3 gap-8'>
                 <RouterDocumentation title={'getOpenedTickets'} description={'get all opened tickets'} requestType={'Query'} procedure={'Protected'} input={''} output={'Array of tickets'} />
                 <RouterDocumentation title={'getClosedTickets'} description={'get all closed tickets'} requestType={'Query'} procedure={'Protected'} input={''} output={'Array of tickets'} />
                 <RouterDocumentation title={'openTicket'} description={'opens a ticket'} requestType={'Mutation'} procedure={'Public'} input={'Name, Email, Subject, Message'} output={''} />

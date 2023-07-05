@@ -29,7 +29,7 @@ const Overview: React.FC = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-xl font-bold text-ivtcolor2">{t.t("Database")}</h3>
+                        <h3 className="text-xl font-bold text-ivtcolor2">Database</h3>
                         <ul className="list-disc pl-5">
                             <li className='text-hover font-extrabold transform transition duration-500 ease-in-out hover:scale-110 w-fit'><a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">PostgreSQL</a></li>
                             <li className='text-hover font-extrabold transform transition duration-500 ease-in-out hover:scale-110 w-fit'><a href="https://www.prisma.io/" target="_blank" rel="noreferrer">Prisma</a></li>

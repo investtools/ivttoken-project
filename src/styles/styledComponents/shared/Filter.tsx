@@ -31,8 +31,8 @@ const Filter: React.FC<FilterProps> = ({ filterOption, setFilterOption, search, 
     const options = ['name', 'state', 'city', 'zipCode']
 
     return (
-        <div className="flex justify-between mb-2 text-ivtcolor2 font-bold">
-            <div className="flex justify-center items-center">
+        <div className="md:flex md:justify-between mb-2 text-ivtcolor2 font-bold grid gap-2">
+            <div className="flex justify-start items-center">
                 <label htmlFor="filter" className="ml-2 mr-2">{t.t("Filter by:")}</label>
                 <Listbox value={filterOption} onChange={setFilterOption}>
                     <div className="relative">
@@ -66,8 +66,8 @@ const Filter: React.FC<FilterProps> = ({ filterOption, setFilterOption, search, 
                 </Listbox>
             </div>
 
-            <div className="flex items-center justify-center">
-                <label htmlFor="search" className="mr-2">{t.t("Search:")}</label>
+            <div className="flex items-center justify-start">
+                <label htmlFor="search" className="ml-2 mr-2">{t.t("Search:")}</label>
                 <div className="relative">
                     <input className="rounded-full border p-1 focus:outline-none focus:ring focus:ring-ivtcolor hover:drop-shadow-xl mr-2 pl-8" placeholder={t.t(mapFilterOption(filterOption))} id="search" type="text" value={search} onChange={e => setSearch(e.target.value)} />
                     <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none ">

@@ -25,22 +25,22 @@ const Paginate: React.FC<PaginateProps> = ({ totalPage, itemsPerPage, currentPag
     const t = new Translate(locale)
 
     return (
-        <div className="flex justify-between items-center p-3 rounded-b">
-            <button className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full" onClick={() => goToPage(1)} disabled={currentPage === 1}>
+        <div className="md:flex md:justify-between items-center p-3 rounded-b flex-row grid md:grid-cols-1 grid-cols-2 gap-2">
+            <button className="md:order-1 order-5 bg-ivtcolor hover:bg-hover text-white font-bold md:py-2 md:px-4 py-1 px-2 rounded-full" onClick={() => goToPage(1)} disabled={currentPage === 1}>
                 {t.t("First")}
             </button>
 
-            <button className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full" onClick={previousPage} disabled={currentPage === 1}>
+            <button className="md:order-2 order-3 bg-ivtcolor hover:bg-hover text-white font-bold md:py-2 md:px-4 py-1 px-2 rounded-full" onClick={previousPage} disabled={currentPage === 1}>
                 {t.t("Previous")}
             </button>
 
-            <span className="text-ivtcolor2 font-bold">{"-"} {t.t("Page")} {currentPage} {t.t("of")} {totalPage} {"-"}</span>
+            <span className="text-ivtcolor2 font-bold text-center order-1 md:order-3 md:text-base text-sm">- {t.t("Page")} {currentPage} {t.t("of")} {totalPage} -</span>
 
-            <div>
+            <div className="text-center md:order-4 order-2">
                 <Listbox value={itemsPerPage} onChange={handleItemsPerPageChange}>
                     <Listbox.Button className="rounded-full p-2 text-ivtcolor2 font-bold">
                         <div className="flex justify-between">
-                            <span>{itemsPerPage} {t.t("items per page")}</span>
+                            <span className="md:text-base text-sm">{itemsPerPage} {t.t("items per page")}</span>
                             <ChevronUpDownIcon className="w-5 h-5 text-gray-400 mt-[3px]" aria-hidden="true" />
                         </div>
                     </Listbox.Button>
@@ -75,11 +75,11 @@ const Paginate: React.FC<PaginateProps> = ({ totalPage, itemsPerPage, currentPag
                 </Listbox>
             </div>
 
-            <button className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full" onClick={nextPage} disabled={currentPage === totalPage}>
+            <button className="md:order-5 order-4 bg-ivtcolor hover:bg-hover text-white font-bold md:py-2 md:px-4 py-1 px-2 rounded-full" onClick={nextPage} disabled={currentPage === totalPage}>
                 {t.t("Next")}
             </button>
 
-            <button className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full" onClick={() => goToPage(totalPage)} disabled={currentPage === totalPage}>
+            <button className="order-6 bg-ivtcolor hover:bg-hover text-white font-bold md:py-2 md:px-4 py-1 px-2 rounded-full" onClick={() => goToPage(totalPage)} disabled={currentPage === totalPage}>
                 {t.t("Last")}
             </button>
         </div>

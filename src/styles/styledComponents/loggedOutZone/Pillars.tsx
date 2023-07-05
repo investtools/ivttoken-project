@@ -14,7 +14,7 @@ const Pillars: React.FC = () => {
           <span className="text-ivtcolor2 text-3xl font-bold">{t.t("Our Pillars")}</span>
         </div>
 
-        <div className="grid grid-cols-4 rounded-b gap-8 p-8 mx-auto justify-between text-center bg-white items-stretch">
+        <div className="grid md:grid-cols-4 rounded-b gap-8 p-8 mx-auto justify-between text-center bg-white items-stretch">
           <Cards title={"Purpose"} description={"We drive societal transformation through connectivity."} path={"M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"} />
           <Cards title={"Mission"} description={"To connect people to quality internet to make world a place with more opportunities for all through education."} path={"M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5"} />
           <Cards title={"Vision"} description={"A world where all people, regardless of gender, ethnicity or social class, have access to inclusive, connected, equitable, and quality education."} path={"M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z M15 12a3 3 0 11-6 0 3 3 0 016 0z"} />

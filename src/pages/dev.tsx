@@ -20,8 +20,8 @@ const DevDashboard: NextPage = () => {
         <>
             <PageHeader title={t.t("Developer")} />
             <NoNavbarHeader dev={true} />
-            <main className="flex justify-center items-center mt-12 ">
-                <div className="w-full max-w-3xl p-6 flex flex-col items-center space-y-4">
+            <main className="flex justify-center items-center">
+                <div className="w-full max-w-3xl p-6 flex flex-col items-center space-y-4 mt-14">
                     <GigaTokenTitle locale={locale} />
                     <div className="grid grid-cols-2 gap-4 w-full">
                         <DashboardButtonLeft title={t.t("Open Ticket")} link={"dev/open-ticket"} RightIcon={TicketIcon} />

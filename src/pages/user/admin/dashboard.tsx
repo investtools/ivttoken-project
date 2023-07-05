@@ -37,7 +37,7 @@ const AdminDashboard: NextPage = () => {
       <main className="flex justify-center items-center mt-12">
         <div className="w-full max-w-3xl p-6 flex flex-col items-center space-y-4">
           <GigaTokenTitle locale={locale} />
-          <div className="grid grid-cols-3 gap-4 w-full">
+          <div className="grid md:grid-cols-3 grid-cols-2 gap-4 w-full">
             <DashboardButtonLeft title={t.t("Create School")} link={"create-school"} RightIcon={SchoolIcon} />
             <DashboardButtonRight title={t.t("School Catalog")} link={"school-catalog"} RightIcon={TableIcon} />
             <DashboardButtonLeft title={t.t("Connectivity Reports")} link={"connectivity-reports"} RightIcon={ConnectivityIcon} />

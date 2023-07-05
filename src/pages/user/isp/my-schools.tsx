@@ -75,8 +75,8 @@ const ISPSchools: React.FC = () => {
       <div className="p-8">
         <HomeButton />
         <div className="mt-8" />
-        <div className="shadow bg-white border-b border-gray-200 sm:rounded-lg">
-          <h2 className="bg-white p-2 rounded-t  text-ivtcolor2 font-bold text-2xl">{t.t("My Schools")}</h2>
+        <div className="shadow bg-white border-b border-gray-200 rounded-lg">
+          <h2 className="bg-white p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{t.t("My Schools")}</h2>
           <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
           <div className="overflow-x-auto">
             <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">

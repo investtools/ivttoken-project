@@ -70,7 +70,7 @@ const ClosedTickets: React.FC = () => {
             <PageHeader title={t.t("Closed Tickets")} />
             <div className="p-8">
                 <HomeButton />
-                <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg mt-8">
+                <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">
                     <div className="flex justify-between rounded">
                         <h2 className="p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{t.t("Closed Tickets")}</h2>
                         <SwitchTicketsButton path={"opened"} locale={locale} />

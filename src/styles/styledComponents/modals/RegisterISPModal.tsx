@@ -86,7 +86,7 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                     <CaptchaModal closeModal={() => setCaptchaModalIsOpen(false)} locale={locale} />
                                 )}
                                 <PageHeader title={t.t("Register ISP")} />
-                                <div>
+                                <div className='md:mt-0 mt-20'>
                                     <div className="flex justify-center items-top p-5">
                                         <form className="bg-white p-10 rounded-lg shadow-md">
                                             <div className="flex justify-end mb-4">

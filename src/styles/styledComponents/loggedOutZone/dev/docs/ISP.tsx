@@ -9,8 +9,8 @@ const ProvidersRouter: React.FC = () => {
 
   return (
     <div id="providers" className="border-2 border-ivtcolor2 p-8 max-w-6xl mx-auto bg-white rounded-2xl">
-      <h1 className="text-4xl font-bold mb-6 text-ivtcolor2">{t.t("Internet Service Providers Router")}</h1>
-      <div className='grid grid-cols-3 gap-8'>
+      <h1 className="md:text-4xl text-3xl font-bold mb-6 text-ivtcolor2">{t.t("Internet Service Providers Router")}</h1>
+      <div className='grid md:grid-cols-3 gap-8'>
         <RouterDocumentation title={'getIspToBeApproved'} description={'retrieves all ISPs waiting for approval'} requestType={'Query'} procedure={'Protected'} input={''} output={'Array of ISP to be approved'} />
         <RouterDocumentation title={'ispToBeApproved'} description={'creates a request for ISP approval'} requestType={'Mutation'} procedure={'Public'} input={'Name, CNPJ, Email'} output={''} />
         <RouterDocumentation title={'isIsp'} description={'checks if the user is an ISP'} requestType={'Query'} procedure={'Protected'} input={''} output={'Boolean'} />

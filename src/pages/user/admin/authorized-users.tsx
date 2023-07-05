@@ -45,10 +45,10 @@ const AuthorizedUsers: React.FC = () => {
         <HomeButton />
         <div className="mt-8">
         </div>
-        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <h2 className="bg-white p-2 border-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("Authorized Users")}</h2>
+        <div className="bg-white shadow overflow-hidden border-b border-gray-200 rounded-lg">
+          <h2 className="p-2 border-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("Authorized Users")}</h2>
           <div className="overflow-x-auto">
-            <table className="w-9/10 mx-auto min-w-full divide-y divide-gray-200">
+            <table className="mx-auto min-w-full divide-y divide-gray-200">
               <thead>
                 <tr className="text-center bg-gray-200">
                   <th className="p-2 border text-ivtcolor2">{t.t("E-mail")}</th>
@@ -60,7 +60,7 @@ const AuthorizedUsers: React.FC = () => {
               </thead>
               <tbody>
                 {currentItems.map((authorizedUser) => (
-                  <tr key={authorizedUser.id} className="bg-white text-center hover:bg-gray-200">
+                  <tr key={authorizedUser.id} className="text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{authorizedUser.email}</td>
                     <td className="p-2 border text-ivtcolor2">{t.t(mapUserRole(authorizedUser.role))}</td>
                     <td className="p-2 border text-ivtcolor2">{authorizedUser.adminName}</td>

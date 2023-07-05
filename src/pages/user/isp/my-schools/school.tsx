@@ -86,10 +86,10 @@ const SchoolReports: React.FC = () => {
         <HomeButton />
         <div className="mt-8">
           <ConnectivityChart locale={locale} data={connectivityReports.data} />
-          <div className="bg-white p-2 rounded-t text-ivtcolor2 font-bold text-2xl flex justify-between">
-            <div className="flex-1 text-left">{t.t("Connectivity Reports")}</div>
-            <div className="flex-1 text-center">{schoolName.data}</div>
-            <div className="flex-1 text-right">{cnpj}</div>
+          <div className="bg-white p-2 rounded-t text-ivtcolor2 font-bold text-2xl md:flex md:justify-between">
+            <div className="flex-1 md:text-left">{t.t("Connectivity Reports")}</div>
+            <div className="flex-1 md:text-center">{schoolName.data}</div>
+            <div className="flex-1 md:text-right">{cnpj}</div>
           </div>
           <div className="bg-white rounded-b">
             {renderReports()}

@@ -63,7 +63,7 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
             {captchaModalIsOpen && (
                 <CaptchaModal closeModal={() => setCaptchaModalIsOpen(false)} locale={locale} />
             )}
-            <form className="hover:scale-110 duration-500 bg-white w-full max-w-lg mx-auto mt-5 px-4 py-3 border-2 border-transparent rounded shadow hover:shadow-2xl hover:border-ivtcolor2">
+            <form className="hover:scale-110 duration-500 bg-white md:w-full max-w-lg mx-auto mt-5 px-4 py-3 border-2 border-transparent rounded shadow hover:shadow-2xl hover:border-ivtcolor2">
                 <div>
                     <span className='text-2xl justify-center flex text-ivtcolor2 p-2 font-extrabold'>
                         {t.t("Open Ticket")}

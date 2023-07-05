@@ -98,7 +98,7 @@ const Benefits: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mt-8 max-w-6xl">
+        <div className="shadow overflow-hidden border-b border-gray-200 rounded mt-8 max-w-6xl">
           <div className="overflow-x-auto">
             <table className="mx-auto min-w-full divide-y divide-gray-200">
               <thead>

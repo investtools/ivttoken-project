@@ -49,17 +49,17 @@ const CopyToClipboardComponent: React.FC<CopyToClipboardComponentProps> = ({ cop
     const textToCopy = toCopy()
 
     return (
-        <div className="relative">
-            <pre className="bg-gray-200 rounded p-2 mt-2 relative">
+        <div className="relative bg-gray-200 rounded p-2 mt-2">
+            <pre className="whitespace-normal md:whitespace-pre break-words overflow-auto m-0 md:text-base text-sm">
                 {textToCopy}
-                <CopyToClipboard text={String(textToCopy)} onCopy={handleCopy}>
-                    <button className="flex absolute top-0 right-0 bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-3 rounded">
-                        {isCopied ? <CheckIcon /> : <CopyIcon />
-                        }
-                    </button>
-                </CopyToClipboard>
             </pre>
+            <CopyToClipboard text={String(textToCopy)} onCopy={handleCopy}>
+                <button className="flex absolute top-0 right-0 bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-3 rounded">
+                    {isCopied ? <CheckIcon /> : <CopyIcon />}
+                </button>
+            </CopyToClipboard>
         </div>
+
     )
 }
 

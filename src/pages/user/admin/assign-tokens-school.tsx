@@ -80,7 +80,7 @@ const AssignTokensSchool: React.FC = () => {
         <HomeButton />
         <div className="mt-8">
         </div>
-        <div className="shadow bg-white border-b border-gray-200 sm:rounded-lg">
+        <div className="shadow bg-white border-b border-gray-200 rounded-lg">
           <h2 className="p-2 rounded-t drop-shadow-lg text-ivtcolor2 font-bold text-2xl">{t.t("Schools Without Tokens")}</h2>
           <Filter filterOption={filterOption} setFilterOption={setFilterOption} search={search} setSearch={setSearch} />
           <div className="overflow-x-auto">

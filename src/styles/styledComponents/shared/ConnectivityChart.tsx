@@ -47,7 +47,7 @@ const ConnectivityChart: React.FC<ConnectivityChartProps> = ({ locale, data }) =
     }
 
     const renderLegend = () => (
-        <div className='bg-white p-2 rounded drop-shadow-lg text-ivtcolor2 font-bold text-2xl mt-4 mb-4 w-1/4'>
+        <div className='bg-white p-2 rounded drop-shadow-lg text-ivtcolor2 font-bold text-2xl mt-4 mb-4 md:w-1/4 ml-2 md:ml-0'>
             <div className='flex justify-center mb-2'>{t.t("Connection Quality")} </div>
             <div className="flex justify-between ">
                 <div className="flex items-center">

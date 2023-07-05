@@ -9,8 +9,8 @@ const SchoolsRouter: React.FC = () => {
 
     return (
         <div id="schools" className="border-2 border-ivtcolor2 p-8 max-w-6xl mx-auto bg-white rounded-2xl">
-            <h1 className="text-4xl font-bold mb-6 text-ivtcolor2">{t.t("Schools Router")}</h1>
-            <div className='grid grid-cols-3 gap-8'>
+            <h1 className="md:text-4xl text-3xl font-bold mb-6 text-ivtcolor2">{t.t("Schools Router")}</h1>
+            <div className='grid md:grid-cols-3 gap-8'>
                 <RouterDocumentation title={'getSchoolsToBeApproved'} description={'fetches the list of schools to be approved'} requestType={'Query'} procedure={'Public'} input={''} output={'Array of schools'} />
                 <RouterDocumentation title={'schoolToBeApproved'} description={'creates a new school to be approved by admin'} requestType={'Mutation'} procedure={'Public'} input={'Name, State, City, Zip Code, Address, CNPJ, Inep Code, Email, Administrator'} output={''} />
                 <RouterDocumentation title={'getLatLon'} description={'fetches the latitude and longitude of the input'} requestType={'Query'} procedure={'Public'} input={'City, State'} output={'Lat and lon'} />

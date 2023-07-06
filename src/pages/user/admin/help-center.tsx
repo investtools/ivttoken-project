@@ -1,6 +1,3 @@
-import { api } from "~/utils/api"
-import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
-import LoadingComponent from "~/styles/styledComponents/shared/Loading"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
@@ -15,14 +12,6 @@ const HelpCenter: React.FC = () => {
     const router = useRouter()
     const locale = router.locale === undefined ? 'en' : router.locale
     const t = new Translate(locale)
-
-    const isAdmin = api.admin.isAdmin.useQuery()
-    const { data, isLoading } = api.admin.getClosedTickets.useQuery()
-
-    if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
-    if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
-    if (isLoading) return <LoadingComponent locale={locale} />
-    if (!data) return <ErrorMessageComponent locale={locale} />
 
     return (
         <>

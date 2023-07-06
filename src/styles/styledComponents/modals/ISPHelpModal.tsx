@@ -25,14 +25,13 @@ export default function ISPHelpModal({ closeModal, locale }: ISPHelpModalProps) 
     setSentFormModalIsOpen(true)
   }
 
+  const handleCloseSentFormModal = () => {
+    setSentFormModalIsOpen(false)
+    closeModal()
+}
+
   return (
     <>
-      {sentFormModalIsOpen && (
-        <FormSentModal closeModal={() => setSentFormModalIsOpen(false)} locale={locale} />
-      )}
-      {incompleteFieldsModalIsOpen && (
-        <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
-      )}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-40" onClose={closeModal}>
           <Transition.Child
@@ -59,6 +58,12 @@ export default function ISPHelpModal({ closeModal, locale }: ISPHelpModalProps) 
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="hover:scale-110 duration-500 hover:shadow-2xl hover:border-ivtcolor2 hover:border-2 w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  {sentFormModalIsOpen && (
+                    <FormSentModal closeModal={handleCloseSentFormModal} locale={locale} />
+                  )}
+                  {incompleteFieldsModalIsOpen && (
+                    <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
+                  )}
                   <div className="flex justify-between items-center">
                     <Dialog.Title as="h3" className="font-extrabold text-2xl leading-6 text-ivtcolor2">
                       {t.t("Needing Help?")}

@@ -51,6 +51,31 @@ export const adminRouter = createTRPCRouter({
     }
   }),
 
+  getClosedHelps: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+    const helps = await prisma.helpProviders.findMany({
+      where: {
+        isOpen: false
+      }
+    })
+
+    if (helps.length > 0) {
+      return helps
+    } else {
+      return [{
+        name: "-",
+        email: "-",
+        cnpj: "-",
+        subject: "-",
+        message: "-",
+        id: "-",
+        updatedAt: "-"
+      }]
+    }
+  }),
+
   getOpenedTickets: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })

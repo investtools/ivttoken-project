@@ -18,6 +18,13 @@ export class Translate {
                 case "You are here!": return "Você está aqui!"
                 case "Register or Login": return "Entre ou Registre-se"
 
+                // isp help
+                case "Opened Help": return "Ajudas em Aberto"
+                case "Closed Help": return "Ajudas Fechadas"
+                case "Help Closed!": return "Ajuda Fechada!"
+                case "Oops! There is nothing to do here...": return "Opa! Não há nada para fazer aqui..."
+                case "This help has been successfully closed.": return "Esta ajuda foi fechada com sucesso."
+
                 // captcha modal
                 case "CAPTCHA Verification Incomplete": return "Verificação do CAPTCHA Incompleta"
                 case "It seems like you haven't completed the CAPTCHA verification yet.": return "Parece que você ainda não completou a verificação do CAPTCHA."

@@ -158,7 +158,7 @@ const ApproveISP: React.FC = () => {
   return (
     <>
       {deniedModalIsOpen && (
-        <DenyModal title={"isp"} closeModal={() => setDeniedModalIsOpen(false)} locale={locale} />
+        <DenyModal title={"school"} closeModal={() => setDeniedModalIsOpen(false)} locale={locale} />
       )}
       {approvedModalIsOpen && (
         <ApprovedModal title={"school"} closeModal={() => setApprovedModalIsOpen(false)} locale={locale} />

@@ -3,7 +3,7 @@ import { Entity, Role, Status } from "@prisma/client"
 import { TRPCError } from "@trpc/server"
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
 import { getLatLon, mapAdministrator, mapRole, maskPrivateKey } from "~/utils/functions/adminFunctions"
-import { approveContractTransaction, approveSchool, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
+import { approveContractTransaction, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
 import { signTransaction } from "~/utils/functions/signTransaction/signTransaction"
 import { prisma } from "~/database/prisma"
 import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
@@ -171,7 +171,40 @@ export const adminRouter = createTRPCRouter({
       const email = ctx.user?.emailAddresses[0]?.emailAddress
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-      return await approveSchool(input.schoolId)
+      const pendingSchool = await prisma.schoolsToBeApproved.findFirstOrThrow({
+        where: {
+          id:
+            input.schoolId
+        }
+      })
+
+      const latLon = await getLatLon(pendingSchool.city, pendingSchool.state, String(pendingSchool.address.split(',')[0]))
+      const administrator = mapAdministrator(pendingSchool.administrator)
+
+      await prisma.schoolsToBeApproved.update({
+        where: {
+          id: input.schoolId
+        },
+        data: {
+          deletedAt: new Date()
+        }
+      })
+
+      await prisma.schools.create({
+        data: {
+          name: pendingSchool.name,
+          state: pendingSchool.state,
+          city: pendingSchool.city,
+          zipCode: pendingSchool.zipCode,
+          address: pendingSchool.address,
+          inepCode: pendingSchool.inepCode,
+          email: pendingSchool.email,
+          lat: String(latLon?.lat),
+          lon: String(latLon?.lon),
+          role: Role.SCHOOL,
+          administrator: administrator
+        }
+      })
     }),
 
   denySchool: protectedProcedure.input(

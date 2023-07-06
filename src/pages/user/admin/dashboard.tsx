@@ -19,6 +19,7 @@ import DashboardButtonLeft from "~/styles/styledComponents/shared/DashboardButto
 import DashboardButtonRight from "~/styles/styledComponents/shared/DashboardButtonRight"
 import ApproveUserIcon from "~/styles/styledComponents/icons/ApproveUserIcon"
 import TicketIcon from "~/styles/styledComponents/icons/TicketIcon"
+import HelpCenterIcon from "~/styles/styledComponents/icons/HelpCenterIcon"
 
 const AdminDashboard: NextPage = () => {
   const isAdmin = api.admin.isAdmin.useQuery()
@@ -49,6 +50,7 @@ const AdminDashboard: NextPage = () => {
             <DashboardButtonLeft title={t.t("Approve School")} link={"approve/school"} RightIcon={ApproveSchoolIcon} />
             <DashboardButtonRight title={t.t("Approve Provider")} link={"approve/isp"} RightIcon={ApproveUserIcon} />
             <DashboardButtonLeft title={t.t("Opened Tickets")} link={"tickets"} RightIcon={TicketIcon} />
+            <DashboardButtonRight title={t.t("Help Center")} link={"help-center"} RightIcon={HelpCenterIcon} />
           </div>
         </div>
       </main>

@@ -12,6 +12,7 @@ import { useRouter } from "next/router"
 import { isPublicPath } from "~/utils/functions/sharedFunctions"
 import { Translate } from "translate/translate"
 import AccessDeniedComponent from "~/styles/styledComponents/shared/AccessDenied"
+import HelpComponent from "~/styles/styledComponents/shared/HelpComponent"
 
 const App: AppType = ({ Component, pageProps }) => {
   const isIsp = (api.internetServiceProviders.isIsp.useQuery()).data
@@ -54,6 +55,7 @@ const App: AppType = ({ Component, pageProps }) => {
                   <SwitchLanguage />
                   <BrazilIcon />
                 </div>
+                  {isIsp && <HelpComponent locale={locale} />}
               </div>
             </div>
             {isPathPublic ? (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} pathName={router.pathname} />) : (<Component {...pageProps} />)}

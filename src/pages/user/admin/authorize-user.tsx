@@ -58,7 +58,7 @@ const AuthorizeUser: NextPage = () => {
     <>
       <PageHeader title={t.t("Authorize User")} />
       {incompleteFieldsModalIsOpen && (
-        <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
+        <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
       )}
       {FormSentModalIsOpen && (
         <FormSentModal closeModal={() => setFormSentModalIsOpen(false)} locale={locale} />
@@ -143,7 +143,7 @@ const AuthorizeUser: NextPage = () => {
                     handleSubmit(email, selected)
                   }
                 }}
-                className="border border-transparent shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
+                className="border border-transparent shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation"
               >
                 <span className="flex items-center">
                   {t.t("Authorize User")}

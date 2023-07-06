@@ -77,7 +77,7 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                     <FormSentModal closeModal={handleCloseSentFormModal} locale={locale} />
                                 )}
                                 {incompleteFieldsModalIsOpen && (
-                                    <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
+                                    <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
                                 )}
                                 {invalidEmailIsOpen && (
                                     <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />

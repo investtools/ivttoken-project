@@ -110,7 +110,7 @@ const SchoolCatalog: React.FC = () => {
   return (
     <>
       {incompleteFieldsModalIsOpen && (
-        <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
+        <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
       )}
       <PageHeader title={t.t("School Catalog")} />
       <div className="p-8">

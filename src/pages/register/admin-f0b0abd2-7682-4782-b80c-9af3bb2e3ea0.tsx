@@ -61,7 +61,7 @@ const RegisterAdmin: React.FC = () => {
         <FormSentModal closeModal={() => setSentFormModalIsOpen(false)} locale={locale} />
       )}
       {incompleteFieldsModalIsOpen && (
-        <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
+        <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
       )}
       {userHasAccount.data ? (
         <ErrorMessageComponent locale={locale} />

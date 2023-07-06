@@ -3,11 +3,11 @@ import { Fragment, useState } from 'react'
 import { Translate } from "translate/translate";
 
 interface IncompleteFieldsModalProps {
-  closeModal: () => void;
+  closeIncompleteFieldModal: () => void;
   locale: string
 }
 
-export default function IncompleteFieldsModal({ closeModal, locale }: IncompleteFieldsModalProps) {
+export default function IncompleteFieldsModal({ closeIncompleteFieldModal: closeModal, locale }: IncompleteFieldsModalProps) {
   const [isOpen] = useState(true)
   const t = new Translate(locale)
 

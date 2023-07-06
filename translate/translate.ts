@@ -142,6 +142,7 @@ export class Translate {
                 case "gets all schools associated with the ISP": return "obtém todas as escolas associadas ao ISP"
 
                 // dev open ticket
+                case "Needing Help?": return "Precisa de Ajuda?"
                 case "Send": return "Enviar"
                 case "Your Name": return "Seu Nome"
                 case "Your E-Mail": return "Seu E-Mail"
@@ -280,6 +281,7 @@ export class Translate {
                 case "Proceed with contract": return "Continuar com o contrato"
 
                 // admin context
+                case "Help Center": return "Central de Ajuda"
                 case "Providers To Approve": return "Provedores Para Aprovar"
                 case "Schools To Approve": return "Escolas Para Aprovar"
                 case "Approve School": return "Aprovar Escola"

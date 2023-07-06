@@ -8,7 +8,6 @@ import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import InputMask from 'react-input-mask'
 import { validateEmail, type ViaCEPAddress } from "~/utils/functions/adminFunctions"
-import AddNumberModal from "~/styles/styledComponents/modals/AddNumberModal"
 import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModal"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
@@ -45,7 +44,6 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [captchaModalIsOpen, setCaptchaModalIsOpen] = useState(false)
   const [verified, setVerified] = useState(false)
   const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
-  const [AddNumberModalIsOpen, setAddNumberModalIsOpen] = useState(false)
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
   const [optionsWidth, setOptionsWidth] = useState(0)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -116,10 +114,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
         <FormSentModal closeModal={isModal ? handleCloseModal : handleSent} locale={locale} />
       )}
       {incompleteFieldsModalIsOpen && (
-        <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
-      )}
-      {AddNumberModalIsOpen && (
-        <AddNumberModal closeModal={() => setAddNumberModalIsOpen(false)} locale={locale} />
+        <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
       )}
       {invalidEmailIsOpen && (
         <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />

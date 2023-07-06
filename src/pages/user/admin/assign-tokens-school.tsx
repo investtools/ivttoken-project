@@ -78,7 +78,7 @@ const AssignTokensSchool: React.FC = () => {
         <FormSentModal closeModal={refresh} locale={locale} />
       )}
       {incompleteFieldsModalIsOpen && (
-        <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
+        <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
       )}
       <PageHeader title={t.t("Assign Tokens")} />
       <div className="p-8">

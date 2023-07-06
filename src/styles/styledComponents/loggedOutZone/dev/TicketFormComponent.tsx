@@ -55,7 +55,7 @@ const TicketFormComponent: React.FC<TicketFormComponentProps> = ({ locale }) => 
                 <FormSentModal closeModal={handleCloseModal} locale={locale} />
             )}
             {incompleteFieldsModalIsOpen && (
-                <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
+                <IncompleteFieldsModal closeIncompleteFieldModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
             )}
             {invalidEmailIsOpen && (
                 <InvalidEmailModal closeModal={() => setInvalidEmailIsOpen(false)} locale={locale} />

@@ -1,6 +1,6 @@
 import { Administrators, Role } from "@prisma/client"
 import axios from "axios"
-import { type GeocodeMapsResponse, type OpenWeatherResponse } from "~/service/schools/interfaces/interfaces"
+import { type GeocodeMapsResponse, type OpenWeatherResponse } from "~/service/types"
 
 export function validateEmail(email: string) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

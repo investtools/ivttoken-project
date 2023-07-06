@@ -38,7 +38,6 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [zipCode, setZipCode] = useState('')
   const [address, setAddress] = useState('')
   const [number, setNumber] = useState('')
-  const [cnpj, setCnpj] = useState('')
   const [inepCode, setInepCode] = useState('')
   const [email, setEmail] = useState('')
   const [administrator, setAdministrator] = useState('')
@@ -61,11 +60,11 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
     }
   }, [administrator])
 
-  const handleSubmit = (name: string, state: string, city: string, zipCode: string, address: string, number: number, cnpj: string, inepCode: string, email: string, administrator: string) => {
-    if (!name || !state || !city || !zipCode || !address || !cnpj || !inepCode || !email || !administrator || !number) return setIncompleteFieldsModalIsOpen(true)
+  const handleSubmit = (name: string, state: string, city: string, zipCode: string, address: string, number: number, inepCode: string, email: string, administrator: string) => {
+    if (!name || !state || !city || !zipCode || !address || !inepCode || !email || !administrator || !number) return setIncompleteFieldsModalIsOpen(true)
     if (validateEmail(email) === false) return setInvalidEmailIsOpen(true)
 
-    const inputData = { name, state, city, zipCode, address: address + ", " + String(number), cnpj, inepCode, email, administrator: String(administrator) }
+    const inputData = { name, state, city, zipCode, address: address + ", " + String(number), inepCode, email, administrator: String(administrator) }
     if (isModal) {
       if (verified === false) {
         return setCaptchaModalIsOpen(true)
@@ -231,21 +230,6 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
               />
             </div>
             <div className="flex flex-col mb-4">
-              <label htmlFor="cnpj" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("Cnpj")}:
-              </label>
-              <InputMask
-                mask="99.999.999/9999-99"
-                placeholder="12.345.678/0001-00"
-                type="text"
-                id="cnpj"
-                value={cnpj}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCnpj(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
               <label htmlFor="inepCode" className="mb-2 font-bold text-lg text-ivtcolor2">
                 {t.t("Inep Code")}:
               </label>
@@ -336,43 +320,41 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
                       </>
                     )}
                   </Listbox.Option>
-
                 </Listbox.Options>
               </Listbox>
+            </div>
+            <div className="flex items-center justify-center mt-4">
+              <button
+                onClick={(event) => {
+                  event.preventDefault()
+                  handleSubmit(
+                    name,
+                    state,
+                    city,
+                    zipCode,
+                    address,
+                    Number(number),
+                    inepCode,
+                    email,
+                    administrator
+                  )
+                }}
+                type="submit"
+                className="whitespace-nowrap w-full border border-transparent shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation">
+                <span className="flex items-center justify-center">
+                  {t.t("Create School")}
+                  <SendIcon />
+                </span>
+              </button>
             </div>
           </div>
 
           {isModal && (
-            <div className='flex justify-center mt-2'>
+            <div className='flex justify-center md:mt-2 mt-10'>
               <Captcha onChange={handleCaptchaResponse} />
             </div>
           )}
 
-          <div className="flex items-center justify-center mt-4">
-            <button
-              onClick={(event) => {
-                event.preventDefault()
-                handleSubmit(
-                  name,
-                  state,
-                  city,
-                  zipCode,
-                  address,
-                  Number(number),
-                  cnpj,
-                  inepCode,
-                  email,
-                  administrator
-                )
-              }}
-              type="submit"
-              className="whitespace-nowrap md:w-1/2 border border-transparent shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivtcolor text-white font-bold py-2 px-4 rounded-full gradient-animation">
-              <span className="flex items-center justify-center">
-                {t.t("Create School")}
-                <SendIcon />
-              </span>
-            </button>
-          </div>
           {isModal &&
             (<span className="text-gray-500 flex text-center mt-4">
               {t.t("Please note that the submitted school will be subject to review by an administrator before being approved. Thank you for your patience.")}

@@ -24,7 +24,6 @@ const Contracts: React.FC = () => {
   const [pendingContractsCurrentPage, pendingContractsSetCurrentPage] = useState(1)
   const [pendingContractsItemsPerPage, pendingContractsSetItemsPerPage] = useState(5)
 
-
   const router = useRouter()
   const locale = router.locale === undefined ? 'en' : router.locale
   const t = new Translate(locale)

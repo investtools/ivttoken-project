@@ -32,17 +32,16 @@ const ISPSchools: React.FC = () => {
   if (!data) return <ErrorMessageComponent locale={locale} />
   if (isIsp.data == false) return <ErrorMessageComponent locale={locale} />
 
-  const handleSelectSchool = (cnpj: string) => {
-    if (cnpj === "-") {
+  const handleSelectSchool = (email: string) => {
+    if (email === "-") {
       return setNoSchoolsISPModal(true)
     }
-    void router.push(`/user/isp/my-schools/school?cnpj=${cnpj}`)
+    void router.push(`/user/isp/my-schools/school?email=${email}`)
   }
 
   const mapData = []
   for (const dt of data) {
     const add = {
-      cnpj: dt.cnpj,
       name: dt.name,
       state: dt.state,
       city: dt.city,
@@ -87,7 +86,6 @@ const ISPSchools: React.FC = () => {
                   <th className="p-2 border text-ivtcolor2">{t.t("City")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("Cnpj")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Inep Code")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
@@ -98,13 +96,12 @@ const ISPSchools: React.FC = () => {
               </thead>
               <tbody>
                 {filteredItems.map((school) => (
-                  <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
+                  <tr key={school.email} className="bg-white text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
                     <td className="p-2 border text-ivtcolor2">{school.city}</td>
                     <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
                     <td className="p-2 border text-ivtcolor2">{school.address}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
                     <td className="p-2 border text-ivtcolor2">{school.inepCode}</td>
                     <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
                     <td className="p-2 border text-ivtcolor2">{school.email}</td>
@@ -112,7 +109,7 @@ const ISPSchools: React.FC = () => {
                     <td className="p-2 border text-ivtcolor2">{school.connectivityReport.length}</td>
                     <td className="p-2 border text-ivtcolor2">
                       <button
-                        onClick={() => handleSelectSchool(school.cnpj)}
+                        onClick={() => handleSelectSchool(school.email)}
                         className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
                       >
                         {t.t("Reports")}

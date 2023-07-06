@@ -43,10 +43,10 @@ describe('Admin Context Tests', () => {
         const createSchool = await caller.admin.createSchool(schoolTest) // create school
         expect(createSchool.email).toStrictEqual(schoolTest.email) // expect that school has been created
 
-        expect((await prisma.schools.findUniqueOrThrow({ where: { cnpj: schoolTest.cnpj } })).tokens).toEqual(null) // school should not have tokens yet
+        expect((await prisma.schools.findUniqueOrThrow({ where: { email: schoolTest.email } })).tokens).toEqual(null) // school should not have tokens yet
 
-        await caller.admin.assignTokensToSchool({ tokens: schoolTokens, cnpj: schoolTest.cnpj }) // assign tokens
-        expect((await prisma.schools.findUniqueOrThrow({ where: { cnpj: schoolTest.cnpj } })).tokens).toEqual(schoolTokens) // now school must have tokens
+        await caller.admin.assignTokensToSchool({ tokens: schoolTokens, email: schoolTest.email }) // assign tokens
+        expect((await prisma.schools.findUniqueOrThrow({ where: { email: schoolTest.email } })).tokens).toEqual(schoolTokens) // now school must have tokens
 
         await prisma.admin.delete({ where: { email: adminEmail } }) // delete admin
         await prisma.schools.delete({ where: { email: schoolTest.email } }) // delete school
@@ -61,7 +61,7 @@ describe('Admin Context Tests', () => {
         const createSchool = await caller.admin.createSchool(schoolTest) // create school
         expect(createSchool.email).toStrictEqual(schoolTest.email) // expect that school has been created
 
-        const createContract = await caller.internetServiceProviders.createContract({ schoolCnpj: schoolTest.cnpj }) // create contract
+        const createContract = await caller.internetServiceProviders.createContract({ schoolEmail: schoolTest.email }) // create contract
         expect(createContract.internetServiceProviderId).toStrictEqual(createISP.id) // expect that contract has been created
 
         const createTransaction = await prisma.transactionsToSign.create({ data: { transactionHash: "txHashTest", signatures: [], contractId: createContract.id } }) // create the transaction to sign
@@ -70,7 +70,7 @@ describe('Admin Context Tests', () => {
         const transactionsToSign = await caller.admin.getAllTransactionsToSign()
         for (const transaction of transactionsToSign) {
             if (transaction.txHash === createTransaction.transactionHash) {
-                expect(transaction.schoolCnpj).toStrictEqual(createSchool.cnpj) // expect that we found the right transaction
+                expect(transaction.schoolEmail).toStrictEqual(createSchool.email) // expect that we found the right transaction
                 expect(transaction.signatures).toStrictEqual("-") // expect that there is no signature
             }
         }
@@ -97,9 +97,9 @@ describe('Admin Context Tests', () => {
         const createSchool = await caller.admin.createSchool(schoolTest) // create school
         expect(createSchool.email).toStrictEqual(schoolTest.email) // expect that school has been created
 
-        await caller.admin.assignTokensToSchool({ tokens: schoolTokens, cnpj: schoolTest.cnpj }) // assign tokens to school
+        await caller.admin.assignTokensToSchool({ tokens: schoolTokens, email: schoolTest.email }) // assign tokens to school
 
-        const createContract = await caller.internetServiceProviders.createContract({ schoolCnpj: schoolTest.cnpj }) // create contract
+        const createContract = await caller.internetServiceProviders.createContract({ schoolEmail: schoolTest.email }) // create contract
 
         expect(createContract.internetServiceProviderId).toStrictEqual(createISP.id) // expect that contract has been created
         expect(createContract.status).toStrictEqual(Status.PENDING) // expect that contract is pending
@@ -122,7 +122,7 @@ describe('Admin Context Tests', () => {
         const createSchool = await caller.admin.createSchool(schoolTest) // create school
         expect(createSchool.email).toStrictEqual(schoolTest.email) // expect that school has been created
 
-        const createContract = await caller.internetServiceProviders.createContract({ schoolCnpj: schoolTest.cnpj }) // create contract
+        const createContract = await caller.internetServiceProviders.createContract({ schoolEmail: schoolTest.email }) // create contract
 
         expect(createContract.internetServiceProviderId).toStrictEqual(createISP.id) // expect that contract has been created
         expect(createContract.status).toStrictEqual(Status.PENDING) // expect that contract is pending

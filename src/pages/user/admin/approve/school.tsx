@@ -106,7 +106,6 @@ const ApproveISP: React.FC = () => {
                 <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
-                <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Created At")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Approve")}</th>
               </tr>
@@ -121,7 +120,6 @@ const ApproveISP: React.FC = () => {
                   <td className="p-2 border text-ivtcolor2">{school.address}</td>
                   <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
                   <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
-                  <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
                   <td className="p-2 border text-ivtcolor2">{school.createdAt === "-" ? "-" : formatDate(String(school.createdAt))}</td>
                   <td className="p-2 border text-ivtcolor2">
                     <button

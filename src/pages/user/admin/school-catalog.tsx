@@ -55,7 +55,6 @@ const SchoolCatalog: React.FC = () => {
                 <th className="p-2 border text-ivtcolor2">{t.t("City")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
-                <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Inep Code")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
@@ -64,13 +63,12 @@ const SchoolCatalog: React.FC = () => {
             </thead>
             <tbody>
               {filteredItems.map((school) => (
-                <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
+                <tr key={school.id} className="bg-white text-center hover:bg-gray-200">
                   <td className="p-2 border text-ivtcolor2">{school.name}</td>
                   <td className="p-2 border text-ivtcolor2">{school.state}</td>
                   <td className="p-2 border text-ivtcolor2">{school.city}</td>
                   <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
                   <td className="p-2 border text-ivtcolor2">{school.address}</td>
-                  <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
                   <td className="p-2 border text-ivtcolor2">{school.inepCode}</td>
                   <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
                   <td className="p-2 border text-ivtcolor2">{school.email}</td>

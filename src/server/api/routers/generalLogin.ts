@@ -1,7 +1,7 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
 import { TRPCError } from "@trpc/server"
 import { GeneralLoginService } from "~/service/generalLogin/generalLoginService"
-import { AuthorizedUsersDatabaseService } from "~/database/authorizedUsersDatabaseService"
+import { prisma } from "~/database/prisma"
 
 export const generalLoginRouter = createTRPCRouter({
   userHasAccount: protectedProcedure.query(async ({ ctx }) => {
@@ -28,9 +28,7 @@ export const generalLoginRouter = createTRPCRouter({
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-    const authorizedUsersDbService = new AuthorizedUsersDatabaseService()
-    const data = await authorizedUsersDbService.findByEmail(email)
-
+    const data = await prisma.authorizedUsers.findUnique({where: {email}})
     if (data == null) {
       return "not found"
     } else {

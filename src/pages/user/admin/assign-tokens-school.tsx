@@ -16,7 +16,7 @@ import Filter from "~/styles/styledComponents/shared/Filter"
 import HomeButton from "~/styles/styledComponents/shared/HomeButton"
 
 const AssignTokensSchool: React.FC = () => {
-  const [cnpj, setCnpj] = useState('')
+  const [email, setCnpj] = useState('')
   const [name, setName] = useState('')
   const [tokens, setTokens] = useState('')
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
@@ -48,11 +48,11 @@ const AssignTokensSchool: React.FC = () => {
   )
   const filteredItems = search ? data.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase())) : currentItems.filter(school => school[filterOption].toLowerCase().includes(search.toLowerCase()))
 
-  const handleSubmit = (cnpj: string, tokens: string) => {
-    if (cnpj && tokens) {
+  const handleSubmit = (email: string, tokens: string) => {
+    if (email && tokens) {
       try {
         setSentFormModalIsOpen(true)
-        mutate({ cnpj, tokens })
+        mutate({ email, tokens })
       } catch (error) {
         console.log(error)
         return null
@@ -62,15 +62,20 @@ const AssignTokensSchool: React.FC = () => {
     }
   }
 
-  const handleSelectSchool = (schoolName: string, cnpj: string) => {
-    setCnpj(cnpj)
+  const handleSelectSchool = (schoolName: string, email: string) => {
+    setCnpj(email)
     setName(schoolName)
+  }
+
+  const refresh = () => {
+    setSentFormModalIsOpen(false)
+    window.location.reload()
   }
 
   return (
     <>
       {sentFormModalIsOpen && (
-        <FormSentModal closeModal={() => setSentFormModalIsOpen(false)} locale={locale} />
+        <FormSentModal closeModal={refresh} locale={locale} />
       )}
       {incompleteFieldsModalIsOpen && (
         <IncompleteFieldsModal closeModal={() => setIncompleteFieldsModalIsOpen(false)} locale={locale} />
@@ -92,7 +97,6 @@ const AssignTokensSchool: React.FC = () => {
                   <th className="p-2 border text-ivtcolor2">{t.t("City")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
-                  <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Inep Code")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
                   <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
@@ -101,19 +105,18 @@ const AssignTokensSchool: React.FC = () => {
               </thead>
               <tbody>
                 {filteredItems.map((school) => (
-                  <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
+                  <tr key={school.email} className="bg-white text-center hover:bg-gray-200">
                     <td className="p-2 border text-ivtcolor2">{school.name}</td>
                     <td className="p-2 border text-ivtcolor2">{school.state}</td>
                     <td className="p-2 border text-ivtcolor2">{school.city}</td>
                     <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
                     <td className="p-2 border text-ivtcolor2">{school.address}</td>
-                    <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
                     <td className="p-2 border text-ivtcolor2">{school.inepCode}</td>
                     <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
                     <td className="p-2 border text-ivtcolor2">{school.email}</td>
                     <td className="p-2 border text-ivtcolor2">
                       <button
-                        onClick={() => handleSelectSchool(school.name, school.cnpj)}
+                        onClick={() => handleSelectSchool(school.name, school.email)}
                         className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
                         {t.t("Select")}
                       </button>
@@ -159,7 +162,7 @@ const AssignTokensSchool: React.FC = () => {
               <button
                 onClick={(event) => {
                   event.preventDefault()
-                  handleSubmit(cnpj, tokens)
+                  handleSubmit(email, tokens)
                 }}
                 className="text-white font-bold py-2 px-4 rounded-full gradient-animation"
               >

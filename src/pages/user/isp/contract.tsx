@@ -14,7 +14,7 @@ import CardsHeader from "~/styles/styledComponents/shared/CardsHeader"
 import { translateSchoolKey } from "~/utils/functions/ispFunctions"
 
 const Contract: React.FC = () => {
-  const [cnpj, setCnpj] = useState('')
+  const [email, setCnpj] = useState('')
   const [confirmContractModalIsOpen, setConfirmContractModalIsOpen] = useState(false)
   const [contractSentModalIsOpen, setContractSentModalIsOpen] = useState(false)
   const router = useRouter()
@@ -22,13 +22,13 @@ const Contract: React.FC = () => {
   const t = new Translate(locale)
 
   useEffect(() => {
-    if (router.query.cnpj) {
-      setCnpj(router.query.cnpj as string)
+    if (router.query.email) {
+      setCnpj(router.query.email as string)
     }
-  }, [router.query.cnpj])
+  }, [router.query.email])
 
   const isIsp = api.internetServiceProviders.isIsp.useQuery()
-  const getSchoolByCnpj = api.schools.getSchoolByCnpj.useQuery({ cnpj })
+  const getSchoolByCnpj = api.schools.getSchoolByEmail.useQuery({ email })
   const createContract = api.internetServiceProviders.createContract.useMutation()
 
   if (isIsp.isLoading) return <LoadingComponent locale={locale} />
@@ -37,7 +37,7 @@ const Contract: React.FC = () => {
   if (!getSchoolByCnpj.data) return <ErrorMessageComponent locale={locale} />
 
   const confirmContract = () => {
-    createContract.mutate({ schoolCnpj: cnpj })
+    createContract.mutate({ schoolEmail: email })
     setContractSentModalIsOpen(true)
   }
 

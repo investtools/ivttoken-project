@@ -1,13 +1,12 @@
 import { z } from "zod"
-import { SchoolsService } from "~/service/schools/schoolsService"
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc"
 import { TRPCError } from "@trpc/server"
 import { administratorNameMapping, mapAdministrator } from "~/utils/functions/adminFunctions"
 import axios from "axios"
-import { type OpenWeatherResponse } from "~/service/schools/interfaces/interfaces"
-import { Role } from "@prisma/client"
+import { Role, Status } from "@prisma/client"
 import { prisma } from "~/database/prisma"
 import { sendSchoolToSlack } from "~/utils/functions/slackFunctions"
+import { type OpenWeatherResponse } from "~/service/types"
 
 export const schoolsRouter = createTRPCRouter({
   getSchoolsToBeApproved: publicProcedure.query(async ({ ctx }) => {
@@ -97,14 +96,25 @@ export const schoolsRouter = createTRPCRouter({
     }),
 
   getAll: publicProcedure.query(async ({ }) => {
-    const schoolsService = new SchoolsService()
-    return await schoolsService.getAll()
+    return await prisma.schools.findMany({ include: { connectivityReport: true } })
   }),
 
   getAvailable: publicProcedure.query(async ({ }) => {
-    const schoolsService = new SchoolsService()
+    const availableSchools = await prisma.schools.findMany({ include: { internetServiceProvider: false, contracts: true } })
+    const available = []
 
-    const available = await schoolsService.getAvailable()
+    for (const school of availableSchools) {
+      if (school.contracts.length === 0) {
+        available.push(school)
+      } else if (school.contracts.length > 0) {
+        for (const contract of school.contracts) {
+          const contractStatus = contract.status
+          if (contractStatus == Status.DENIED) {
+            available.push(school)
+          }
+        }
+      }
+    }
     const rsp = []
 
     for (const school of available) {
@@ -116,12 +126,25 @@ export const schoolsRouter = createTRPCRouter({
   }),
 
   getSchoolsWithTokens: publicProcedure.query(async ({ }) => {
-    const schoolsService = new SchoolsService()
-    const availableSchools = await schoolsService.getAvailable()
+    const availableSchools = await prisma.schools.findMany({ include: { internetServiceProvider: false, contracts: true } })
+    const available = []
+
+    for (const school of availableSchools) {
+      if (school.contracts.length === 0) {
+        available.push(school)
+      } else if (school.contracts.length > 0) {
+        for (const contract of school.contracts) {
+          const contractStatus = contract.status
+          if (contractStatus == Status.DENIED) {
+            available.push(school)
+          }
+        }
+      }
+    }
 
     const schoolsWithTokens = []
 
-    for (const school of availableSchools) {
+    for (const school of available) {
       if (school.tokens != null) {
         schoolsWithTokens.push(school)
       }
@@ -131,34 +154,50 @@ export const schoolsRouter = createTRPCRouter({
   }),
 
   getNoTokensSchools: publicProcedure.query(async ({ }) => {
-    const schoolsService = new SchoolsService()
-    return await schoolsService.getNoTokensSchools()
+    const availableSchools = await prisma.schools.findMany({ include: { internetServiceProvider: false, contracts: true } })
+    const available = []
+
+    for (const school of availableSchools) {
+      if (school.contracts.length === 0) {
+        available.push(school)
+      } else if (school.contracts.length > 0) {
+        for (const contract of school.contracts) {
+          const contractStatus = contract.status
+          if (contractStatus == Status.DENIED) {
+            available.push(school)
+          }
+        }
+      }
+    }
+    const noTokensSchools = []
+
+    for (const school of available) {
+      if (school.tokens == null) {
+        noTokensSchools.push(school)
+      }
+    }
+    return noTokensSchools
   }),
 
-  findSchoolNameByCnpj: publicProcedure.input(
+  findSchoolNameByEmail: publicProcedure.input(
     z.object({
-      cnpj: z.string()
+      email: z.string()
     })
   )
     .query(async ({ input }) => {
-      if (!input.cnpj) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
-
-      const schoolsService = new SchoolsService()
-
-      return await schoolsService.searchSchoolNameByCnpj(input.cnpj)
+      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
+      return (await prisma.schools.findUniqueOrThrow({ where: { email: input.email } })).name
     }),
 
   doesSchoolExist: publicProcedure.input(
     z.object({
-      cnpj: z.string()
+      email: z.string()
     })
   )
     .query(async ({ input }) => {
-      if (!input.cnpj) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
+      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
 
-      const schoolsService = new SchoolsService()
-      const school = await schoolsService.findByCnpj(input.cnpj)
-
+      const school = await prisma.schools.findUnique({ where: { email: input.email } })
       if (school == null) {
         return false
       } else {
@@ -166,24 +205,21 @@ export const schoolsRouter = createTRPCRouter({
       }
     }),
 
-  getSchoolByCnpj: publicProcedure.input(
+  getSchoolByEmail: publicProcedure.input(
     z.object({
-      cnpj: z.string()
+      email: z.string()
     })
   )
     .query(async ({ input }) => {
-      if (!input.cnpj) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
+      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
 
-      const schoolsService = new SchoolsService()
-      const data = await schoolsService.searchByCnpj(input.cnpj)
-
+      const data = await prisma.schools.findUniqueOrThrow({ where: { email: input.email }, include: { connectivityReport: true } })
       const resp = {
         Name: data.name,
         State: data.state,
         City: data.city,
         ZipCode: data.zipCode,
         Address: data.address,
-        CNPJ: data.cnpj,
         InepCode: data.inepCode,
         Admnistrator: administratorNameMapping(data.administrator),
         EMail: data.email,

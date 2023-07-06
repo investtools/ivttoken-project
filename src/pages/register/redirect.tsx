@@ -30,10 +30,6 @@ const RegisterRedirect: NextPage = () => {
     void router.push(`/register/isp-${process.env.NEXT_PUBLIC_REGISTER_ISP_URL}`)
   }
 
-  if (userAuthorizedRole.data === Role.SCHOOL && process.env.NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL) {
-    void router.push(`/register/school-admin-${process.env.NEXT_PUBLIC_REGISTER_SCHOOL_ADMIN_URL}`)
-  }
-
   return (
     <>
       <PageHeader title={t.t("Sign-Up")} />

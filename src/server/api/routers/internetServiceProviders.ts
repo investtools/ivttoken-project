@@ -1,19 +1,14 @@
 import { Role, Status } from '@prisma/client'
-import { type CreateInternetServiceProvider } from './../../../service/internetServiceProvider/interfaces/interfaces'
 import { TRPCError } from "@trpc/server"
 import { z } from "zod"
-import { InternetServiceProviderDatabaseService } from "~/database/internetServiceProviderDatabaseService"
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
-import { InternetServiceProviderService } from '~/service/internetServiceProvider/internetServiceProviderService'
-import { SchoolsService } from '~/service/schools/schoolsService'
 import { benefitPriceByName, mapBenefitType } from '~/utils/functions/benefitsFunctions'
-import { ContractsDatabaseService } from '~/database/contractsDatabaseService'
 import { ispBuyBenefitsTransaction } from '~/database/dbTransactions'
 import { prisma } from '~/database/prisma'
 import { sendIspToSlack } from '~/utils/functions/slackFunctions'
 
 export const internetServiceProvidersRouter = createTRPCRouter({
-getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
+  getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
@@ -27,7 +22,7 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
         name: "-",
         cnpj: "-",
         createdAt: "-"
-    }]
+      }]
     }
   }),
 
@@ -56,9 +51,7 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const ispService = new InternetServiceProviderService()
-    const isp = await ispService.findByEmail(email)
-
+    const isp = await prisma.internetServiceProvider.findUnique({ where: { email } })
     if (isp == null) {
       return false
     } else {
@@ -68,12 +61,9 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
 
   getIspData: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
-
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const ispDbService = new InternetServiceProviderDatabaseService()
-    const ispData = await ispDbService.searchByEmail(email)
-
+    const ispData = await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })
     return {
       tokenAmount: ispData.tokenAmount,
       unlockedTokens: ispData.unlockedTokens,
@@ -85,13 +75,9 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
 
   getIspTransactions: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
-
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const ispService = new InternetServiceProviderService()
-    const ispTokenTransactions = (await ispService.searchByEmail(email)).tokenTransactions
-
-
+    const ispTokenTransactions = (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email }, include: { tokenTransactions: true } })).tokenTransactions
     if (ispTokenTransactions.length > 0) {
       return ispTokenTransactions
     } else {
@@ -106,19 +92,16 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
 
   getIspContracts: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
-
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const ispService = new InternetServiceProviderService()
-    const ispContracts = (await ispService.searchByEmail(email)).contracts
+    const ispContracts = (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email }, include: { contracts: true } })).contracts
 
     if (ispContracts.length > 0) {
       const rsp = []
-      const schoolsService = new SchoolsService()
 
       for (const contract of ispContracts) {
         const data = {
-          schoolsId: (await schoolsService.findById(contract.schoolsId)).name,
+          schoolsId: (await prisma.schools.findFirstOrThrow({ where: { id: contract.schoolsId } })).name,
           status: contract.status,
           createdAt: contract.createdAt
         }
@@ -145,19 +128,18 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
       const email = ctx.user?.emailAddresses[0]?.emailAddress
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-      const data: CreateInternetServiceProvider = {
-        name: input.name,
-        cnpj: input.cnpj,
-        tokenAmount: '0',
-        unlockedTokens: '0',
-        lockedTokens: '0',
-        spentTokens: '0',
-        email,
-        role: Role.ISP
-      }
-
-      const ispService = new InternetServiceProviderService()
-      return await ispService.create(data)
+      return await prisma.internetServiceProvider.create({
+        data: {
+          name: input.name,
+          cnpj: input.cnpj,
+          tokenAmount: '0',
+          unlockedTokens: '0',
+          lockedTokens: '0',
+          spentTokens: '0',
+          email,
+          role: Role.ISP
+        }
+      })
     }),
 
   buyBenefits: protectedProcedure.input(
@@ -171,8 +153,7 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
 
       if (input.selectedBenefit == undefined) throw new TRPCError({ code: "BAD_REQUEST", message: "Benefício de input undefined para comprar benefícios" })
 
-      const ispService = new InternetServiceProviderService()
-      const isp = await ispService.searchByEmail(email)
+      const isp = await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })
       const ispCnpj = isp.cnpj
       const ispId = isp.id
 
@@ -195,33 +176,29 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
 
   ispUnlockedTokens: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
-
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const ispService = new InternetServiceProviderService()
-
-    const cnpj = (await ispService.searchByEmail(email)).cnpj
-    const ispBalance = await ispService.balance(cnpj)
-    return ispBalance.unlockedTokens
+    return (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })).unlockedTokens
   }),
 
   createContract: protectedProcedure.input(
     z.object({
-      schoolCnpj: z.string()
+      schoolEmail: z.string()
     })
   )
     .mutation(async ({ ctx, input }) => {
       const email = ctx.user?.emailAddresses[0]?.emailAddress
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-      const schoolsService = new SchoolsService()
-      const ispService = new InternetServiceProviderService()
-
-      const ispId = (await ispService.searchByEmail(email)).id
-      const schoolId = (await schoolsService.searchByCnpj(input.schoolCnpj)).id
-
-      const contractDbService = new ContractsDatabaseService()
-      return await contractDbService.create(schoolId, ispId, Status.PENDING)
+      const ispId = (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })).id
+      const schoolId = (await prisma.schools.findUniqueOrThrow({ where: { email: input.schoolEmail } })).id
+      return await prisma.contracts.create({
+        data: {
+          status: Status.PENDING,
+          schoolsId: schoolId,
+          internetServiceProviderId: ispId
+        }
+      })
     }),
 
   getIspSchools: protectedProcedure.query(async ({ ctx }) => {
@@ -229,9 +206,8 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
 
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const ispService = new InternetServiceProviderService()
-    const ispCnpj = (await ispService.searchByEmail(email)).cnpj
-    const schools = await ispService.ispSchools(ispCnpj)
+    const isp = await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email }, include: { schools: true } })
+    const schools = isp.schools
 
     if (schools.length === 0) {
       return [{
@@ -249,10 +225,9 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
       }]
     } else {
       const rsp = []
-      const schoolsService = new SchoolsService()
 
       for (const school of schools) {
-        const connectivityReports = (await schoolsService.searchByCnpj(school.cnpj)).connectivityReport
+        const connectivityReport = (await prisma.schools.findUniqueOrThrow({ where: { email: school.email }, include: { connectivityReport: true } })).connectivityReport
 
         const data = {
           name: school.name,
@@ -260,12 +235,11 @@ getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
           city: school.city,
           zipCode: school.zipCode,
           address: school.address,
-          cnpj: school.cnpj,
           inepCode: school.inepCode,
           administrator: school.administrator,
           email: school.email,
           tokens: school.tokens,
-          connectivityReport: connectivityReports
+          connectivityReport
         }
         rsp.push(data)
       }

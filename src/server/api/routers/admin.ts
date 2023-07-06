@@ -2,13 +2,12 @@ import { z } from "zod"
 import { Entity, Role, Status } from "@prisma/client"
 import { TRPCError } from "@trpc/server"
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
-import { AdminService } from "~/service/admin/adminService"
-import { type CreateSchool } from "~/service/schools/interfaces/interfaces"
 import { getLatLon, mapAdministrator, mapRole, maskPrivateKey } from "~/utils/functions/adminFunctions"
 import { approveContractTransaction, approveISP, approveSchool, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
 import { signTransaction } from "~/utils/functions/signTransaction/signTransaction"
 import { prisma } from "~/database/prisma"
 import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
+import { type CreateSchool } from "~/service/types"
 
 export const adminRouter = createTRPCRouter({
   getOpenedTickets: protectedProcedure.query(async ({ ctx }) => {
@@ -118,9 +117,7 @@ export const adminRouter = createTRPCRouter({
       const email = ctx.user?.emailAddresses[0]?.emailAddress
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-      const adminService = new AdminService()
-      const adminId = (await adminService.searchByEmail(email)).id
-
+      const adminId = (await prisma.admin.findUniqueOrThrow({ where: { email } })).id
       return await approveISP(input.email, adminId)
     }),
 
@@ -173,18 +170,18 @@ export const adminRouter = createTRPCRouter({
 
       for (const transaction of transactions) {
         const contract = await prisma.contracts.findFirstOrThrow({ where: { id: transaction.contractId } })
-        const schoolName = (await prisma.schools.findFirstOrThrow({ where: { id: contract.schoolsId } })).name
         const ispName = (await prisma.internetServiceProvider.findFirstOrThrow({ where: { id: contract.internetServiceProviderId } })).name
+        const school = await prisma.schools.findFirstOrThrow({ where: { id: contract.schoolsId } })
 
         let returnSignature = transaction.signatures.length > 0 ? "" : "-"
-
         for (const signature of transaction.signatures) {
           returnSignature = returnSignature + signature + " "
         }
 
         const data = {
           ispName: ispName,
-          schoolName: schoolName,
+          schoolEmail: school.email,
+          schoolName: school.name,
           txHash: transaction.transactionHash,
           signatures: returnSignature,
           createdAt: transaction.createdAt
@@ -197,6 +194,7 @@ export const adminRouter = createTRPCRouter({
     } else {
       return [{
         ispName: "-",
+        schoolEmail: "-",
         schoolName: "-",
         txHash: "-",
         signatures: "-",
@@ -302,7 +300,6 @@ export const adminRouter = createTRPCRouter({
       const email = ctx.user?.emailAddresses[0]?.emailAddress
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-
       if (!input.name || !input.entity) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
 
       let entity: Entity = Entity.INVESTTOOLS
@@ -322,26 +319,22 @@ export const adminRouter = createTRPCRouter({
         entity = Entity.INVESTTOOLS
       }
 
-      const data = {
-        name: input.name,
-        entity,
-        email,
-        role: Role.ADMIN
-      }
-
-      const adminService = new AdminService()
-      const register = await adminService.create(data)
-
-      return register
+      return await prisma.admin.create({
+        data: {
+          email,
+          entity,
+          name: input.name,
+          role: Role.ADMIN
+        }
+      })
     }),
 
   isAdmin: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-    const adminService = new AdminService()
-    const admin = await adminService.findByEmail(email)
 
+    const admin = await prisma.admin.findUnique({ where: { email } })
     if (admin == null) {
       return false
     } else {

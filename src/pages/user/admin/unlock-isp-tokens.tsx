@@ -66,11 +66,11 @@ const UnlockIspTokens: React.FC = () => {
     }
   }
 
-  const handleSeeReports = (cnpj: string) => {
-    if (cnpj === "-") {
+  const handleSeeReports = (email: string) => {
+    if (email === "-") {
       setNoTransactionsModalIsOpen(true)
     } else {
-      void router.push(`/user/admin/connectivity-reports/school-reports?cnpj=${cnpj}`)
+      void router.push(`/user/admin/connectivity-reports/school-reports?email=${email}`)
     }
   }
 
@@ -107,7 +107,7 @@ const UnlockIspTokens: React.FC = () => {
               {t.t("Sign")}
             </button>
             <button
-              onClick={() => handleSeeReports(transaction.schoolCnpj)}
+              onClick={() => handleSeeReports(transaction.schoolEmail)}
               className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
             >
               {t.t("Reports")}

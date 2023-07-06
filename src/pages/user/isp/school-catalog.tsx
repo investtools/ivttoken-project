@@ -36,10 +36,10 @@ const SchoolCatalog: React.FC = () => {
   if (isLoading) return <LoadingComponent locale={locale} />
   if (!data) return <ErrorMessageComponent locale={locale} />
 
-  const handleClick = (cnpj: string) => {
-    if (cnpj) {
+  const handleClick = (email: string) => {
+    if (email) {
       try {
-        void router.push(`/user/isp/contract?cnpj=${cnpj}`)
+        void router.push(`/user/isp/contract?email=${email}`)
       } catch (error) {
         console.log(error)
         return null
@@ -70,7 +70,6 @@ const SchoolCatalog: React.FC = () => {
                 <th className="p-2 border text-ivtcolor2">{t.t("City")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Zip Code")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Address")}</th>
-                <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Inep Code")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("Administrator")}</th>
                 <th className="p-2 border text-ivtcolor2">{t.t("E-Mail")}</th>
@@ -80,20 +79,19 @@ const SchoolCatalog: React.FC = () => {
             </thead>
             <tbody>
               {filteredItems.map((school) => (
-                <tr key={school.cnpj} className="bg-white text-center hover:bg-gray-200">
+                <tr key={school.email} className="bg-white text-center hover:bg-gray-200">
                   <td className="p-2 border text-ivtcolor2">{school.name}</td>
                   <td className="p-2 border text-ivtcolor2">{school.state}</td>
                   <td className="p-2 border text-ivtcolor2">{school.city}</td>
                   <td className="p-2 border text-ivtcolor2">{school.zipCode}</td>
                   <td className="p-2 border text-ivtcolor2">{school.address}</td>
-                  <td className="p-2 border text-ivtcolor2">{school.cnpj}</td>
                   <td className="p-2 border text-ivtcolor2">{school.inepCode}</td>
                   <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
                   <td className="p-2 border text-ivtcolor2">{school.email}</td>
                   <td className="p-2 border text-ivtcolor2">{school.tokens}</td>
                   <td className="p-2 border text-ivtcolor2">
                     <button
-                      onClick={() => handleClick(school.cnpj)}
+                      onClick={() => handleClick(school.email)}
                       className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
                     >
                       {t.t("Contract")}

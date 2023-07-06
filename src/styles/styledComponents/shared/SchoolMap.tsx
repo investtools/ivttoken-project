@@ -84,10 +84,10 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale, showContractButt
 
     if (!isLoaded) return <Loading locale={locale} />
 
-    const handleClick = (cnpj: string) => {
-        if (cnpj) {
+    const handleClick = (email: string) => {
+        if (email) {
             try {
-                void router.push(`/user/isp/contract?cnpj=${cnpj}`)
+                void router.push(`/user/isp/contract?email=${email}`)
             } catch (error) {
                 console.log(error)
                 return null
@@ -120,7 +120,7 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ schools, locale, showContractButt
                             {school.city}<br />
                             {school.tokens === null ? 0 : `${school.tokens}`}  GigaTokens<br />
                             {showContractButton &&
-                                (<div className='flex items-center justify-center mt-2'><button onClick={() => handleClick(school.cnpj)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                                (<div className='flex items-center justify-center mt-2'><button onClick={() => handleClick(school.email)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
                                     {t.t("Contract")}
                                 </button></div>)}
                         </Popup>

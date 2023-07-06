@@ -14,7 +14,7 @@ import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginate
 import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 
 const SchoolReports: React.FC = () => {
-    const [cnpj, setCnpj] = useState('')
+    const [email, setEmail] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(5)
 
@@ -23,20 +23,20 @@ const SchoolReports: React.FC = () => {
     const t = new Translate(locale)
 
     useEffect(() => {
-        if (router.query.cnpj) {
-            setCnpj(router.query.cnpj as string)
+        if (router.query.email) {
+            setEmail(router.query.email as string)
         }
-    }, [router.query.cnpj])
+    }, [router.query.email])
 
     const isAdmin = api.admin.isAdmin.useQuery()
-    const connectivityReports = api.admin.getAllConnectivityReports.useQuery({ cnpj })
-    const schoolName = api.schools.findSchoolNameByCnpj.useQuery({ cnpj })
+    const connectivityReports = api.admin.getAllConnectivityReports.useQuery({ email })
+    const schoolName = api.schools.findSchoolNameByEmail.useQuery({ email })
 
     if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
     if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
 
-    if (cnpj && connectivityReports.isLoading) return <LoadingComponent locale={locale} />
-    if (cnpj && schoolName.isLoading) return <LoadingComponent locale={locale} />
+    if (email && connectivityReports.isLoading) return <LoadingComponent locale={locale} />
+    if (email && schoolName.isLoading) return <LoadingComponent locale={locale} />
     if (!connectivityReports.data) return <ErrorMessageComponent locale={locale} />
 
     const { goToPage, nextPage, previousPage, totalPage } = paginateData(connectivityReports.data, itemsPerPage, currentPage, setCurrentPage, setItemsPerPage)
@@ -90,7 +90,7 @@ const SchoolReports: React.FC = () => {
                     <div className="bg-white p-2 rounded-t text-ivtcolor2 font-bold text-2xl md:flex md:justify-between">
                         <div className="flex-1 md:text-left">{t.t("Connectivity Reports")}</div>
                         <div className="flex-1 md:text-center">{schoolName.data}</div>
-                        <div className="flex-1 md:text-right">{cnpj}</div>
+                        <div className="flex-1 md:text-right">{email}</div>
                     </div>
                     <div className="bg-white shadow rounded-b">
                         {renderReports()}

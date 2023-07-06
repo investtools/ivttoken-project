@@ -1,21 +1,16 @@
 import { TRPCError } from "@trpc/server"
-import { AdminDatabaseService } from "~/database/adminDatabaseService"
-import { InternetServiceProviderDatabaseService } from "~/database/internetServiceProviderDatabaseService"
+import { prisma } from "~/database/prisma"
 
 export class GeneralLoginService {
     private readonly userEmail: string
-    private readonly adminDbService: AdminDatabaseService
-    private readonly ispDbService: InternetServiceProviderDatabaseService
 
     constructor(userEmail: string) {
         this.userEmail = userEmail
-        this.adminDbService = new AdminDatabaseService()
-        this.ispDbService = new InternetServiceProviderDatabaseService()
     }
 
     public async userHasAccount() {
-        const searchIspDb = await this.ispDbService.findByEmail(this.userEmail)
-        const searchAdminDb = await this.adminDbService.findByEmail(this.userEmail)
+        const searchIspDb = await prisma.internetServiceProvider.findUnique({ where: { email: this.userEmail } })
+        const searchAdminDb = await prisma.admin.findUnique({ where: { email: this.userEmail } })
 
         if (searchIspDb == null && searchAdminDb == null) {
             return false
@@ -27,8 +22,8 @@ export class GeneralLoginService {
         const userHasAccount = await this.userHasAccount()
 
         if (userHasAccount) {
-            const searchIspDb = await this.ispDbService.findByEmail(this.userEmail)
-            const searchAdminDb = await this.adminDbService.findByEmail(this.userEmail)
+            const searchIspDb = await prisma.internetServiceProvider.findUnique({ where: { email: this.userEmail } })
+            const searchAdminDb = await prisma.admin.findUnique({ where: { email: this.userEmail } })
 
             if (searchIspDb != null) return searchIspDb.role
             if (searchAdminDb != null) return searchAdminDb.role
@@ -39,8 +34,8 @@ export class GeneralLoginService {
         const userHasAccount = await this.userHasAccount()
 
         if (userHasAccount) {
-            const searchIspDb = await this.ispDbService.findByEmail(this.userEmail)
-            const searchAdminDb = await this.adminDbService.findByEmail(this.userEmail)
+            const searchIspDb = await prisma.internetServiceProvider.findUnique({ where: { email: this.userEmail } })
+            const searchAdminDb = await prisma.admin.findUnique({ where: { email: this.userEmail } })
 
             if (searchIspDb != null) return searchIspDb
             if (searchAdminDb != null) return searchAdminDb

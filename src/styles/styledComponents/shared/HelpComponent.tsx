@@ -18,9 +18,9 @@ const HelpComponent: React.FC<HelpProps> = ({ locale }) => {
             {ispHelpModalIsOpen && (
                 <ISPHelpModal closeModal={() => setISPHelpModalIsOpen(false)} locale={locale} />
             )}
-            <div className={`fixed bottom-6 right-4 z-10 flex justify-center items-center bg-ivtcolor border-2 border-ivtcolor rounded-full`}>
+            <div className={`fixed bottom-6 right-4 z-10 flex justify-center items-center bg-ivtcolor rounded-full`}>
                 <button onClick={handleClick}>
-                    <QuestionIcon className="w-12 h-12" />
+                    <QuestionIcon className="w-12 h-12 text-ivtcolor2" />
                 </button>
             </div>
         </>

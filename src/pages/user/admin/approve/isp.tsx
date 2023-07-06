@@ -11,8 +11,10 @@ import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginate
 import HomeButton from "~/styles/styledComponents/shared/HomeButton"
 import ApprovedModal from "~/styles/styledComponents/modals/ApprovedModal"
 import NothingToApproveModal from "~/styles/styledComponents/modals/NothingToApprove"
+import DenyModal from "~/styles/styledComponents/modals/DeniedModal"
 
 const ApproveISP: React.FC = () => {
+  const [deniedModalIsOpen, setDeniedModalIsOpen] = useState(false)
   const [approvedModalIsOpen, setApprovedModalIsOpen] = useState(false)
   const [nothingToApproveModalIsOpen, setNothingToApproveModalIsOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
@@ -60,7 +62,7 @@ const ApproveISP: React.FC = () => {
       }
       try {
         deny.mutate({ email })
-        setApprovedModalIsOpen(true)
+        setDeniedModalIsOpen(true)
       } catch (error) {
         console.log(error)
         return null
@@ -113,6 +115,9 @@ const ApproveISP: React.FC = () => {
     <>
       {approvedModalIsOpen && (
         <ApprovedModal title={"isp"} closeModal={() => setApprovedModalIsOpen(false)} locale={locale} />
+      )}
+      {deniedModalIsOpen && (
+        <DenyModal title={"isp"} closeModal={() => setDeniedModalIsOpen(false)} locale={locale} />
       )}
       {nothingToApproveModalIsOpen && (
         <NothingToApproveModal title={"isp"} closeModal={() => setNothingToApproveModalIsOpen(false)} locale={locale} />

@@ -3,7 +3,7 @@ import { Entity, Role, Status } from "@prisma/client"
 import { TRPCError } from "@trpc/server"
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
 import { getLatLon, mapAdministrator, mapRole, maskPrivateKey } from "~/utils/functions/adminFunctions"
-import { approveContractTransaction, approveISP, approveSchool, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
+import { approveContractTransaction, approveSchool, databaseSendTxToBlockchain, unlockIspTokens } from "~/database/dbTransactions"
 import { signTransaction } from "~/utils/functions/signTransaction/signTransaction"
 import { prisma } from "~/database/prisma"
 import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
@@ -184,7 +184,23 @@ export const adminRouter = createTRPCRouter({
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const adminId = (await prisma.admin.findUniqueOrThrow({ where: { email } })).id
-      return await approveISP(input.email, adminId)
+
+      await prisma.internetServiceProviderToBeApproved.update({
+        where: {
+          email: input.email
+        },
+        data: {
+          deletedAt: new Date()
+        }
+      })
+
+      return await prisma.authorizedUsers.create({
+        data: {
+          email: input.email,
+          role: Role.ISP,
+          adminId
+        }
+      })
     }),
 
   denyISP: protectedProcedure.input(

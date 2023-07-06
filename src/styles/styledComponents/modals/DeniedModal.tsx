@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
 import { Translate } from "translate/translate"
 
-interface ApproveModalProps {
+interface DenyModalProps {
   closeModal: () => void
   locale: string
   title: string
 }
 
-export default function ApproveModal({ closeModal, locale, title }: ApproveModalProps) {
+export default function DenyModal({ closeModal, locale, title }: DenyModalProps) {
   const router = useRouter()
   const [isOpen] = useState(true)
   const t = new Translate(locale)
@@ -63,7 +63,7 @@ export default function ApproveModal({ closeModal, locale, title }: ApproveModal
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 text-center"
                   >
-                    {isIsp ? t.t("Provider successfully approved!") : t.t("School successfully approved!")}
+                    {isIsp ? t.t("Provider successfully denied!") : t.t("School successfully denied!")}
                   </Dialog.Title>
 
                   <div className="mt-4 grid grid-cols-2 gap-4">

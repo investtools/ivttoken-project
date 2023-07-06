@@ -34,6 +34,8 @@ export class Translate {
 
                 // approve
                 case "Provider successfully approved!": return "Provedor Aprovado!"
+                case "Provider successfully denied!": return "Provedor Negado!"
+                case "School successfully denied!": return "Escola Negada!"
                 case "School successfully approved!": return "Escola Aprovada!"
                 case "Stay Here": return "Ficar Aqui"
                 case "Go To": return "Ir Para"

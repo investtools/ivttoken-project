@@ -96,27 +96,6 @@ export async function unlockIspTokens(cnpj: string, tokensToUnlock: string) {
     return await prisma.$transaction([unlockTokens])
 }
 
-export async function approveISP(email: string, adminId: string) {
-    const authorizeUser = prisma.authorizedUsers.create({
-        data: {
-            email,
-            role: Role.ISP,
-            adminId
-        }
-    })
-
-    const softDeletePendingISP = prisma.internetServiceProviderToBeApproved.update({
-        where: {
-            email
-        },
-        data: {
-            deletedAt: new Date()
-        }
-    })
-
-    return await prisma.$transaction([authorizeUser, softDeletePendingISP])
-}
-
 export async function approveSchool(pendingSchoolId: string) {
     const pendingSchool = await prisma.schoolsToBeApproved.findFirstOrThrow({
         where: {

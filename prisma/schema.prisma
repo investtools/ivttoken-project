@@ -148,7 +148,6 @@ model SchoolsToBeApproved {
     city          String
     zipCode       String
     address       String
-    cnpj          String         @unique
     inepCode      String         @unique
     email         String         @unique
     role          Role
@@ -158,7 +157,6 @@ model SchoolsToBeApproved {
     deletedAt     DateTime?
     deniedAt      DateTime?
 
-    @@index([cnpj])
     @@index([email])
     @@index([city])
     @@index([state])

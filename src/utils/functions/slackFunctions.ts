@@ -9,7 +9,7 @@ const app = new App({
     token: token
 })
 
-export async function sendSchoolToSlack(schoolName: string, zipCode: string, state: string, city: string, address: string, cnpj: string, inepCode: string, email: string, administrator: string) {
+export async function sendSchoolToSlack(schoolName: string, zipCode: string, state: string, city: string, address: string, inepCode: string, email: string, administrator: string) {
     const blocks = [
         {
             "type": "divider"
@@ -55,13 +55,6 @@ export async function sendSchoolToSlack(schoolName: string, zipCode: string, sta
             "text": {
                 "type": "mrkdwn",
                 "text": `*∙ Address:* ${address}`
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": `*∙ CNPJ:* ${cnpj}`
             }
         },
         {

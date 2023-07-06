@@ -24,7 +24,6 @@ export const schoolsRouter = createTRPCRouter({
         city: "-",
         zipCode: "-",
         address: "-",
-        cnpj: "-",
         inepCode: "-",
         email: "-",
         administrator: "-",
@@ -41,7 +40,6 @@ export const schoolsRouter = createTRPCRouter({
       city: z.string(),
       zipCode: z.string(),
       address: z.string(),
-      cnpj: z.string(),
       inepCode: z.string(),
       email: z.string(),
       administrator: z.string()
@@ -60,7 +58,6 @@ export const schoolsRouter = createTRPCRouter({
           city: input.city,
           zipCode: input.zipCode,
           address: input.address,
-          cnpj: input.cnpj,
           inepCode: input.inepCode,
           email: input.email,
           role: Role.SCHOOL,
@@ -68,7 +65,7 @@ export const schoolsRouter = createTRPCRouter({
         }
       })
 
-      await sendSchoolToSlack("`" + input.name + "`", "`" + input.zipCode + "`", "`" + input.state + "`", "`" + input.city + "`", "`" + input.address + "`", "`" + input.cnpj + "`", "`" + input.inepCode + "`", "`" + input.email + "`", "`" + input.administrator + "`")
+      await sendSchoolToSlack("`" + input.name + "`", "`" + input.zipCode + "`", "`" + input.state + "`", "`" + input.city + "`", "`" + input.address + "`", "`" + input.inepCode + "`", "`" + input.email + "`", "`" + input.administrator + "`")
     }),
 
   getLatLon: publicProcedure.input(
@@ -185,7 +182,7 @@ export const schoolsRouter = createTRPCRouter({
     })
   )
     .query(async ({ input }) => {
-      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
+      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "Email missing" })
       return (await prisma.schools.findUniqueOrThrow({ where: { email: input.email } })).name
     }),
 
@@ -195,7 +192,7 @@ export const schoolsRouter = createTRPCRouter({
     })
   )
     .query(async ({ input }) => {
-      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
+      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "Email missing" })
 
       const school = await prisma.schools.findUnique({ where: { email: input.email } })
       if (school == null) {
@@ -211,7 +208,7 @@ export const schoolsRouter = createTRPCRouter({
     })
   )
     .query(async ({ input }) => {
-      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "CNPJ missing" })
+      if (!input.email) throw new TRPCError({ code: "BAD_REQUEST", message: "Email missing" })
 
       const data = await prisma.schools.findUniqueOrThrow({ where: { email: input.email }, include: { connectivityReport: true } })
       const resp = {

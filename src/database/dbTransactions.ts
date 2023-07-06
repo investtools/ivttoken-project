@@ -122,11 +122,14 @@ export async function approveSchool(pendingSchoolId: string) {
         }
     })
 
-    const deletePendingSchool = prisma.schoolsToBeApproved.delete({
+    const softDeletePendingSchool = prisma.schoolsToBeApproved.update({
         where: {
             id: pendingSchoolId
+        },
+        data: {
+            deletedAt: new Date()
         }
     })
 
-    return await prisma.$transaction([createSchool, deletePendingSchool])
+    return await prisma.$transaction([createSchool, softDeletePendingSchool])
 }

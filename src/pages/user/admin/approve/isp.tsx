@@ -57,9 +57,7 @@ const ApproveISP: React.FC = () => {
 
   const handleDeny = (email: string) => {
     if (email) {
-      if (email === "-") {
-        return setNothingToApproveModalIsOpen(true)
-      }
+      if (email === "-") return setNothingToApproveModalIsOpen(true)
       try {
         deny.mutate({ email })
         setDeniedModalIsOpen(true)

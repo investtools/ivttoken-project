@@ -13,9 +13,9 @@ import ApprovedModal from "~/styles/styledComponents/modals/ApprovedModal"
 import NothingToApproveModal from "~/styles/styledComponents/modals/NothingToApprove"
 import { administratorNameMapping } from "~/utils/functions/adminFunctions"
 import Filter from "~/styles/styledComponents/shared/Filter"
+import DenyModal from "~/styles/styledComponents/modals/DeniedModal"
 
 type SchoolData = {
-  cnpj: string,
   name: string,
   state: string,
   city: string,
@@ -29,6 +29,7 @@ type SchoolData = {
 }
 
 const ApproveISP: React.FC = () => {
+  const [deniedModalIsOpen, setDeniedModalIsOpen] = useState(false)
   const [approvedModalIsOpen, setApprovedModalIsOpen] = useState(false)
   const [search, setSearch] = useState("")
   const [nothingToApproveModalIsOpen, setNothingToApproveModalIsOpen] = useState(false)
@@ -42,7 +43,8 @@ const ApproveISP: React.FC = () => {
   const t = new Translate(locale)
 
   const isAdmin = api.admin.isAdmin.useQuery()
-  const { mutate } = api.admin.approveSchool.useMutation()
+  const approve = api.admin.approveSchool.useMutation()
+  const deny = api.admin.denySchool.useMutation()
   const { data, isLoading } = api.schools.getSchoolsToBeApproved.useQuery()
 
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
@@ -53,7 +55,6 @@ const ApproveISP: React.FC = () => {
   const mapData: SchoolData[] = []
   for (const dt of data) {
     const add = {
-      cnpj: dt.cnpj,
       name: dt.name,
       state: dt.state,
       city: dt.city,
@@ -74,14 +75,27 @@ const ApproveISP: React.FC = () => {
     currentPage * itemsPerPage
   )
 
-  const handleClick = (pendingSchoolId: string) => {
+  const handleApprove = (pendingSchoolId: string) => {
     if (pendingSchoolId) {
       if (pendingSchoolId === "-") {
         return setNothingToApproveModalIsOpen(true)
       }
       try {
-        mutate({ schoolId: pendingSchoolId })
+        approve.mutate({ schoolId: pendingSchoolId })
         setApprovedModalIsOpen(true)
+      } catch (error) {
+        console.log(error)
+        return null
+      }
+    }
+  }
+
+  const handleDeny = (pendingSchoolId: string) => {
+    if (pendingSchoolId) {
+      if (pendingSchoolId === "-") return setNothingToApproveModalIsOpen(true)
+      try {
+        deny.mutate({ schoolId: pendingSchoolId })
+        setDeniedModalIsOpen(true)
       } catch (error) {
         console.log(error)
         return null
@@ -122,12 +136,14 @@ const ApproveISP: React.FC = () => {
                   <td className="p-2 border text-ivtcolor2">{t.t(administratorNameMapping(school.administrator))}</td>
                   <td className="p-2 border text-ivtcolor2">{school.createdAt === "-" ? "-" : formatDate(String(school.createdAt))}</td>
                   <td className="p-2 border text-ivtcolor2">
-                    <button
-                      onClick={() => handleClick(school.id)}
-                      className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
-                    >
-                      {t.t("Approve")}
-                    </button>
+                    <div className="space-x-2">
+                      <button onClick={() => handleApprove(school.id)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                        {t.t("Approve")}
+                      </button>
+                      <button onClick={() => handleDeny(school.id)} className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full">
+                        {t.t("Deny")}
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -141,6 +157,9 @@ const ApproveISP: React.FC = () => {
 
   return (
     <>
+      {deniedModalIsOpen && (
+        <DenyModal title={"isp"} closeModal={() => setDeniedModalIsOpen(false)} locale={locale} />
+      )}
       {approvedModalIsOpen && (
         <ApprovedModal title={"school"} closeModal={() => setApprovedModalIsOpen(false)} locale={locale} />
       )}

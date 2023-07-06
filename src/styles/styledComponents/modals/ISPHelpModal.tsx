@@ -5,6 +5,7 @@ import SendIcon from '../icons/SendIcon'
 import XMark from '../icons/XMarkIcon'
 import FormSentModal from './FormSentModal'
 import IncompleteFieldsModal from './IncompleteFieldsModal'
+import { api } from '~/utils/api'
 
 interface ISPHelpModalProps {
   closeModal: () => void
@@ -17,18 +18,20 @@ export default function ISPHelpModal({ closeModal, locale }: ISPHelpModalProps) 
   const [message, setMessage] = useState("")
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
-
   const t = new Translate(locale)
+
+  const { mutate } = api.internetServiceProviders.sendHelp.useMutation()
 
   const handleSubmit = (subject: string, message: string) => {
     if (!subject || !message) return setIncompleteFieldsModalIsOpen(true)
+    mutate({ message, subject })
     setSentFormModalIsOpen(true)
   }
 
   const handleCloseSentFormModal = () => {
     setSentFormModalIsOpen(false)
     closeModal()
-}
+  }
 
   return (
     <>

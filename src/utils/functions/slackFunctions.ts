@@ -248,3 +248,66 @@ export async function sendTicketToSlack(name: string, email: string, subject: st
         })
     }
 }
+
+export async function sendIspHelpToSlack(name: string, email: string, cnpj: string, subject: string, message: string) {
+    const blocks = [
+        {
+            "type": "divider"
+        },
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": "➡ New ISP Help Sent",
+                "emoji": true
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": `*∙ Name:* ${name}`
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": `*∙ E-Mail:* ${email}`
+            }
+        },
+                {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": `*∙ CNPJ:* ${cnpj}`
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": `*∙ Subject:* ${subject}`
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": `*∙ Message:* ${message}`
+            }
+        },
+        {
+            "type": "divider"
+        }
+    ]
+
+    if (process.env.NEXT_PUBLIC_SLACK_CHANNEL) {
+        return await app.client.chat.postMessage({
+            text: 'New ISP Help',
+            token: token,
+            channel: process.env.NEXT_PUBLIC_SLACK_CHANNEL,
+            blocks
+        })
+    }
+}

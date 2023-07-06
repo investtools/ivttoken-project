@@ -10,6 +10,47 @@ import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
 import { type CreateSchool } from "~/service/types"
 
 export const adminRouter = createTRPCRouter({
+  closeHelp: publicProcedure.input(
+    z.object({
+      helpId: z.string()
+    })
+  )
+    .mutation(async ({ input }) => {
+      return await prisma.helpProviders.update({
+        where: {
+          id: input.helpId
+        }, data: {
+          isOpen: false,
+          updatedAt: new Date()
+        }
+      })
+    }),
+
+  getOpenedHelps: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+    const helps = await prisma.helpProviders.findMany({
+      where: {
+        isOpen: true
+      }
+    })
+
+    if (helps.length > 0) {
+      return helps
+    } else {
+      return [{
+        name: "-",
+        email: "-",
+        cnpj: "-",
+        subject: "-",
+        message: "-",
+        id: "-",
+        createdAt: "-"
+      }]
+    }
+  }),
+
   getOpenedTickets: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })

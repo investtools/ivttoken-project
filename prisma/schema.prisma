@@ -187,6 +187,20 @@ model Tickets {
     @@index([email])
 }
 
+model HelpProviders {
+    id        String   @id @default(uuid())
+    name      String
+    email     String
+    subject   String
+    message   String
+    isOpen    Boolean
+    cnpj      String 
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([email])
+}
+
 enum ConnectionQuality {
     LOW
     MEDIUM

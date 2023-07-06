@@ -5,9 +5,37 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/
 import { benefitPriceByName, mapBenefitType } from '~/utils/functions/benefitsFunctions'
 import { ispBuyBenefitsTransaction } from '~/database/dbTransactions'
 import { prisma } from '~/database/prisma'
-import { sendIspToSlack } from '~/utils/functions/slackFunctions'
+import { sendIspHelpToSlack, sendIspToSlack } from '~/utils/functions/slackFunctions'
 
 export const internetServiceProvidersRouter = createTRPCRouter({
+  sendHelp: publicProcedure.input(
+    z.object({
+      subject: z.string(),
+      message: z.string()
+    })
+  )
+    .mutation(async ({ input, ctx }) => {
+      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
+      
+      if (!input.subject || !input.message) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
+
+      const isp = await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })
+
+      await prisma.helpProviders.create({
+        data: {
+          name: isp.name,
+          email,
+          cnpj: isp.cnpj,
+          subject: input.subject,
+          message: input.message,
+          isOpen: true
+        }
+      })
+
+      await sendIspHelpToSlack("`" + isp.name + "`",  "`" + email + "`", "`" + isp.cnpj + "`", "`" + input.subject + "`", "`" + input.message + "`")
+    }),
+
   getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })

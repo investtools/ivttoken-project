@@ -17,7 +17,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const email = ctx.user?.emailAddresses[0]?.emailAddress
       if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
-      
+
       if (!input.subject || !input.message) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
 
       const isp = await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })
@@ -33,14 +33,14 @@ export const internetServiceProvidersRouter = createTRPCRouter({
         }
       })
 
-      await sendIspHelpToSlack("`" + isp.name + "`",  "`" + email + "`", "`" + isp.cnpj + "`", "`" + input.subject + "`", "`" + input.message + "`")
+      await sendIspHelpToSlack("`" + isp.name + "`", "`" + email + "`", "`" + isp.cnpj + "`", "`" + input.subject + "`", "`" + input.message + "`")
     }),
 
   getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const ispToBeApproved = await prisma.internetServiceProviderToBeApproved.findMany()
+    const ispToBeApproved = await prisma.internetServiceProviderToBeApproved.findMany({ where: { deniedAt: null, deletedAt: null } })
 
     if (ispToBeApproved.length > 0) {
       return ispToBeApproved

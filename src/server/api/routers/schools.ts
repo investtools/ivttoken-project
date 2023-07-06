@@ -13,7 +13,7 @@ export const schoolsRouter = createTRPCRouter({
     const email = ctx.user?.emailAddresses[0]?.emailAddress
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const schoolsToBeApproved = await prisma.schoolsToBeApproved.findMany()
+    const schoolsToBeApproved = await prisma.schoolsToBeApproved.findMany({ where: { deniedAt: null, deletedAt: null } })
 
     if (schoolsToBeApproved.length > 0) {
       return schoolsToBeApproved

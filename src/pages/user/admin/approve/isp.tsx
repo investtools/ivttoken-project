@@ -23,7 +23,8 @@ const ApproveISP: React.FC = () => {
   const t = new Translate(locale)
 
   const isAdmin = api.admin.isAdmin.useQuery()
-  const { mutate } = api.admin.approveISP.useMutation()
+  const approve = api.admin.approveISP.useMutation()
+  const deny = api.admin.denyISP.useMutation()
   const { data, isLoading } = api.internetServiceProviders.getIspToBeApproved.useQuery()
 
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
@@ -37,13 +38,28 @@ const ApproveISP: React.FC = () => {
     currentPage * itemsPerPage
   )
 
-  const handleClick = (email: string) => {
+  const handleApprove = (email: string) => {
     if (email) {
       if (email === "-") {
         return setNothingToApproveModalIsOpen(true)
       }
       try {
-        mutate({ email })
+        approve.mutate({ email })
+        setApprovedModalIsOpen(true)
+      } catch (error) {
+        console.log(error)
+        return null
+      }
+    }
+  }
+
+  const handleDeny = (email: string) => {
+    if (email) {
+      if (email === "-") {
+        return setNothingToApproveModalIsOpen(true)
+      }
+      try {
+        deny.mutate({ email })
         setApprovedModalIsOpen(true)
       } catch (error) {
         console.log(error)
@@ -74,12 +90,14 @@ const ApproveISP: React.FC = () => {
                   <td className="p-2 border text-ivtcolor2">{isp.cnpj}</td>
                   <td className="p-2 border text-ivtcolor2">{isp.createdAt === "-" ? "-" : formatDate(String(isp.createdAt))}</td>
                   <td className="p-2 border text-ivtcolor2">
-                    <button
-                      onClick={() => handleClick(isp.email)}
-                      className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full"
-                    >
-                      {t.t("Approve")}
-                    </button>
+                    <div className="space-x-2">
+                      <button onClick={() => handleApprove(isp.email)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                        {t.t("Approve")}
+                      </button>
+                      <button onClick={() => handleDeny(isp.email)} className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full">
+                        {t.t("Deny")}
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

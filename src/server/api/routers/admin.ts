@@ -187,6 +187,26 @@ export const adminRouter = createTRPCRouter({
       return await approveISP(input.email, adminId)
     }),
 
+  denyISP: protectedProcedure.input(
+    z.object({
+      email: z.string()
+    })
+  )
+    .mutation(async ({ input, ctx }) => {
+      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+      return await prisma.internetServiceProviderToBeApproved.update({
+        where: {
+          email: input.email
+        },
+        data: {
+          deniedAt: new Date(),
+          deletedAt: new Date()
+        }
+      })
+    }),
+
   signTransaction: protectedProcedure.input(
     z.object({
       transactionHash: z.string(),

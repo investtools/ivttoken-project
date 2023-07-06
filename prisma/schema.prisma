@@ -155,6 +155,8 @@ model SchoolsToBeApproved {
     administrator Administrators
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
+    deletedAt     DateTime?
+    deniedAt      DateTime?
 
     @@index([cnpj])
     @@index([email])
@@ -163,12 +165,14 @@ model SchoolsToBeApproved {
 }
 
 model InternetServiceProviderToBeApproved {
-    id        String   @id @default(uuid())
+    id        String    @id @default(uuid())
     name      String
-    cnpj      String   @unique
-    email     String   @unique
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    cnpj      String    @unique
+    email     String    @unique
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    deniedAt  DateTime?
 
     @@index([email])
     @@index([cnpj])
@@ -194,7 +198,7 @@ model HelpProviders {
     subject   String
     message   String
     isOpen    Boolean
-    cnpj      String 
+    cnpj      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 

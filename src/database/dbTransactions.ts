@@ -105,13 +105,16 @@ export async function approveISP(email: string, adminId: string) {
         }
     })
 
-    const deletePendingISP = prisma.internetServiceProviderToBeApproved.delete({
+    const softDeletePendingISP = prisma.internetServiceProviderToBeApproved.update({
         where: {
             email
+        },
+        data: {
+            deletedAt: new Date()
         }
     })
 
-    return await prisma.$transaction([authorizeUser, deletePendingISP])
+    return await prisma.$transaction([authorizeUser, softDeletePendingISP])
 }
 
 export async function approveSchool(pendingSchoolId: string) {

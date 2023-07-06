@@ -1,15 +1,12 @@
 import { api } from "~/utils/api"
 import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage"
 import LoadingComponent from "~/styles/styledComponents/shared/Loading"
-import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
-import HomeButton from "~/styles/styledComponents/shared/HomeButton"
 import { formatDate } from "~/utils/functions/ispFunctions"
-import SwitchTicketsButton from "~/styles/styledComponents/shared/SwitchTicketsButton"
 
 const ClosedTickets: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -67,16 +64,8 @@ const ClosedTickets: React.FC = () => {
 
     return (
         <>
-            <PageHeader title={t.t("Closed Tickets")} />
-            <div className="p-8">
-                <HomeButton />
-                <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">
-                    <div className="flex justify-between rounded">
-                        <h2 className="p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{t.t("Closed Tickets")}</h2>
-                        <SwitchTicketsButton path={"opened"} locale={locale} />
-                    </div>
-                    {renderTable()}
-                </div>
+            <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">
+                {renderTable()}
             </div>
         </>
     )

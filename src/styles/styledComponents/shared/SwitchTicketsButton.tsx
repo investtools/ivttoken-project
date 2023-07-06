@@ -1,25 +1,20 @@
-import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import SwitchIcon from "../icons/SwitchIcon"
 
 type SwitchTicketsProps = {
-    path: string
     locale: string
+    setClosed: (closed: boolean) => void
+    closed: boolean
 }
 
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-const SwitchTickets: React.FC<SwitchTicketsProps> = ({ path, locale }) => {
-    const router = useRouter()
+const SwitchTickets: React.FC<SwitchTicketsProps> = ({ locale, setClosed, closed }) => {
     const t = new Translate(locale)
 
     return (
         <div className="flex items-center mr-3">
-            <button className="bg-ivtcolor rounded-full text-white font-bold py-1 px-2 flex items-center justify-center whitespace-nowrap" onClick={() => void router.push(`/user/admin/tickets/${path}`)}>
+            <button className="bg-ivtcolor rounded-full text-white font-bold py-1 px-2 flex items-center justify-center whitespace-nowrap" onClick={() => setClosed(!closed)}>
                 <div className="flex items-center">
-                    {t.t(`${capitalizeFirstLetter(path)} Tickets`)}&nbsp;
+                    {t.t(`${closed ? "Opened" : "Closed"} Tickets`)}&nbsp;
                     <SwitchIcon />
                 </div>
             </button>

@@ -3,7 +3,7 @@ import axios from "axios"
 import { type GeocodeMapsResponse, type OpenWeatherResponse } from "~/service/types"
 
 export function validateEmail(email: string) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(String(email).toLowerCase())
 }
 export interface ViaCEPAddress {
@@ -21,12 +21,13 @@ export interface ViaCEPAddress {
 }
 
 
-export function entityMap(entity: string) {
+export function entityMap(entity: string | null) {
     switch (entity) {
         case "GIGA": return "Giga"
         case "UNICEF": return "Unicef"
         case "GOVERNMENT": return "Government"
         case "INVESTTOOLS": return "InvestTools"
+        default: return "-"
     }
 }
 
@@ -111,7 +112,7 @@ export async function getLatLon(city: string, state: string, street: string) {
     const baseUrl = `https://geocode.maps.co/search?country=br&street=${street}&state=${state}&city=${city}`
     const request = await axios.get<GeocodeMapsResponse[]>(baseUrl)
     const response = request.data
-    
+
     if (response.length == 0) {
         return await openweatherCoords(state, city)
     } else {

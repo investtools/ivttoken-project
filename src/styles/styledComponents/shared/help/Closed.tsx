@@ -7,6 +7,7 @@ import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 import { formatDate } from "~/utils/functions/ispFunctions"
+import { entityMap } from "~/utils/functions/adminFunctions"
 
 const ClosedHelp: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -42,6 +43,9 @@ const ClosedHelp: React.FC = () => {
                                 <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Subject")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Message")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Closed By")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Team")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Response")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Closed At")}</th>
                             </tr>
                         </thead>
@@ -53,6 +57,9 @@ const ClosedHelp: React.FC = () => {
                                     <td className="p-2 border text-ivtcolor2">{help.cnpj}</td>
                                     <td className="p-2 border text-ivtcolor2">{help.subject}</td>
                                     <td className="p-2 border text-ivtcolor2">{help.message}</td>
+                                    <td className="p-2 border text-ivtcolor2">{help.closedBy}</td>
+                                    <td className="p-2 border text-ivtcolor2">{entityMap(help.entity)}</td>
+                                    <td className="p-2 border text-ivtcolor2">{help.answer}</td>
                                     <td className="p-2 border text-ivtcolor2">{formatDate(String(help.updatedAt))}</td>
                                 </tr>
                             ))}

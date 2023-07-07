@@ -8,12 +8,17 @@ import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 import { formatDate } from "~/utils/functions/ispFunctions"
 import NoHelpsModal from "../../modals/NoHelpsModal"
-import HelpClosedModal from "../../modals/HelpClosedModal"
+import AnswerModal from "../../modals/AnswerModal"
 
 const OpenedHelp: React.FC = () => {
+    const [name, setName] = useState("")
+    const [helpId, setHelpId] = useState("")
+    const [email, setEmail] = useState("")
+    const [message, setMessage] = useState("")
+    const [subject, setSubject] = useState("")
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(5)
-    const [helpClosedModalIsOpen, setHelpClosedModalIsOpen] = useState(false)
+    const [answerModalIsOpen, setAnswerModalIsOpen] = useState(false)
     const [noHelpsModalIsOpen, setNoHelpsModalIsOpen] = useState(false)
 
     const router = useRouter()
@@ -22,7 +27,6 @@ const OpenedHelp: React.FC = () => {
 
     const isAdmin = api.admin.isAdmin.useQuery()
     const { data, isLoading } = api.admin.getOpenedHelps.useQuery()
-    const { mutate } = api.admin.closeHelp.useMutation()
 
     if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
     if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
@@ -35,19 +39,16 @@ const OpenedHelp: React.FC = () => {
         currentPage * itemsPerPage
     )
 
-    const handleCloseTicket = (helpId: string) => {
-        if (helpId === "-") {
-            return setNoHelpsModalIsOpen(true)
-        } else {
-            mutate({ helpId })
-            setHelpClosedModalIsOpen(true)
-        }
+    const handleAnswer = (helpId: string, name: string, subject: string, message: string, email: string) => {
+        if (helpId === "-") return setNoHelpsModalIsOpen(true)
+        setName(name)
+        setSubject(subject)
+        setMessage(message)
+        setEmail(email)
+        setHelpId(helpId)
+        setAnswerModalIsOpen(true)
     }
 
-    const closeModal = () => {
-        setHelpClosedModalIsOpen(false)
-        window.location.reload()
-    }
 
     const renderTable = () => {
         return (
@@ -62,7 +63,7 @@ const OpenedHelp: React.FC = () => {
                                 <th className="p-2 border text-ivtcolor2">{t.t("Subject")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Message")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Created At")}</th>
-                                <th className="p-2 border text-ivtcolor2">{t.t("Close")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Answer")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,8 +76,8 @@ const OpenedHelp: React.FC = () => {
                                     <td className="p-2 border text-ivtcolor2">{help.message}</td>
                                     <td className="p-2 border text-ivtcolor2">{formatDate(String(help.createdAt))}</td>
                                     <td className="p-2 border text-ivtcolor2">
-                                        <button onClick={() => handleCloseTicket(help.id)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
-                                            {t.t("Close")}
+                                        <button onClick={() => handleAnswer(help.id, help.name, help.subject, help.message, help.email)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                                            {t.t("Answer")}
                                         </button>
                                     </td>
                                 </tr>
@@ -94,8 +95,8 @@ const OpenedHelp: React.FC = () => {
             {noHelpsModalIsOpen && (
                 <NoHelpsModal closeModal={() => setNoHelpsModalIsOpen(false)} locale={locale} />
             )}
-            {helpClosedModalIsOpen && (
-                <HelpClosedModal closeModal={closeModal} locale={locale} />
+            {answerModalIsOpen && (
+                <AnswerModal closeModal={() => setAnswerModalIsOpen(false)} locale={locale} ispName={name} helpSubject={subject} helpMessage={message} ispEmail={email} helpId={helpId} />
             )}
 
             <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">

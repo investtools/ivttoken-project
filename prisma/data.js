@@ -63,29 +63,20 @@ async function populateSchoolsLatLon() {
     }
 }
 
-populateSchoolsLatLon()
-    .then(async () => {
-        await prisma.$disconnect()
-    })
-    .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
-    })
-
-
 async function getAllSchools() {
     const schools = await prisma.schools.findMany()
 
     console.log({ schools })
 }
 
-getAllSchools()
-    .then(async () => {
-        await prisma.$disconnect()
-    })
-    .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
-    })
+// populateSchoolsLatLon().then(async () => { await prisma.$disconnect() }).catch(async (e) => {
+//     console.error(e)
+//     await prisma.$disconnect()
+//     process.exit(1)
+// })
+
+// getAllSchools().then(async () => { await prisma.$disconnect() }).catch(async (e) => {
+//     console.error(e)
+//     await prisma.$disconnect()
+//     process.exit(1)
+// })

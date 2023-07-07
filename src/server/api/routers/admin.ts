@@ -1,3 +1,4 @@
+import * as nodemailer from "nodemailer"
 import { z } from "zod"
 import { Entity, Role, Status } from "@prisma/client"
 import { TRPCError } from "@trpc/server"
@@ -10,19 +11,47 @@ import { sendTicketToSlack } from "~/utils/functions/slackFunctions"
 import { type CreateSchool } from "~/service/types"
 
 export const adminRouter = createTRPCRouter({
-  closeHelp: publicProcedure.input(
+  answerISP: publicProcedure.input(
     z.object({
+      subject: z.string(),
+      message: z.string(),
+      to: z.string().email(),
       helpId: z.string()
     })
   )
-    .mutation(async ({ input }) => {
-      return await prisma.helpProviders.update({
+    .mutation(async ({ input, ctx }) => {
+      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
+      if (!input.subject || !input.message) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
+
+      const admin = await prisma.admin.findUniqueOrThrow({ where: { email } })
+
+      await prisma.helpProviders.update({
         where: {
           id: input.helpId
-        }, data: {
+        },
+        data: {
           isOpen: false,
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          closedBy: admin.name,
+          entity: admin.entity,
+          answer: input.message
         }
+      })
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.ADMIN_EMAIL,
+          pass: process.env.ADMIN_ACCESS
+        }
+      })
+
+      return await transporter.sendMail({
+        from: process.env.ADMIN_EMAIL,
+        to: input.to,
+        subject: input.subject,
+        text: input.message
       })
     }),
 
@@ -71,7 +100,10 @@ export const adminRouter = createTRPCRouter({
         subject: "-",
         message: "-",
         id: "-",
-        updatedAt: "-"
+        updatedAt: "-",
+        closedBy: "-",
+        entity: "-",
+        answer: "-"
       }]
     }
   }),

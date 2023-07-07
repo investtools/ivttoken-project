@@ -19,6 +19,9 @@ export class Translate {
                 case "Register or Login": return "Entre ou Registre-se"
 
                 // isp help
+                case "Answer": return "Responder"
+                case "Response": return "Resposta"
+                case "Your Response": return "Sua Resposta"
                 case "Opened Help": return "Ajudas em Aberto"
                 case "Closed Help": return "Ajudas Fechadas"
                 case "Help Closed!": return "Ajuda Fechada!"

@@ -21,7 +21,7 @@ const NavbarDevDocs: React.FC = () => {
           }
         })
       },
-      { threshold: isDesktop ? 0.6 : 0.1 }
+      { threshold: isDesktop ? 0.2 : 0.1 }
     )
 
     sectionsId.forEach(id => {

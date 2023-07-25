@@ -9,6 +9,9 @@ import { i18n } from './next-i18next.config.js'
 const config = {
   reactStrictMode: true,
   i18n,
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+  }
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
    * must comment the below `i18n` config out.

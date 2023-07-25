@@ -14,6 +14,7 @@ import HelpComponent from "~/styles/styledComponents/shared/HelpComponent"
 import Providers from "~/styles/styledComponents/auth/Providers"
 import UserButton from "~/styles/styledComponents/auth/UserButton"
 import AccessDeniedComponent from "~/styles/styledComponents/shared/AccessDenied"
+import { useEffect } from "react"
 
 const App: AppType = ({ Component, pageProps }) => {
   const isIsp = (api.internetServiceProviders.isIsp.useQuery()).data
@@ -21,8 +22,10 @@ const App: AppType = ({ Component, pageProps }) => {
   const locale = router.locale === undefined ? "en" : router.locale
   const t = new Translate(locale)
   const isUserLogged = api.generalLogin.isUserLogged.useQuery()
-
   const isPathPublic = isPublicPath(router.pathname)
+
+  useEffect(() => { if (isPathPublic && isUserLogged.data) return void router.push('/') }, [isPathPublic, isUserLogged.data, router, router.pathname])
+
   return (
     <div className="flex flex-col min-h-screen">
       <PageHeader title={t.t("Register or Login")} />

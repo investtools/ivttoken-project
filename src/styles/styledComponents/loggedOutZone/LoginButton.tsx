@@ -11,7 +11,7 @@ const LoginButton: React.FC = () => {
     return (
         <>
             <button
-                onClick={() => void signIn({ callbackUrl: '/' })}
+                onClick={() => void signIn()}
                 className="loginSvgEffect border gradient-animation border-white shadow-sm text-sm text-white font-bold py-2 px-4 rounded-full">
                 <span className="flex items-center font-bold">
                     {t.t("Enter")}&nbsp;&nbsp;

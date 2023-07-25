@@ -13,21 +13,22 @@ import { Translate } from "translate/translate"
 import HelpComponent from "~/styles/styledComponents/shared/HelpComponent"
 import Providers from "~/styles/styledComponents/auth/Providers"
 import UserButton from "~/styles/styledComponents/auth/UserButton"
+import AccessDeniedComponent from "~/styles/styledComponents/shared/AccessDenied"
 
 const App: AppType = ({ Component, pageProps }) => {
   const isIsp = (api.internetServiceProviders.isIsp.useQuery()).data
   const router = useRouter()
   const locale = router.locale === undefined ? "en" : router.locale
   const t = new Translate(locale)
+  const isUserLogged = api.generalLogin.isUserLogged.useQuery()
 
   const isPathPublic = isPublicPath(router.pathname)
   return (
     <div className="flex flex-col min-h-screen">
       <PageHeader title={t.t("Register or Login")} />
-
       <div className="flex-grow">
-        {isPathPublic ? (<Component {...pageProps} />) :
-          (
+        {isUserLogged.data ? (
+          <>
             <Providers>
               <div className="z-30 fixed w-full py-2 bg-gradient-to-r border-b from-ivtcolor2 via-hover to-ivtcolor2">
                 <div className="w-10/12 mx-auto flex justify-between items-center">
@@ -45,9 +46,12 @@ const App: AppType = ({ Component, pageProps }) => {
                   {isIsp && <HelpComponent locale={locale} />}
                 </div>
               </div>
-              <Component {...pageProps} />
+              {isPathPublic ? (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} pathName={router.pathname} />) : (<Component {...pageProps} />)}
             </Providers>
-          )}
+          </>
+        )
+          :
+          (isPathPublic ? (<Component {...pageProps} />) : (<AccessDeniedComponent locale={locale} isPathPublic={isPathPublic} pathName={router.pathname} />))}
       </div>
       <Footer />
     </div>

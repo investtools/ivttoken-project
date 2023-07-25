@@ -1,11 +1,17 @@
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
 import { TRPCError } from "@trpc/server"
 import { GeneralLoginService } from "~/service/generalLogin/generalLoginService"
 import { prisma } from "~/database/prisma"
 
 export const generalLoginRouter = createTRPCRouter({
+  isUserLogged: publicProcedure.query(({ ctx }) => {
+    const email = ctx.session?.user.email
+    if (email) return true
+    return false
+  }),
+
   userHasAccount: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const loginService = new GeneralLoginService(email)
@@ -15,7 +21,7 @@ export const generalLoginRouter = createTRPCRouter({
   }),
 
   getUserRole: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const loginService = new GeneralLoginService(email)
@@ -25,10 +31,10 @@ export const generalLoginRouter = createTRPCRouter({
   }),
 
   getAuthorizedRole: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-    const data = await prisma.authorizedUsers.findUnique({where: {email}})
+    const data = await prisma.authorizedUsers.findUnique({ where: { email } })
     if (data == null) {
       return "not found"
     } else {

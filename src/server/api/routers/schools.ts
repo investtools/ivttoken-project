@@ -10,7 +10,7 @@ import { type OpenWeatherResponse } from "~/service/types"
 
 export const schoolsRouter = createTRPCRouter({
   getSchoolsToBeApproved: publicProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session?.user.email
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
     const schoolsToBeApproved = await prisma.schoolsToBeApproved.findMany({ where: { deniedAt: null, deletedAt: null } })

@@ -15,7 +15,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ input, ctx }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session?.user.email
       if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
       if (!input.subject || !input.message) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
@@ -37,7 +37,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     }),
 
   getIspToBeApproved: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
     const ispToBeApproved = await prisma.internetServiceProviderToBeApproved.findMany({ where: { deniedAt: null, deletedAt: null } })
@@ -76,7 +76,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     }),
 
   isIsp: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
     const isp = await prisma.internetServiceProvider.findUnique({ where: { email } })
@@ -88,7 +88,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
   }),
 
   getIspData: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
     const ispData = await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })
@@ -102,7 +102,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
   }),
 
   getIspTransactions: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
     const ispTokenTransactions = (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email }, include: { tokenTransactions: true } })).tokenTransactions
@@ -119,7 +119,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
   }),
 
   getIspContracts: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
     const ispContracts = (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email }, include: { contracts: true } })).contracts
@@ -153,7 +153,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       return await prisma.internetServiceProvider.create({
@@ -176,7 +176,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       if (input.selectedBenefit == undefined) throw new TRPCError({ code: "BAD_REQUEST", message: "Benefício de input undefined para comprar benefícios" })
@@ -203,7 +203,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     }),
 
   ispUnlockedTokens: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 
     return (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })).unlockedTokens
@@ -215,7 +215,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const ispId = (await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })).id
@@ -230,7 +230,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
     }),
 
   getIspSchools: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
 
     if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
 

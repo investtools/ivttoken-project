@@ -1,6 +1,5 @@
-import { type User } from "@clerk/nextjs/api"
 
-export const adminContextCaller: User = {
+export const adminContextCaller = {
   id: '',
   passwordEnabled: true,
   totpEnabled: false,
@@ -42,7 +41,7 @@ export const adminContextCaller: User = {
   imageUrl: ""
 }
 
-export const ispContextCaller: User = {
+export const ispContextCaller = {
   id: '',
   passwordEnabled: true,
   totpEnabled: false,

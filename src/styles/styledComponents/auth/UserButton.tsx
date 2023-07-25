@@ -16,7 +16,7 @@ const UserButton = ({ locale }: { locale: string }) => {
                 </div>
                 {showInfo &&
                     <div className="absolute translate-y-12 -translate-x-3 text-center">
-                        <button onClick={() => void signOut()} className="border gradient-animation text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
+                        <button onClick={() => void signOut({ callbackUrl: '/main' })} className="border gradient-animation text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
                             {t.t("Sign Out")}
                         </button>
                     </div>

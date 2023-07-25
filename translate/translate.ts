@@ -17,6 +17,7 @@ export class Translate {
                 case "Loading": return "Carregando"
                 case "You are here!": return "Você está aqui!"
                 case "Register or Login": return "Entre ou Registre-se"
+                case "Sign Out": return "Sair"
 
                 // isp help
                 case "Answer": return "Responder"
@@ -232,7 +233,7 @@ export class Translate {
                 case "Access Denied!": return "Acesso Negado!"
                 case "You do not have permission to access this page.": return "Você não tem permissão para acessar esta página."
 
-                // navbar 
+                // navbar
                 case "Institutional": return "Institucional"
                 case "Collaboration": return "Colaboração"
                 case "Testimonials": return "Depoimentos"
@@ -266,7 +267,7 @@ export class Translate {
                 case "School's CNPJ": return "CNPJ da Escola"
                 case "Select Your Team": return "Selecione Sua Entidade"
 
-                // isp context 
+                // isp context
                 case "Giga Token - PROVIDER": return "Giga Token - PROVEDOR"
                 case "Benefits": return "Benefícios"
                 case "Benefit": return "Benefício"

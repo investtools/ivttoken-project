@@ -20,7 +20,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ input, ctx }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session?.user.email
       if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
       if (!input.subject || !input.message) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
 
@@ -56,7 +56,7 @@ export const adminRouter = createTRPCRouter({
     }),
 
   getOpenedHelps: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const helps = await prisma.helpProviders.findMany({
@@ -81,7 +81,7 @@ export const adminRouter = createTRPCRouter({
   }),
 
   getClosedHelps: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const helps = await prisma.helpProviders.findMany({
@@ -109,7 +109,7 @@ export const adminRouter = createTRPCRouter({
   }),
 
   getOpenedTickets: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const tickets = await prisma.tickets.findMany({
@@ -133,7 +133,7 @@ export const adminRouter = createTRPCRouter({
   }),
 
   getClosedTickets: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const tickets = await prisma.tickets.findMany({
@@ -200,7 +200,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ input, ctx }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const pendingSchool = await prisma.schoolsToBeApproved.findFirstOrThrow({
@@ -245,7 +245,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ input, ctx }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       return await prisma.schoolsToBeApproved.update({
@@ -265,7 +265,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ input, ctx }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const adminId = (await prisma.admin.findUniqueOrThrow({ where: { email } })).id
@@ -294,7 +294,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ input, ctx }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       return await prisma.internetServiceProviderToBeApproved.update({
@@ -315,7 +315,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const maskedPrivateKey = maskPrivateKey(input.privateKey)
@@ -336,7 +336,7 @@ export const adminRouter = createTRPCRouter({
         const schoolToken = (await prisma.schools.findFirstOrThrow({ where: { id: contract.schoolsId } })).tokens
         if (schoolToken === null) throw new TRPCError({ code: "NOT_FOUND", message: "School token not found for sign transaction" })
 
-        // TODO: add isp wallet 
+        // TODO: add isp wallet
         const isp = await prisma.internetServiceProvider.findFirstOrThrow({ where: { id: contract.internetServiceProviderId } })
         const ispWallet = isp.cnpj
         const ispCnpj = isp.cnpj
@@ -348,7 +348,7 @@ export const adminRouter = createTRPCRouter({
     }),
 
   getAllTransactionsToSign: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const transactions = await prisma.transactionsToSign.findMany()
@@ -397,7 +397,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const adminEmail = ctx.user?.emailAddresses[0]?.emailAddress
+      const adminEmail = ctx.session.user.email
       if (!adminEmail) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const role = mapRole(input.role)
@@ -420,7 +420,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       if (!input.name || !input.state || !input.city || !input.zipCode || !input.address || !input.inepCode || !input.email || !input.administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
@@ -468,7 +468,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       if (!input.email || !input.tokens) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
@@ -484,7 +484,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       if (!input.name || !input.entity) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
@@ -517,7 +517,7 @@ export const adminRouter = createTRPCRouter({
     }),
 
   isAdmin: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
 
@@ -530,7 +530,7 @@ export const adminRouter = createTRPCRouter({
   }),
 
   getAuthorizedUsers: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const authorizedUsers = await prisma.authorizedUsers.findMany()
@@ -564,7 +564,7 @@ export const adminRouter = createTRPCRouter({
   }),
 
   getPendingContracts: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const pendingContracts = await prisma.contracts.findMany({ where: { status: Status.PENDING } })
@@ -600,7 +600,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .query(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const blank = [{
@@ -653,7 +653,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const contract = await prisma.contracts.findFirstOrThrow({ where: { id: input.contractId } })
@@ -675,7 +675,7 @@ export const adminRouter = createTRPCRouter({
     })
   )
     .mutation(async ({ ctx, input }) => {
-      const email = ctx.user?.emailAddresses[0]?.emailAddress
+      const email = ctx.session.user.email
       if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
       const adminId = (await prisma.admin.findUniqueOrThrow({ where: { email } })).id
@@ -692,7 +692,7 @@ export const adminRouter = createTRPCRouter({
     }),
 
   getAllContracts: protectedProcedure.query(async ({ ctx }) => {
-    const email = ctx.user?.emailAddresses[0]?.emailAddress
+    const email = ctx.session.user.email
     if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
     const contracts = await prisma.contracts.findMany()

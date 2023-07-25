@@ -4,16 +4,13 @@ import CheckIcon from "~/styles/styledComponents/icons/CheckIcon"
 import CopyIcon from "~/styles/styledComponents/icons/CopyIcon"
 
 const env = `DATABASE_URL=
-CLERK_SECRET_KEY=
-CLERK_FRONTEND_API=
 NEXT_PUBLIC_CAPTCHA_KEY=
 NEXT_PUBLIC_SLACK_CHANNEL=
 NEXT_PUBLIC_SLACK_BOT_TOKEN=
 NEXT_PUBLIC_REGISTER_ISP_URL=
 NEXT_PUBLIC_REGISTER_ADMIN_URL=
 NEXT_PUBLIC_GEOLOCATION_API_KEY=
-NEXT_PUBLIC_SLACK_SIGNING_SECRET=
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=`
+NEXT_PUBLIC_SLACK_SIGNING_SECRET=`
 const clone = 'git clone git@github.com:investtools/ivttoken-project.git'
 const cd = 'cd ivttoken-project'
 const npmI = 'npm install'

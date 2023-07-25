@@ -7,10 +7,12 @@ import LoginRouter from '~/styles/styledComponents/loggedOutZone/dev/docs/LoginR
 import HeaderDevDocs from '~/styles/styledComponents/loggedOutZone/dev/docs/HeaderDevDocs'
 import ArrowUp from '~/styles/styledComponents/shared/ArrowUp'
 import Instructions from '~/styles/styledComponents/loggedOutZone/dev/docs/Instructions'
+import PageHeader from '~/styles/styledComponents/shared/PageHeader'
 
 const Documentation: React.FC = () => {
     return (
         <>
+            <PageHeader title={'Dev - Docs'} />
             <HeaderDevDocs />
             <div className='space-y-10 md:mt-10 mt-24'>
                 <Overview />

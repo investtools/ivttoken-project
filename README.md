@@ -2,10 +2,10 @@
 
 # GigaToken Project
 
-Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet.  
-The project utilizes a blockchain-based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet.  
+Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet.
+The project utilizes a blockchain-based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet.
 ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.
-These tokens can be exchanged for tax incentives or other rewards.  
+These tokens can be exchanged for tax incentives or other rewards.
 The project is designed to enhance educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.
 
 ## Technologies
@@ -16,7 +16,7 @@ This project is developed using the following technologies:
 - [tRPC](https://trpc.io/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Postgres](https://www.postgresql.org/) 
+- [Postgres](https://www.postgresql.org/)
 - [Prisma](https://www.prisma.io/)
 ## Environment Setup
 
@@ -25,8 +25,6 @@ Additionally, you will need to create a `.env` file at the root of the project w
 
 ```
 DATABASE_URL=
-CLERK_SECRET_KEY=
-CLERK_FRONTEND_API=
 NEXT_PUBLIC_CAPTCHA_KEY=
 NEXT_PUBLIC_SLACK_CHANNEL=
 NEXT_PUBLIC_SLACK_BOT_TOKEN=
@@ -34,7 +32,6 @@ NEXT_PUBLIC_REGISTER_ISP_URL=
 NEXT_PUBLIC_REGISTER_ADMIN_URL=
 NEXT_PUBLIC_GEOLOCATION_API_KEY=
 NEXT_PUBLIC_SLACK_SIGNING_SECRET=
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 ```
 Fill in the fields with the appropriate information.
 ## Installation Instructions

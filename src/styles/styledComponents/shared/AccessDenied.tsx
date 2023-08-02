@@ -1,5 +1,5 @@
 import { FaLock } from 'react-icons/fa'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Translate } from "translate/translate"
 import GoToMainIvtLogoButton from "./GoToMainIvtLogoButton"
 import HomeButton from './HomeButton'
@@ -38,18 +38,22 @@ interface AccessDeniedComponentProps {
 const AccessDeniedComponent: React.FC<AccessDeniedComponentProps> = ({ locale, isPathPublic, pathName }) => {
   const router = useRouter()
 
+  useEffect(() => {
+    if (pathName === '/') {
+      void router.push('/main')
+    }
+  }, [pathName, router])
+
   return (
     <>
-      {pathName === '/' ? void router.push('/main') : (
-        <div className="p-8 relative min-h-screen flex flex-col justify-between">
-          <div>
-            {isPathPublic ? (<HomeButton />) : (<GoToMainIvtLogoButton />)}
-          </div>
-          <div className="flex-grow flex items-center justify-center">
-            <AccessDeniedMessage locale={locale} />
-          </div>
+      <div className="p-8 relative min-h-screen flex flex-col justify-between">
+        <div>
+          {isPathPublic ? (<HomeButton />) : (<GoToMainIvtLogoButton />)}
         </div>
-      )}
+        <div className="flex-grow flex items-center justify-center">
+          <AccessDeniedMessage locale={locale} />
+        </div>
+      </div>
     </>
   )
 }

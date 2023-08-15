@@ -1,13 +1,13 @@
 import { expect } from "@jest/globals"
 import { Entity, Role, Status } from "@prisma/client"
 import { appRouter } from "../../root"
-import { adminContextCaller, schoolTest } from "./ctx"
+import { adminContextCaller, adminContextSession, schoolTest } from "./ctx"
 import { prisma } from "~/server/db"
 
 describe('Admin Context Tests', () => {
-    const caller = appRouter.createCaller({ user: adminContextCaller, prisma })
+    const caller = appRouter.createCaller({ session: adminContextSession, prisma })
     if (adminContextCaller.emailAddresses[0] === null || adminContextCaller.emailAddresses[0] === undefined) return new Error()
-    const adminEmail = adminContextCaller.emailAddresses[0].emailAddress
+    const adminEmail = String(adminContextSession.user.email)
     const schoolTokens = "5000"
 
     it('Should return false before creating admin and true after', async () => {
@@ -27,7 +27,7 @@ describe('Admin Context Tests', () => {
 
         await caller.admin.registerAdmin({ name: "test", entity: Entity.INVESTTOOLS }) // register admin to authorize user
 
-        await caller.admin.authorizeUser({ email: adminEmail, role: Role.ADMIN }) // authorize user 
+        await caller.admin.authorizeUser({ email: adminEmail, role: Role.ADMIN }) // authorize user
 
         expect(await caller.generalLogin.getAuthorizedRole()).toStrictEqual(Role.ADMIN) // user is now authorized
 
@@ -55,7 +55,7 @@ describe('Admin Context Tests', () => {
     it('Should create a transaction, find it and sign', async () => {
         await caller.admin.registerAdmin({ name: "test", entity: Entity.INVESTTOOLS }) // register admin
 
-        const createISP = await caller.internetServiceProviders.registerISP({ name: "ispTest", cnpj: "ispTestCnpj" }) // register ISP 
+        const createISP = await caller.internetServiceProviders.registerISP({ name: "ispTest", cnpj: "ispTestCnpj" }) // register ISP
         expect(createISP.cnpj).toStrictEqual("ispTestCnpj") // expect that isp has been registered
 
         const createSchool = await caller.admin.createSchool(schoolTest) // create school
@@ -91,7 +91,7 @@ describe('Admin Context Tests', () => {
     it('Should approve contract', async () => {
         await caller.admin.registerAdmin({ name: "test", entity: Entity.INVESTTOOLS }) // register admin
 
-        const createISP = await caller.internetServiceProviders.registerISP({ name: "ispTest", cnpj: "ispTestCnpj" }) // register ISP 
+        const createISP = await caller.internetServiceProviders.registerISP({ name: "ispTest", cnpj: "ispTestCnpj" }) // register ISP
         expect(createISP.cnpj).toStrictEqual("ispTestCnpj") // expect that isp has been registered
 
         const createSchool = await caller.admin.createSchool(schoolTest) // create school
@@ -116,7 +116,7 @@ describe('Admin Context Tests', () => {
     it('Should deny contract', async () => {
         await caller.admin.registerAdmin({ name: "test", entity: Entity.INVESTTOOLS }) // register admin
 
-        const createISP = await caller.internetServiceProviders.registerISP({ name: "ispTest", cnpj: "ispTestCnpj" }) // register ISP 
+        const createISP = await caller.internetServiceProviders.registerISP({ name: "ispTest", cnpj: "ispTestCnpj" }) // register ISP
         expect(createISP.cnpj).toStrictEqual("ispTestCnpj") // expect that isp has been registered
 
         const createSchool = await caller.admin.createSchool(schoolTest) // create school

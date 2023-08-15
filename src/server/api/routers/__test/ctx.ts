@@ -94,3 +94,24 @@ export const schoolTest = {
   email: "escola@test.com",
   administrator: "state"
 }
+
+
+export const adminContextSession = {
+  user: {
+    id: 'adminUuid',
+    name: '',
+    email: adminContextCaller.emailAddresses[0]?.emailAddress,
+    image: adminContextCaller.profileImageUrl
+  },
+  expires: new Date(Date.now() + 3600000).toISOString()
+}
+
+export const ispContextSession = {
+  user: {
+    id: 'ispUuid',
+    name: '',
+    email: ispContextCaller.emailAddresses[0]?.emailAddress,
+    image: ispContextCaller.profileImageUrl
+  },
+  expires: new Date(Date.now() + 3600000).toISOString()
+}

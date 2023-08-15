@@ -11,10 +11,13 @@ const UserButton = ({ locale }: { locale: string }) => {
     if (session && session.user) {
         return (
             <div className="flex">
-                <span className="flex items-center -translate-x-2 text-[14px] text-gray-400 p-1 bg-white rounded-full">{session.user.name}</span>
+                <span className="flex items-center -translate-x-2 text-[14px] text-gray-400 py-0 px-4 bg-white rounded-lg">
+                    <span className="border-b border-transparent">Olá,&nbsp;</span>
+                    <span className="font-bold border-b border-ivtcolor2">{session.user.name}</span>!
+                </span>
                 <div className="rounded-full cursor-pointer" onClick={() => setShowInfo(!showInfo)}>
                     <div>
-                        <Image width={35} height={1} src={session.user.image ?? ""} alt={'brazil'} className="rounded-full" />
+                        <Image width={35} height={1} src={session.user.image ?? ""} alt={'user image'} className="rounded-full" />
                     </div>
                     {showInfo &&
                         <div className="absolute translate-y-3 -translate-x-3 text-center">

@@ -1,12 +1,12 @@
 import { expect } from "@jest/globals"
 import { appRouter } from "../../root"
-import { ispContextCaller } from "./ctx"
+import { ispContextCaller, ispContextSession } from "./ctx"
 import { prisma } from "~/server/db"
 
 describe('Internet Service Provider Tests', () => {
-    const caller = appRouter.createCaller({ user: ispContextCaller, prisma })
+    const caller = appRouter.createCaller({ session: ispContextSession, prisma })
     if (ispContextCaller.emailAddresses[0] === null || ispContextCaller.emailAddresses[0] === undefined) return new Error()
-    const ispEmail = ispContextCaller.emailAddresses[0].emailAddress
+    const ispEmail = String(ispContextSession.user.email)
 
     it('Should return false before creating ISP and true after', async () => {
         expect(await caller.internetServiceProviders.isIsp()).toEqual(false) // returns false bc isp doesn't exist yet

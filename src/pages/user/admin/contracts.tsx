@@ -48,7 +48,7 @@ const Contracts: React.FC = () => {
   )
 
   const paginatePendingContracts = paginateData(pendingContracts.data, pendingContractsItemsPerPage, pendingContractsCurrentPage, pendingContractsSetCurrentPage, pendingContractsSetItemsPerPage)
-  const currentPendingContracts = allContracts.data.slice(
+  const currentPendingContracts = pendingContracts.data.slice(
     (pendingContractsCurrentPage - 1) * pendingContractsItemsPerPage,
     pendingContractsCurrentPage * pendingContractsItemsPerPage
   )

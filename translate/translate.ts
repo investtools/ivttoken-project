@@ -12,6 +12,7 @@ export class Translate {
                 case "-": return "-"
                 case "null": return "-"
                 case "Year": return "Ano"
+                case "Hello": return "Olá"
                 case "Enter": return "Entrar"
                 case "Search": return "Procurar"
                 case "Loading": return "Carregando"

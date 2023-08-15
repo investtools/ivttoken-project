@@ -12,7 +12,7 @@ const UserButton = ({ locale }: { locale: string }) => {
         return (
             <div className="flex">
                 <span className="flex items-center -translate-x-2 text-[14px] text-gray-400 py-0 px-4 bg-white rounded-lg">
-                    <span className="border-b border-transparent">Olá,&nbsp;</span>
+                    <span className="border-b border-transparent">{t.t("Hello")},&nbsp;</span>
                     <span className="font-bold border-b border-ivtcolor2">{session.user.name}</span>!
                 </span>
                 <div className="rounded-full cursor-pointer" onClick={() => setShowInfo(!showInfo)}>

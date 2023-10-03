@@ -3,9 +3,9 @@ import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
 import { useState } from "react"
 import HomeButton from "~/styles/styledComponents/shared/HomeButton"
-import ClosedHelp from "~/styles/styledComponents/shared/help/Closed"
-import OpenedHelp from "~/styles/styledComponents/shared/help/Opened"
 import SwitchISPHelpButton from "~/styles/styledComponents/shared/SwitchISPHelpButton"
+import ISPClosedHelp from "~/styles/styledComponents/shared/isp-help/Closed"
+import ISPOpenedHelp from "~/styles/styledComponents/shared/isp-help/Opened"
 
 const HelpCenter: React.FC = () => {
     const [closed, setClosed] = useState(false)
@@ -23,7 +23,7 @@ const HelpCenter: React.FC = () => {
                         <h2 className="p-2 rounded-t text-ivtcolor2 font-bold text-2xl">{closed ? t.t("Closed Help") : t.t("Opened Help")}</h2>
                         <SwitchISPHelpButton locale={locale} closed={closed} setClosed={() => setClosed(!closed)} />
                     </div>
-                    {closed ? (<ClosedHelp />) : (<OpenedHelp />)}
+                    {closed ? (<ISPClosedHelp />) : (<ISPOpenedHelp />)}
                 </div>
             </div>
         </>

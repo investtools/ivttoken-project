@@ -1,7 +1,6 @@
 import type { NextPage } from "next"
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import DocumentationIcon from "~/styles/styledComponents/icons/DocumentationIcon"
 import GitHubIcon from "~/styles/styledComponents/icons/GitHubIcon"
 import IssuesIcon from "~/styles/styledComponents/icons/IssuesIcon"
 import TicketIcon from "~/styles/styledComponents/icons/TicketIcon"
@@ -13,7 +12,7 @@ import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 
 const DevDashboard: NextPage = () => {
     const router = useRouter()
-    const locale = router.locale === undefined ? 'en' : router.locale
+    const locale = router.locale === undefined ? 'pt-br' : router.locale
     const t = new Translate(locale)
 
     return (
@@ -25,7 +24,6 @@ const DevDashboard: NextPage = () => {
                     <GigaTokenTitle locale={locale} />
                     <div className="grid grid-cols-2 gap-4 w-full">
                         <DashboardButtonLeft title={t.t("Open Ticket")} link={"dev/open-ticket"} RightIcon={TicketIcon} />
-                        <DashboardButtonRight title={t.t("Documentation")} link={"dev/docs"} RightIcon={DocumentationIcon} />
                         <DashboardButtonLeft title={t.t("GitHub Repository")} link={"https://github.com/investtools/ivttoken_frontend"} RightIcon={GitHubIcon} />
                         <DashboardButtonRight title={t.t("GitHub Issues")} link={"https://github.com/investtools/ivttoken_frontend/issues"} RightIcon={IssuesIcon} />
                     </div>

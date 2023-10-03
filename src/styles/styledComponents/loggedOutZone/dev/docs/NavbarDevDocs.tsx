@@ -8,7 +8,7 @@ const sectionsId = ['overview', 'instructions', 'admin', 'schools', 'providers',
 const NavbarDevDocs: React.FC = () => {
   const [activeSection, setActiveSection] = useState('')
   const router = useRouter()
-  const locale = router.locale === undefined ? "en" : router.locale
+  const locale = router.locale === undefined ? "pt-br" : router.locale
   const t = new Translate(locale)
   const isDesktop = isDeviceDesktop()
 

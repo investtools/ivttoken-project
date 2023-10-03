@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Switch } from '@headlessui/react'
 import { useRouter } from 'next/router'
+import BrazilIcon from '../icons/BrazilIcon'
+import USAIcon from '../icons/UsaIcon'
 
 export default function SwitchLanguage() {
   const [enabled, setEnabled] = useState(false)
@@ -8,32 +10,35 @@ export default function SwitchLanguage() {
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language')
-    if (storedLanguage === 'pt-br') {
-      setEnabled(true)
-    }
+    const currentPath = router.asPath
+
     if (storedLanguage === 'en') {
-      const currentPath = router.asPath
       void router.push(currentPath, currentPath, { locale: 'en' })
+      setEnabled(true)
+    } else {
+      void router.push(currentPath, currentPath, { locale: 'pt-br' })
       setEnabled(false)
     }
-  }, [router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleLanguageSwitch = (isEnabled: boolean | ((prevState: boolean) => boolean)) => {
     setEnabled(isEnabled)
 
     if (isEnabled) {
       const currentPath = router.asPath
-      void router.push(currentPath, currentPath, { locale: 'pt-br' })
-      localStorage.setItem('language', 'pt-br')
+      void router.push(currentPath, currentPath, { locale: 'en' })
+      localStorage.setItem('language', 'en')
     } else {
       const currentPath = router.asPath
-      void router.push(currentPath, currentPath, { locale: 'en' })
+      void router.push(currentPath, currentPath, { locale: 'pt-br' })
       localStorage.removeItem('language')
     }
   }
 
   return (
-    <div style={{ marginTop: "0.2rem" }}>
+    <div className='flex items-center' style={{ marginTop: "0.2rem" }}>
+      <BrazilIcon />
       <Switch
         checked={enabled}
         onChange={handleLanguageSwitch}
@@ -47,6 +52,7 @@ export default function SwitchLanguage() {
             pointer-events-none inline-block h-[24px] w-[24px] transform rounded-full bg-gray-200 border-xhover drop-shadow-xl ring-0 transition duration-200 ease-in-out`}
         />
       </Switch>
+      <USAIcon />
     </div>
   )
 }

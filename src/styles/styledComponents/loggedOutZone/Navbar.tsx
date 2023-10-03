@@ -8,7 +8,7 @@ const sectionsId = ['home', 'about', 'history', 'pillars', 'institutional', 'tes
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('')
   const router = useRouter()
-  const locale = router.locale === undefined ? "en" : router.locale
+  const locale = router.locale === undefined ? "pt-br" : router.locale
   const t = new Translate(locale)
   const isDesktop = isDeviceDesktop()
 

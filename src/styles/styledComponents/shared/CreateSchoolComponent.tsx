@@ -49,7 +49,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   useEffect(() => {

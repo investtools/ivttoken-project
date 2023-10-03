@@ -26,16 +26,15 @@ export const adminRouter = createTRPCRouter({
 
       const admin = await prisma.admin.findUniqueOrThrow({ where: { email } })
 
+      const help = await prisma.helpProviders.findUniqueOrThrow({ where: { id: input.helpId } })
+
       await prisma.helpProviders.update({
         where: {
           id: input.helpId
         },
         data: {
-          isOpen: false,
           updatedAt: new Date(),
-          closedBy: admin.name,
-          entity: admin.entity,
-          answer: input.message
+          messages: [...help.messages, `${input.message} FROM:${admin.entity}+${admin.name} ${admin.entity}`]
         }
       })
 
@@ -51,7 +50,31 @@ export const adminRouter = createTRPCRouter({
         from: process.env.ADMIN_EMAIL,
         to: input.to,
         subject: input.subject,
-        text: input.message
+        text: "Há uma atualização no pedido de ajuda que você enviou! Acesse a plataforma para mais informações."
+      })
+    }),
+
+  closeISPHelp: publicProcedure.input(
+    z.object({
+      helpId: z.string()
+    })
+  )
+    .mutation(async ({ input, ctx }) => {
+      const email = ctx.session?.user.email
+      if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
+
+      const admin = await prisma.admin.findUniqueOrThrow({ where: { email } })
+
+      await prisma.helpProviders.update({
+        where: {
+          id: input.helpId
+        },
+        data: {
+          isOpen: false,
+          updatedAt: new Date(),
+          closedBy: admin.name,
+          entity: admin.entity,
+        }
       })
     }),
 
@@ -75,7 +98,9 @@ export const adminRouter = createTRPCRouter({
         subject: "-",
         message: "-",
         id: "-",
-        createdAt: "-"
+        createdAt: "-",
+        updatedAt: "-",
+        messages: [""]
       }]
     }
   }),
@@ -103,9 +128,28 @@ export const adminRouter = createTRPCRouter({
         updatedAt: "-",
         closedBy: "-",
         entity: "-",
-        answer: "-"
+        answer: "-",
+        messages: [""]
       }]
     }
+  }),
+
+  getHelpById: protectedProcedure.input(
+    z.object({
+      helpId: z.string()
+    })
+  )
+  .query(async ({ ctx, input }) => {
+    const email = ctx.session.user.email
+    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+    const help = await prisma.helpProviders.findUniqueOrThrow({
+      where: {
+        id: input.helpId
+      }
+    })
+
+    return help
   }),
 
   getOpenedTickets: protectedProcedure.query(async ({ ctx }) => {

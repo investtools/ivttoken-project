@@ -15,7 +15,7 @@ import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 
 const RegisterISP: React.FC = () => {
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   const [name, setName] = useState('')

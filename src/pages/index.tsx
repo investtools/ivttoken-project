@@ -7,7 +7,7 @@ import ErrorMessageComponent from "~/styles/styledComponents/shared/ErrorMessage
 
 const Home: NextPage = () => {
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const userHasAccount = api.generalLogin.userHasAccount.useQuery()
   const userInfo = api.generalLogin.getUserRole.useQuery()
   const isUserAuthorized = api.generalLogin.getAuthorizedRole.useQuery()

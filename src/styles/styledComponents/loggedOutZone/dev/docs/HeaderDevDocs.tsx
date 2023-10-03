@@ -1,8 +1,6 @@
 import DevButton from "../../DevButton"
 import NavbarDevDocs from "./NavbarDevDocs"
 import LoginButton from "../../LoginButton"
-import USAIcon from "~/styles/styledComponents/icons/UsaIcon"
-import BrazilIcon from "~/styles/styledComponents/icons/BrazilIcon"
 import SwitchLanguage from "~/styles/styledComponents/shared/SwitchLanguage"
 import { isDeviceDesktop } from "~/utils/functions/sharedFunctions"
 
@@ -19,9 +17,7 @@ const HeaderDevDocs: React.FC = () => {
                             <DevButton />
                         </div>
                         <div className="flex items-center mb-2 md:mb-0 md:order-3">
-                            <USAIcon />
                             <SwitchLanguage />
-                            <BrazilIcon />
                         </div>
                     </div>
 
@@ -47,9 +43,7 @@ const HeaderDevDocs: React.FC = () => {
                     </div>
 
                     <div className="flex items-center">
-                        <USAIcon />
                         <SwitchLanguage />
-                        <BrazilIcon />
                     </div>
                 </div>
             </div>

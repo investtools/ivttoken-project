@@ -20,7 +20,7 @@ const ISPContracts: React.FC = () => {
   const contracts = api.internetServiceProviders.getIspContracts.useQuery()
 
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   if (isLoading) return <LoadingComponent locale={locale} />

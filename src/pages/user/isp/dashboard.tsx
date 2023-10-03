@@ -13,10 +13,11 @@ import { Translate } from "translate/translate"
 import SchoolIcon from "~/styles/styledComponents/icons/ApproveSchoolIcon"
 import DashboardButtonRight from "~/styles/styledComponents/shared/DashboardButtonRight"
 import DashboardButtonLeft from "~/styles/styledComponents/shared/DashboardButtonLeft"
+import HelpCenterIcon from "~/styles/styledComponents/icons/HelpCenterIcon"
 
 const ISPDashboard: NextPage = () => {
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   const isIsp = api.internetServiceProviders.isIsp.useQuery()
@@ -35,6 +36,7 @@ const ISPDashboard: NextPage = () => {
             <DashboardButtonLeft title={t.t("School Catalog")} link={"school-catalog"} RightIcon={TableIcon} />
             <DashboardButtonRight title={t.t("My Information")} link={"my-information"} RightIcon={WalletIcon} />
             <DashboardButtonLeft title={t.t("My Schools")} link={"my-schools"} RightIcon={SchoolIcon} />
+            <DashboardButtonRight title={t.t("Help Center")} link={"help-center"} RightIcon={HelpCenterIcon} />
           </div>
         </div>
       </main>

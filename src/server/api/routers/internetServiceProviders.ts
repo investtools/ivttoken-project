@@ -8,6 +8,91 @@ import { prisma } from '~/database/prisma'
 import { sendIspHelpToSlack, sendIspToSlack } from '~/utils/functions/slackFunctions'
 
 export const internetServiceProvidersRouter = createTRPCRouter({
+  answerHelp: publicProcedure.input(
+    z.object({
+      message: z.string(),
+      helpId: z.string()
+    })
+  )
+    .mutation(async ({ input, ctx }) => {
+      const email = ctx.session?.user.email
+      if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
+      if (!input.message) throw new TRPCError({ code: "BAD_REQUEST", message: "One or more fields missing" })
+
+      const isp = await prisma.internetServiceProvider.findUniqueOrThrow({ where: { email } })
+
+      const help = await prisma.helpProviders.findUniqueOrThrow({ where: { id: input.helpId } })
+
+      await prisma.helpProviders.update({
+        where: {
+          id: input.helpId
+        },
+        data: {
+          updatedAt: new Date(),
+          messages: [...help.messages, `${input.message} FROM:ISP+${isp.name}`]
+        }
+      })
+    }),
+
+  getOpenedHelps: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.session.user.email
+    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+    const helps = await prisma.helpProviders.findMany({
+      where: {
+        isOpen: true,
+        email
+      }
+    })
+
+    if (helps.length > 0) {
+      return helps
+    } else {
+      return [{
+        name: "-",
+        email: "-",
+        cnpj: "-",
+        subject: "-",
+        updatedAt: "-",
+        message: "-",
+        id: "-",
+        createdAt: "-",
+        messages: [""]
+      }]
+    }
+  }),
+
+  getClosedHelps: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.session.user.email
+    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+
+    const helps = await prisma.helpProviders.findMany({
+      where: {
+        isOpen: false,
+        email
+      }
+    })
+
+    if (helps.length > 0) {
+      return helps
+    } else {
+      return [{
+        name: "-",
+        email: "-",
+        cnpj: "-",
+        subject: "-",
+        message: "-",
+        id: "-",
+        updatedAt: "-",
+        createdAt: "-",
+        closedBy: "-",
+        entity: "-",
+        answer: "-",
+        messages: [""]
+      }]
+    }
+  }),
+
   sendHelp: publicProcedure.input(
     z.object({
       subject: z.string(),

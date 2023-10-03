@@ -7,7 +7,7 @@ import CreateSchoolComponent from "~/styles/styledComponents/shared/CreateSchool
 
 function CreateSchool() {
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
 
   const { mutate } = api.admin.createSchool.useMutation()
 

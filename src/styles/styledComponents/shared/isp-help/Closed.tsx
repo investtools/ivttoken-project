@@ -7,31 +7,30 @@ import Paginate from "~/styles/styledComponents/shared/Paginate/Paginate"
 import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 import { formatDate } from "~/utils/functions/ispFunctions"
-import NoHelpsModal from "../../modals/NoHelpsModal"
+import { entityMap } from "~/utils/functions/adminFunctions"
 import AnswerModal from "../../modals/AnswerModal"
 
-const OpenedHelp: React.FC = () => {
+const ISPClosedHelp: React.FC = () => {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(5)
     const [name, setName] = useState("")
     const [helpId, setHelpId] = useState("")
     const [email, setEmail] = useState("")
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([""])
     const [subject, setSubject] = useState("")
-    const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage, setItemsPerPage] = useState(5)
     const [answerModalIsOpen, setAnswerModalIsOpen] = useState(false)
-    const [noHelpsModalIsOpen, setNoHelpsModalIsOpen] = useState(false)
     const [updatedAt, setUpdatedAt] = useState("")
 
     const router = useRouter()
     const locale = router.locale === undefined ? 'pt-br' : router.locale
     const t = new Translate(locale)
 
-    const isAdmin = api.admin.isAdmin.useQuery()
-    const { data, isLoading } = api.admin.getOpenedHelps.useQuery()
+    const isIsp = api.internetServiceProviders.isIsp.useQuery()
+    const { data, isLoading } = api.internetServiceProviders.getClosedHelps.useQuery()
 
-    if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
-    if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
+    if (isIsp.data == false) return <ErrorMessageComponent locale={locale} />
+    if (isIsp.isLoading) return <LoadingComponent locale={locale} />
     if (isLoading) return <LoadingComponent locale={locale} />
     if (!data) return <ErrorMessageComponent locale={locale} />
 
@@ -42,7 +41,6 @@ const OpenedHelp: React.FC = () => {
     )
 
     const handleAnswer = (helpId: string, name: string, subject: string, message: string, email: string, messages: string[], updatedAt: string) => {
-        if (helpId === "-") return setNoHelpsModalIsOpen(true)
         setName(name)
         setSubject(subject)
         setMessage(message)
@@ -65,8 +63,10 @@ const OpenedHelp: React.FC = () => {
                                 <th className="p-2 border text-ivtcolor2">{t.t("CNPJ")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Subject")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Message")}</th>
-                                <th className="p-2 border text-ivtcolor2">{t.t("Created At")}</th>
-                                <th className="p-2 border text-ivtcolor2">{t.t("Answer")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Closed By")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Team")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Closed At")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Response")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,10 +77,12 @@ const OpenedHelp: React.FC = () => {
                                     <td className="p-2 border text-ivtcolor2">{help.cnpj}</td>
                                     <td className="p-2 border text-ivtcolor2">{help.subject}</td>
                                     <td className="p-2 border text-ivtcolor2">{help.message}</td>
-                                    <td className="p-2 border text-ivtcolor2">{formatDate(String(help.createdAt))}</td>
+                                    <td className="p-2 border text-ivtcolor2">{help.closedBy}</td>
+                                    <td className="p-2 border text-ivtcolor2">{entityMap(help.entity)}</td>
+                                    <td className="p-2 border text-ivtcolor2">{formatDate(String(help.updatedAt))}</td>
                                     <td className="p-2 border text-ivtcolor2">
                                         <button onClick={() => handleAnswer(help.id, help.name, help.subject, help.message, help.email, help.messages, formatDate(String(help.updatedAt)))} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
-                                            {t.t("Answer")}
+                                            {t.t("Details")}
                                         </button>
                                     </td>
                                 </tr>
@@ -95,9 +97,6 @@ const OpenedHelp: React.FC = () => {
 
     return (
         <>
-            {noHelpsModalIsOpen && (
-                <NoHelpsModal closeModal={() => setNoHelpsModalIsOpen(false)} locale={locale} />
-            )}
             {answerModalIsOpen && (
                 <AnswerModal
                     closeModal={() => setAnswerModalIsOpen(false)}
@@ -107,11 +106,11 @@ const OpenedHelp: React.FC = () => {
                     helpMessage={message}
                     ispEmail={email} helpId={helpId}
                     messages={messages}
-                    isIsp={false}
+                    isClosed={true}
+                    isIsp={true}
                     updatedAt={updatedAt}
                 />
             )}
-
             <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">
                 {renderTable()}
             </div>
@@ -119,4 +118,4 @@ const OpenedHelp: React.FC = () => {
     )
 }
 
-export default OpenedHelp
+export default ISPClosedHelp

@@ -25,7 +25,7 @@ const AdminDashboard: NextPage = () => {
   const isAdmin = api.admin.isAdmin.useQuery()
 
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
 
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
   if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
@@ -49,7 +49,7 @@ const AdminDashboard: NextPage = () => {
             <DashboardButtonRight title={t.t("Authorized Users")} link={"authorized-users"} RightIcon={AuthorizedIcon} />
             <DashboardButtonLeft title={t.t("Approve School")} link={"approve/school"} RightIcon={ApproveSchoolIcon} />
             <DashboardButtonRight title={t.t("Approve Provider")} link={"approve/isp"} RightIcon={ApproveUserIcon} />
-            <DashboardButtonLeft title={t.t("Opened Tickets")} link={"tickets"} RightIcon={TicketIcon} />
+            <DashboardButtonLeft title="Dev Tickets" link={"tickets"} RightIcon={TicketIcon} />
             <DashboardButtonRight title={t.t("Help Center")} link={"help-center"} RightIcon={HelpCenterIcon} />
           </div>
         </div>

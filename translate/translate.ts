@@ -164,8 +164,9 @@ export class Translate {
                 case "Message": return "Mensagem"
 
                 // admin handle tickets
-                case "Opened Tickets": return "Tickets Abertos"
                 case "Closed Tickets": return "Tickets Fechados"
+                case "Close Ticket": return "Fechar Ticket"
+                case "Details": return "Detalhes"
                 case "Close": return "Fechar"
                 case "Oops! There are no tickets to close...": return "Opa! Não há tickets para fechar..."
                 case "Ticket Closed!": return "Ticked Fechado!"

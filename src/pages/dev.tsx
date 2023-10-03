@@ -24,6 +24,7 @@ const DevDashboard: NextPage = () => {
                     <GigaTokenTitle locale={locale} />
                     <div className="grid grid-cols-2 gap-4 w-full">
                         <DashboardButtonLeft title={t.t("Open Ticket")} link={"dev/open-ticket"} RightIcon={TicketIcon} />
+                        <DashboardButtonLeft title={t.t("Documentation")} link={"https://investtools.github.io/ivttoken-project/"} RightIcon={TicketIcon} />
                         <DashboardButtonLeft title={t.t("GitHub Repository")} link={"https://github.com/investtools/ivttoken_frontend"} RightIcon={GitHubIcon} />
                         <DashboardButtonRight title={t.t("GitHub Issues")} link={"https://github.com/investtools/ivttoken_frontend/issues"} RightIcon={IssuesIcon} />
                     </div>

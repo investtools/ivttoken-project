@@ -28,7 +28,7 @@ const ISPOpenedHelp: React.FC = () => {
     const t = new Translate(locale)
 
     const isIsp = api.internetServiceProviders.isIsp.useQuery()
-    const { data, isLoading } = api.internetServiceProviders.getClosedHelps.useQuery()
+    const { data, isLoading } = api.internetServiceProviders.getOpenedHelps.useQuery()
 
     if (isIsp.data == false) return <ErrorMessageComponent locale={locale} />
     if (isIsp.isLoading) return <LoadingComponent locale={locale} />

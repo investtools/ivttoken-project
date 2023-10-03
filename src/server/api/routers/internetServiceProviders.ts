@@ -53,6 +53,7 @@ export const internetServiceProvidersRouter = createTRPCRouter({
         email: "-",
         cnpj: "-",
         subject: "-",
+        updatedAt: "-",
         message: "-",
         id: "-",
         createdAt: "-",

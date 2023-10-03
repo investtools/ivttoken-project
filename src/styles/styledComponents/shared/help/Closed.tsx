@@ -8,10 +8,18 @@ import { useState } from "react"
 import { paginateData } from "~/styles/styledComponents/shared/Paginate/paginateData"
 import { formatDate } from "~/utils/functions/ispFunctions"
 import { entityMap } from "~/utils/functions/adminFunctions"
+import AnswerModal from "../../modals/AnswerModal"
 
 const ClosedHelp: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(5)
+    const [name, setName] = useState("")
+    const [helpId, setHelpId] = useState("")
+    const [email, setEmail] = useState("")
+    const [message, setMessage] = useState("")
+    const [messages, setMessages] = useState([""])
+    const [subject, setSubject] = useState("")
+    const [answerModalIsOpen, setAnswerModalIsOpen] = useState(false)
 
     const router = useRouter()
     const locale = router.locale === undefined ? 'pt-br' : router.locale
@@ -31,6 +39,16 @@ const ClosedHelp: React.FC = () => {
         currentPage * itemsPerPage
     )
 
+    const handleAnswer = (helpId: string, name: string, subject: string, message: string, email: string, messages: string[]) => {
+        setName(name)
+        setSubject(subject)
+        setMessage(message)
+        setEmail(email)
+        setHelpId(helpId)
+        setAnswerModalIsOpen(true)
+        setMessages(messages)
+    }
+
     const renderTable = () => {
         return (
             <div className="bg-white rounded-b">
@@ -45,8 +63,8 @@ const ClosedHelp: React.FC = () => {
                                 <th className="p-2 border text-ivtcolor2">{t.t("Message")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Closed By")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Team")}</th>
-                                <th className="p-2 border text-ivtcolor2">{t.t("Response")}</th>
                                 <th className="p-2 border text-ivtcolor2">{t.t("Closed At")}</th>
+                                <th className="p-2 border text-ivtcolor2">{t.t("Response")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,8 +77,12 @@ const ClosedHelp: React.FC = () => {
                                     <td className="p-2 border text-ivtcolor2">{help.message}</td>
                                     <td className="p-2 border text-ivtcolor2">{help.closedBy}</td>
                                     <td className="p-2 border text-ivtcolor2">{entityMap(help.entity)}</td>
-                                    <td className="p-2 border text-ivtcolor2">{help.answer}</td>
                                     <td className="p-2 border text-ivtcolor2">{formatDate(String(help.updatedAt))}</td>
+                                    <td className="p-2 border text-ivtcolor2">
+                                        <button onClick={() => handleAnswer(help.id, help.name, help.subject, help.message, help.email, help.messages)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                                            {t.t("Details")}
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -73,6 +95,18 @@ const ClosedHelp: React.FC = () => {
 
     return (
         <>
+            {answerModalIsOpen && (
+                <AnswerModal
+                    closeModal={() => setAnswerModalIsOpen(false)}
+                    locale={locale}
+                    ispName={name}
+                    helpSubject={subject}
+                    helpMessage={message}
+                    ispEmail={email} helpId={helpId}
+                    messages={messages}
+                    isClosed={true}
+                />
+            )}
             <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">
                 {renderTable()}
             </div>

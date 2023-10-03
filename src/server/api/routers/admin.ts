@@ -145,7 +145,8 @@ export const adminRouter = createTRPCRouter({
         updatedAt: "-",
         closedBy: "-",
         entity: "-",
-        answer: "-"
+        answer: "-",
+        messages: [""]
       }]
     }
   }),

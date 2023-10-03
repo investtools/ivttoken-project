@@ -52,9 +52,10 @@ interface AnswerModalProps {
   ispEmail: string
   helpId: string
   messages: string[]
+  isClosed?: boolean
 }
 
-export default function AnswerModal({ closeModal, locale, ispName, helpSubject, helpMessage, ispEmail, helpId, messages }: AnswerModalProps) {
+export default function AnswerModal({ closeModal, locale, ispName, helpSubject, helpMessage, ispEmail, helpId, messages, isClosed }: AnswerModalProps) {
   const t = new Translate(locale)
   const [isOpen] = useState(true)
   const [message, setMessage] = useState("")
@@ -160,44 +161,48 @@ export default function AnswerModal({ closeModal, locale, ispName, helpSubject, 
                     ))}
                   </div>
 
-                  <div className="mb-2">
-                    <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="message">
-                      {t.t("Message")}
-                    </label>
-                    <textarea
-                      className="shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor"
-                      id="message"
-                      placeholder={t.t("Message")}
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                    />
-                  </div>
+                  {!isClosed &&
+                    <>
+                      <div className="mb-2">
+                        <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="message">
+                          {t.t("Message")}
+                        </label>
+                        <textarea
+                          className="shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor"
+                          id="message"
+                          placeholder={t.t("Message")}
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                        />
+                      </div>
 
-                  <div className="mt-4 flex justify-between ">
-                    <button
-                      type="button"
-                      className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                      onClick={(event) => {
-                        event.preventDefault()
-                        handleSubmit(message, ispEmail, helpId)
-                      }}
-                    >
-                      {t.t('Send')}
-                      <SendIcon />
-                    </button>
+                      <div className="mt-4 flex justify-between ">
+                        <button
+                          type="button"
+                          className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                          onClick={(event) => {
+                            event.preventDefault()
+                            handleSubmit(message, ispEmail, helpId)
+                          }}
+                        >
+                          {t.t('Send')}
+                          <SendIcon />
+                        </button>
 
-                    <button
-                      type="button"
-                      className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                      onClick={(event) => {
-                        event.preventDefault()
-                        handleCloseHelp(helpId)
-                      }}
-                    >
-                      {t.t('Close Ticket')}
-                      <AuthorizedIcon strokeWidth='1' size='8' />
-                    </button>
-                  </div>
+                        <button
+                          type="button"
+                          className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                          onClick={(event) => {
+                            event.preventDefault()
+                            handleCloseHelp(helpId)
+                          }}
+                        >
+                          {t.t('Close Ticket')}
+                          <AuthorizedIcon strokeWidth='1' size='8' />
+                        </button>
+                      </div>
+                    </>
+                  }
                 </Dialog.Panel>
               </Transition.Child>
             </div>

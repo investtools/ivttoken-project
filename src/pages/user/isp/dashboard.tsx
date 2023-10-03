@@ -36,8 +36,7 @@ const ISPDashboard: NextPage = () => {
             <DashboardButtonLeft title={t.t("School Catalog")} link={"school-catalog"} RightIcon={TableIcon} />
             <DashboardButtonRight title={t.t("My Information")} link={"my-information"} RightIcon={WalletIcon} />
             <DashboardButtonLeft title={t.t("My Schools")} link={"my-schools"} RightIcon={SchoolIcon} />
-            {/* // TODO */}
-            <DashboardButtonRight title={t.t("Help Center")} link={""} RightIcon={HelpCenterIcon} />
+            <DashboardButtonRight title={t.t("Help Center")} link={"help-center"} RightIcon={HelpCenterIcon} />
           </div>
         </div>
       </main>

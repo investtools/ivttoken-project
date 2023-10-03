@@ -19,6 +19,7 @@ const ClosedHelp: React.FC = () => {
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([""])
     const [subject, setSubject] = useState("")
+    const [updatedAt, setUpdatedAt] = useState("")
     const [answerModalIsOpen, setAnswerModalIsOpen] = useState(false)
 
     const router = useRouter()
@@ -39,7 +40,7 @@ const ClosedHelp: React.FC = () => {
         currentPage * itemsPerPage
     )
 
-    const handleAnswer = (helpId: string, name: string, subject: string, message: string, email: string, messages: string[]) => {
+    const handleAnswer = (helpId: string, name: string, subject: string, message: string, email: string, messages: string[], updatedAt: string) => {
         setName(name)
         setSubject(subject)
         setMessage(message)
@@ -47,6 +48,7 @@ const ClosedHelp: React.FC = () => {
         setHelpId(helpId)
         setAnswerModalIsOpen(true)
         setMessages(messages)
+        setUpdatedAt(updatedAt)
     }
 
     const renderTable = () => {
@@ -79,7 +81,7 @@ const ClosedHelp: React.FC = () => {
                                     <td className="p-2 border text-ivtcolor2">{entityMap(help.entity)}</td>
                                     <td className="p-2 border text-ivtcolor2">{formatDate(String(help.updatedAt))}</td>
                                     <td className="p-2 border text-ivtcolor2">
-                                        <button onClick={() => handleAnswer(help.id, help.name, help.subject, help.message, help.email, help.messages)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                                        <button onClick={() => handleAnswer(help.id, help.name, help.subject, help.message, help.email, help.messages, formatDate(String(help.updatedAt)))} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
                                             {t.t("Details")}
                                         </button>
                                     </td>
@@ -105,6 +107,8 @@ const ClosedHelp: React.FC = () => {
                     ispEmail={email} helpId={helpId}
                     messages={messages}
                     isClosed={true}
+                    isIsp={false}
+                    updatedAt={updatedAt}
                 />
             )}
             <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">

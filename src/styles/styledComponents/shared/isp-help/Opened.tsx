@@ -10,7 +10,7 @@ import { formatDate } from "~/utils/functions/ispFunctions"
 import NoHelpsModal from "../../modals/NoHelpsModal"
 import AnswerModal from "../../modals/AnswerModal"
 
-const OpenedHelp: React.FC = () => {
+const ISPOpenedHelp: React.FC = () => {
     const [name, setName] = useState("")
     const [helpId, setHelpId] = useState("")
     const [email, setEmail] = useState("")
@@ -27,11 +27,11 @@ const OpenedHelp: React.FC = () => {
     const locale = router.locale === undefined ? 'pt-br' : router.locale
     const t = new Translate(locale)
 
-    const isAdmin = api.admin.isAdmin.useQuery()
-    const { data, isLoading } = api.admin.getOpenedHelps.useQuery()
+    const isIsp = api.internetServiceProviders.isIsp.useQuery()
+    const { data, isLoading } = api.internetServiceProviders.getClosedHelps.useQuery()
 
-    if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
-    if (isAdmin.isLoading) return <LoadingComponent locale={locale} />
+    if (isIsp.data == false) return <ErrorMessageComponent locale={locale} />
+    if (isIsp.isLoading) return <LoadingComponent locale={locale} />
     if (isLoading) return <LoadingComponent locale={locale} />
     if (!data) return <ErrorMessageComponent locale={locale} />
 
@@ -107,7 +107,7 @@ const OpenedHelp: React.FC = () => {
                     helpMessage={message}
                     ispEmail={email} helpId={helpId}
                     messages={messages}
-                    isIsp={false}
+                    isIsp={true}
                     updatedAt={updatedAt}
                 />
             )}
@@ -119,4 +119,4 @@ const OpenedHelp: React.FC = () => {
     )
 }
 
-export default OpenedHelp
+export default ISPOpenedHelp

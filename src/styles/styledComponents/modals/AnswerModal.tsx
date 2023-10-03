@@ -10,9 +10,11 @@ import AuthorizedIcon from '../icons/AuthorizedIcon'
 
 interface ChatMessageProps {
   message: string
+  ispAnswer: boolean
+  updatedAt: string
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({ message, ispAnswer, updatedAt }) => {
   const [content, fromInfo] = message.split('FROM:')
   const [role, nameAndOrg] = (String(fromInfo)).split('+')
   const isISP = role === 'ISP'
@@ -23,7 +25,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         {content?.trim()}
       </div>
       <div className={`text-xs text-gray-500 ${isISP ? 'ml-3' : 'mr-3'}`}>
-        {nameAndOrg}
+        {`${nameAndOrg ? nameAndOrg + " -" : ""} ${updatedAt}`}
       </div>
     </div>
   )
@@ -53,9 +55,11 @@ interface AnswerModalProps {
   helpId: string
   messages: string[]
   isClosed?: boolean
+  isIsp: boolean
+  updatedAt: string
 }
 
-export default function AnswerModal({ closeModal, locale, ispName, helpSubject, helpMessage, ispEmail, helpId, messages, isClosed }: AnswerModalProps) {
+export default function AnswerModal({ closeModal, locale, ispName, helpSubject, helpMessage, ispEmail, helpId, messages, isClosed, isIsp, updatedAt }: AnswerModalProps) {
   const t = new Translate(locale)
   const [isOpen] = useState(true)
   const [message, setMessage] = useState("")
@@ -64,12 +68,17 @@ export default function AnswerModal({ closeModal, locale, ispName, helpSubject, 
   const [componentMessages, setComponentMessages] = useState(messages)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
-  const { mutate } = api.admin.answerISP.useMutation()
+  const { mutate: adminAnswer } = api.admin.answerISP.useMutation()
+  const { mutate: ispAnswer } = api.internetServiceProviders.answerHelp.useMutation()
   const { mutate: closeHelp } = api.admin.closeISPHelp.useMutation()
 
   const handleSubmit = (message: string, to: string, helpId: string) => {
     if (!message) return setIncompleteFieldsModalIsOpen(true)
-    mutate({ message, subject: `Re: ${helpSubject}`, to, helpId })
+    if (isIsp) {
+      ispAnswer({ message, helpId })
+    } else {
+      adminAnswer({ message, subject: `Re: ${helpSubject}`, to, helpId })
+    }
     setMessage("")
     setComponentMessages(prevMessages => [...prevMessages, `${message}`])
   }
@@ -157,7 +166,7 @@ export default function AnswerModal({ closeModal, locale, ispName, helpSubject, 
 
                   <div className="mb-4 mt-4 overflow-y-auto max-h-60" ref={messagesEndRef}>
                     {componentMessages.map((msg, index) => (
-                      <ChatMessage key={index} message={msg} />
+                      <ChatMessage key={index} message={msg} ispAnswer={isIsp} updatedAt={updatedAt} />
                     ))}
                   </div>
 
@@ -176,7 +185,21 @@ export default function AnswerModal({ closeModal, locale, ispName, helpSubject, 
                         />
                       </div>
 
-                      <div className="mt-4 flex justify-between ">
+                      <div className={`mt-4 flex ${isIsp ? "justify-end" : "justify-between"}`}>
+                        {!isIsp &&
+                          <button
+                            type="button"
+                            className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                            onClick={(event) => {
+                              event.preventDefault()
+                              handleCloseHelp(helpId)
+                            }}
+                          >
+                            {t.t('Close Ticket')}
+                            <AuthorizedIcon strokeWidth='1' size='8' />
+                          </button>
+                        }
+
                         <button
                           type="button"
                           className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -187,18 +210,6 @@ export default function AnswerModal({ closeModal, locale, ispName, helpSubject, 
                         >
                           {t.t('Send')}
                           <SendIcon />
-                        </button>
-
-                        <button
-                          type="button"
-                          className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                          onClick={(event) => {
-                            event.preventDefault()
-                            handleCloseHelp(helpId)
-                          }}
-                        >
-                          {t.t('Close Ticket')}
-                          <AuthorizedIcon strokeWidth='1' size='8' />
                         </button>
                       </div>
                     </>

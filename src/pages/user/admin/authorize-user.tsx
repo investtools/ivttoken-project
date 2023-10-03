@@ -19,7 +19,7 @@ import React from "react"
 
 const AuthorizeUser: NextPage = () => {
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   const roles = [

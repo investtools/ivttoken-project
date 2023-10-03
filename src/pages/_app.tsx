@@ -5,8 +5,6 @@ import PageHeader from "~/styles/styledComponents/shared/PageHeader"
 import Footer from "~/styles/styledComponents/shared/Footer"
 import IspWalletComponent from "~/styles/styledComponents/shared/IspWalletComponent"
 import SwitchLanguage from "~/styles/styledComponents/shared/SwitchLanguage"
-import BrazilIcon from "~/styles/styledComponents/icons/BrazilIcon"
-import USAIcon from "~/styles/styledComponents/icons/UsaIcon"
 import { useRouter } from "next/router"
 import { isPublicPath } from "~/utils/functions/sharedFunctions"
 import { Translate } from "translate/translate"
@@ -19,7 +17,7 @@ import { useEffect } from "react"
 const App: AppType = ({ Component, pageProps }) => {
   const isIsp = (api.internetServiceProviders.isIsp.useQuery()).data
   const router = useRouter()
-  const locale = router.locale === undefined ? "en" : router.locale
+  const locale = router.locale === undefined ? "pt-br" : router.locale
   const t = new Translate(locale)
   const isUserLogged = api.generalLogin.isUserLogged.useQuery()
   const isPathPublic = isPublicPath(router.pathname)
@@ -41,11 +39,7 @@ const App: AppType = ({ Component, pageProps }) => {
                       {isIsp && <IspWalletComponent />}
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <USAIcon />
-                    <SwitchLanguage />
-                    <BrazilIcon />
-                  </div>
+                  <SwitchLanguage />
                   {isIsp && <HelpComponent locale={locale} />}
                 </div>
               </div>

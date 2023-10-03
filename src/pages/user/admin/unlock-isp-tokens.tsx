@@ -20,7 +20,7 @@ const UnlockIspTokens: React.FC = () => {
   const [itemsPerPage, setItemsPerPage] = useState(5)
 
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   const isAdmin = api.admin.isAdmin.useQuery()

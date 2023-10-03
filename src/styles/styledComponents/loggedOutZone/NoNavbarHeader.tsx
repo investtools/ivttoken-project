@@ -1,6 +1,4 @@
 import SwitchLanguage from "../shared/SwitchLanguage"
-import USAIcon from "../icons/UsaIcon"
-import BrazilIcon from "../icons/BrazilIcon"
 import LoginButton from "./LoginButton"
 import GoMainBasicButton from "../shared/GoMainBasicButton"
 import DevButton from "./DevButton"
@@ -19,9 +17,7 @@ const NoNavbarHeader: React.FC<NoNavbarHeaderProps> = ({ dev }) => {
                 </div>
 
                 <div className="flex items-center">
-                    <USAIcon />
                     <SwitchLanguage />
-                    <BrazilIcon />
                 </div>
             </div>
         </div>

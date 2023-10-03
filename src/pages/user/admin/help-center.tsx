@@ -10,7 +10,7 @@ import SwitchISPHelpButton from "~/styles/styledComponents/shared/SwitchISPHelpB
 const HelpCenter: React.FC = () => {
     const [closed, setClosed] = useState(false)
     const router = useRouter()
-    const locale = router.locale === undefined ? 'en' : router.locale
+    const locale = router.locale === undefined ? 'pt-br' : router.locale
     const t = new Translate(locale)
 
     return (

@@ -26,7 +26,7 @@ function mapFilterOption(filterOption: string) {
 
 const Filter: React.FC<FilterProps> = ({ filterOption, setFilterOption, search, setSearch }) => {
     const router = useRouter()
-    const locale = router.locale === undefined ? 'en' : router.locale
+    const locale = router.locale === undefined ? 'pt-br' : router.locale
     const t = new Translate(locale)
     const options = ['name', 'state', 'city', 'zipCode']
 

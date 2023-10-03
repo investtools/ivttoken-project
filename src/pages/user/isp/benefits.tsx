@@ -21,7 +21,7 @@ const Benefits: React.FC = () => {
   const [selectedBenefit, setSelectedBenefit] = useState<string | null>(null)
 
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   const purchase = api.internetServiceProviders.buyBenefits.useMutation()

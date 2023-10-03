@@ -1,6 +1,4 @@
 import SwitchLanguage from "../shared/SwitchLanguage"
-import USAIcon from "../icons/UsaIcon"
-import BrazilIcon from "../icons/BrazilIcon"
 import Navbar from "./Navbar"
 import LoginButton from "./LoginButton"
 import DevButton from "./DevButton"
@@ -19,9 +17,7 @@ const Header: React.FC = () => {
                             <DevButton />
                         </div>
                         <div className="flex items-center mb-2 md:mb-0 md:order-3">
-                            <USAIcon />
                             <SwitchLanguage />
-                            <BrazilIcon />
                         </div>
                     </div>
 
@@ -47,9 +43,7 @@ const Header: React.FC = () => {
                     </div>
 
                     <div className="flex items-center">
-                        <USAIcon />
                         <SwitchLanguage />
-                        <BrazilIcon />
                     </div>
                 </div>
             </div>
@@ -57,7 +51,7 @@ const Header: React.FC = () => {
     }
     return (
         <>
-        {isDesktop ? desktop() : mobile()}
+            {isDesktop ? desktop() : mobile()}
         </>
     )
 }

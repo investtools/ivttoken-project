@@ -25,7 +25,7 @@ const AdminDashboard: NextPage = () => {
   const isAdmin = api.admin.isAdmin.useQuery()
 
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
 
   if (isAdmin.data == false) return <ErrorMessageComponent locale={locale} />
   if (isAdmin.isLoading) return <LoadingComponent locale={locale} />

@@ -21,7 +21,7 @@ const Paginate: React.FC<PaginateProps> = ({ totalPage, itemsPerPage, currentPag
     }
 
     const router = useRouter()
-    const locale = router.locale === undefined ? 'en' : router.locale
+    const locale = router.locale === undefined ? 'pt-br' : router.locale
     const t = new Translate(locale)
 
     return (
@@ -50,7 +50,7 @@ const Paginate: React.FC<PaginateProps> = ({ totalPage, itemsPerPage, currentPag
                                 key={value}
                                 value={value}
                                 className={({ active }) =>
-                                    `${active ? 'text-white bg-ivtcolor' : 'text-ivtcolor2'} 
+                                    `${active ? 'text-white bg-ivtcolor' : 'text-ivtcolor2'}
                     cursor-default select-none relative py-2 pl-10 pr-4 `}
                             >
                                 {({ selected, active }) => (

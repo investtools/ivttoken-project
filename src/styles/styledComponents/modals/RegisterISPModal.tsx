@@ -31,7 +31,7 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
     const [verified, setVerified] = useState(false)
 
     const router = useRouter()
-    const locale = router.locale === undefined ? 'en' : router.locale
+    const locale = router.locale === undefined ? 'pt-br' : router.locale
     const t = new Translate(locale)
 
     const { mutate } = api.internetServiceProviders.ispToBeApproved.useMutation()

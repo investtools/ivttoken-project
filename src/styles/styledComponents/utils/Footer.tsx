@@ -5,7 +5,7 @@ import { Translate } from "translate/translate"
 
 const Footer: React.FC = () => {
   const router = useRouter()
-  const locale = router.locale === undefined ? 'en' : router.locale
+  const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
   return (

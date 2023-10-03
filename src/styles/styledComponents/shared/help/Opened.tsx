@@ -15,6 +15,7 @@ const OpenedHelp: React.FC = () => {
     const [helpId, setHelpId] = useState("")
     const [email, setEmail] = useState("")
     const [message, setMessage] = useState("")
+    const [messages, setMessages] = useState([""])
     const [subject, setSubject] = useState("")
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(5)
@@ -39,7 +40,7 @@ const OpenedHelp: React.FC = () => {
         currentPage * itemsPerPage
     )
 
-    const handleAnswer = (helpId: string, name: string, subject: string, message: string, email: string) => {
+    const handleAnswer = (helpId: string, name: string, subject: string, message: string, email: string, messages: string[]) => {
         if (helpId === "-") return setNoHelpsModalIsOpen(true)
         setName(name)
         setSubject(subject)
@@ -47,8 +48,8 @@ const OpenedHelp: React.FC = () => {
         setEmail(email)
         setHelpId(helpId)
         setAnswerModalIsOpen(true)
+        setMessages(messages)
     }
-
 
     const renderTable = () => {
         return (
@@ -76,7 +77,7 @@ const OpenedHelp: React.FC = () => {
                                     <td className="p-2 border text-ivtcolor2">{help.message}</td>
                                     <td className="p-2 border text-ivtcolor2">{formatDate(String(help.createdAt))}</td>
                                     <td className="p-2 border text-ivtcolor2">
-                                        <button onClick={() => handleAnswer(help.id, help.name, help.subject, help.message, help.email)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
+                                        <button onClick={() => handleAnswer(help.id, help.name, help.subject, help.message, help.email, help.messages)} className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">
                                             {t.t("Answer")}
                                         </button>
                                     </td>
@@ -96,7 +97,15 @@ const OpenedHelp: React.FC = () => {
                 <NoHelpsModal closeModal={() => setNoHelpsModalIsOpen(false)} locale={locale} />
             )}
             {answerModalIsOpen && (
-                <AnswerModal closeModal={() => setAnswerModalIsOpen(false)} locale={locale} ispName={name} helpSubject={subject} helpMessage={message} ispEmail={email} helpId={helpId} />
+                <AnswerModal
+                    closeModal={() => setAnswerModalIsOpen(false)}
+                    locale={locale}
+                    ispName={name}
+                    helpSubject={subject}
+                    helpMessage={message}
+                    ispEmail={email} helpId={helpId}
+                    messages={messages}
+                />
             )}
 
             <div className="shadow overflow-hidden bg-white border-b border-gray-200 rounded-lg mt-8">

@@ -200,6 +200,7 @@ model HelpProviders {
     closedBy  String?
     entity    String?
     answer    String?
+    messages  String[] @default([])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 

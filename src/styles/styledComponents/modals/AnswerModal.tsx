@@ -1,11 +1,47 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Translate } from "translate/translate"
 import SendIcon from '../icons/SendIcon'
 import XMark from '../icons/XMarkIcon'
 import FormSentModal from './FormSentModal'
 import IncompleteFieldsModal from './IncompleteFieldsModal'
 import { api } from '~/utils/api'
+import AuthorizedIcon from '../icons/AuthorizedIcon'
+
+interface ChatMessageProps {
+  message: string
+}
+
+const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+  const [content, fromInfo] = message.split('FROM:')
+  const [role, nameAndOrg] = (String(fromInfo)).split('+')
+  const isISP = role === 'ISP'
+
+  return (
+    <div className={`grid mb-2 ${isISP ? 'justify-start' : 'justify-end'}`}>
+      <div className={`p-3 rounded-lg ${isISP ? 'bg-gray-200 text-black' : 'bg-blue-500 text-white'}`}>
+        {content?.trim()}
+      </div>
+      <div className={`text-xs text-gray-500 ${isISP ? 'ml-3' : 'mr-3'}`}>
+        {nameAndOrg}
+      </div>
+    </div>
+  )
+}
+
+const MessageHeader = ({ label, value, locale }: { label: string, value: string, locale: string }) => {
+  const t = new Translate(locale)
+  return (
+    <div>
+      <label className="block text-ivtcolor2 font-bold" htmlFor="subject">
+        {t.t(label)}
+      </label>
+      <div className='shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor'>
+        {value}
+      </div>
+    </div>
+  )
+}
 
 interface AnswerModalProps {
   closeModal: () => void
@@ -15,28 +51,51 @@ interface AnswerModalProps {
   helpMessage: string
   ispEmail: string
   helpId: string
+  messages: string[]
 }
 
-export default function AnswerModal({ closeModal, locale, ispName, helpSubject, helpMessage, ispEmail, helpId }: AnswerModalProps) {
+export default function AnswerModal({ closeModal, locale, ispName, helpSubject, helpMessage, ispEmail, helpId, messages }: AnswerModalProps) {
   const t = new Translate(locale)
   const [isOpen] = useState(true)
   const [message, setMessage] = useState("")
-  const [subject, setSubject] = useState(`Re: ${helpSubject}`)
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
   const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
+  const [componentMessages, setComponentMessages] = useState(messages)
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   const { mutate } = api.admin.answerISP.useMutation()
+  const { mutate: closeHelp } = api.admin.closeISPHelp.useMutation()
 
-  const handleSubmit = (subject: string, message: string, to: string, helpId: string) => {
-    if (!subject || !message) return setIncompleteFieldsModalIsOpen(true)
-    mutate({ message, subject, to, helpId })
-    setSentFormModalIsOpen(true)
+  const handleSubmit = (message: string, to: string, helpId: string) => {
+    if (!message) return setIncompleteFieldsModalIsOpen(true)
+    mutate({ message, subject: `Re: ${helpSubject}`, to, helpId })
+    setMessage("")
+    setComponentMessages(prevMessages => [...prevMessages, `${message}`])
   }
 
   const handleCloseSentFormModal = () => {
     setSentFormModalIsOpen(false)
     closeModal()
   }
+
+  const handleCloseHelp = (helpId: string) => {
+    closeHelp({ helpId })
+    setSentFormModalIsOpen(true)
+  }
+
+  useEffect(() => {
+    const current = messagesEndRef.current
+    if (current) {
+      current.scrollTop = current.scrollHeight
+    }
+  }, [componentMessages])
+
+  useEffect(() => {
+    const current = messagesEndRef.current
+    if (current) {
+      current.scrollTop = current.scrollHeight
+    }
+  }, [])
 
   return (
     <>
@@ -83,79 +142,60 @@ export default function AnswerModal({ closeModal, locale, ispName, helpSubject, 
                       <XMark />
                     </button>
                   </div>
-                  <div className="mt-2">
-                    <div className="mb-4">
-                      <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="subject">
-                        {t.t("Provider")}
-                      </label>
-                      <div className='shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor'>
-                        {ispName}
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="subject">
-                        {t.t("Subject")}
-                      </label>
-                      <div className='shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor'>
-                        {helpSubject}
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="subject">
-                        {t.t("Message")}
-                      </label>
-                      <div className='shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor'>
-                        {helpMessage}
-                      </div>
-                    </div>
-
-                    <div className='grid grid-cols-3 items-center'>
-                      <div className='border-b-2 border-gray-200 mx-4'></div>
-                      <span className='md:text-lg text-sm text-ivtcolor2 font-extrabold text-center'>{t.t("Your Response")}:</span>
-                      <div className='border-b-2 border-gray-200 mx-4'></div>
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="subject">
-                        {t.t("Subject")}
-                      </label>
-                      <input
-                        className="shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor"
-                        id="subject"
-                        type="text"
-                        placeholder={t.t("Subject")}
-                        value={subject}
-                        onChange={(e) => setSubject(e.target.value)}
-                      />
-                    </div>
-
-                    <div className="mb-2">
-                      <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="message">
-                        {t.t("Message")}
-                      </label>
-                      <textarea
-                        className="shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor"
-                        id="message"
-                        placeholder={t.t("Message")}
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                      />
-                    </div>
+                  <div className="mt-2 grid grid-cols-3 space-x-2">
+                    <MessageHeader label='Provider' locale={locale} value={ispName} />
+                    <MessageHeader label='Subject' locale={locale} value={helpSubject} />
+                    <MessageHeader label='Message' locale={locale} value={helpMessage} />
                   </div>
 
-                  <div className="mt-4 flex justify-center">
+                  <div className='grid grid-cols-3 items-center mt-4'>
+                    <div className='border-b-2 border-gray-200 mx-4'></div>
+                    <span className='md:text-lg text-sm text-ivtcolor2 font-extrabold text-center'>{t.t("Your Response")}</span>
+                    <div className='border-b-2 border-gray-200 mx-4'></div>
+                  </div>
+
+                  <div className="mb-4 mt-4 overflow-y-auto max-h-60" ref={messagesEndRef}>
+                    {componentMessages.map((msg, index) => (
+                      <ChatMessage key={index} message={msg} />
+                    ))}
+                  </div>
+
+                  <div className="mb-2">
+                    <label className="block text-ivtcolor2 font-bold mb-2" htmlFor="message">
+                      {t.t("Message")}
+                    </label>
+                    <textarea
+                      className="shadow appearance-none border w-full py-2 px-3 text-ivtcolor2 leading-tight  focus:shadow-outline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 border-ivtcolor p-2 rounded-lg focus-visible:ring-offset-ivtcolor"
+                      id="message"
+                      placeholder={t.t("Message")}
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="mt-4 flex justify-between ">
                     <button
                       type="button"
                       className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                       onClick={(event) => {
                         event.preventDefault()
-                        handleSubmit(subject, message, ispEmail, helpId)
+                        handleSubmit(message, ispEmail, helpId)
                       }}
                     >
                       {t.t('Send')}
                       <SendIcon />
+                    </button>
+
+                    <button
+                      type="button"
+                      className="gradient-animation font-bold inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                      onClick={(event) => {
+                        event.preventDefault()
+                        handleCloseHelp(helpId)
+                      }}
+                    >
+                      {t.t('Close Ticket')}
+                      <AuthorizedIcon strokeWidth='1' size='8' />
                     </button>
                   </div>
                 </Dialog.Panel>

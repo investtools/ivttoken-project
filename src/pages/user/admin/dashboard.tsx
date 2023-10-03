@@ -49,7 +49,7 @@ const AdminDashboard: NextPage = () => {
             <DashboardButtonRight title={t.t("Authorized Users")} link={"authorized-users"} RightIcon={AuthorizedIcon} />
             <DashboardButtonLeft title={t.t("Approve School")} link={"approve/school"} RightIcon={ApproveSchoolIcon} />
             <DashboardButtonRight title={t.t("Approve Provider")} link={"approve/isp"} RightIcon={ApproveUserIcon} />
-            <DashboardButtonLeft title={t.t("Opened Tickets")} link={"tickets"} RightIcon={TicketIcon} />
+            <DashboardButtonLeft title="Dev Tickets" link={"tickets"} RightIcon={TicketIcon} />
             <DashboardButtonRight title={t.t("Help Center")} link={"help-center"} RightIcon={HelpCenterIcon} />
           </div>
         </div>

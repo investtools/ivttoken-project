@@ -10,7 +10,7 @@ These tokens can be exchanged for tax incentives or other rewards.
 The project is designed to enhance educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.
 
 ## Documentation Website
-Please visit our [Documentation Website](https://ivttoken.vercel.app/dev/docs).
+Please visit our [Documentation Website](https://investtools.github.io/ivttoken-project/).
 
 ## Technologies
 

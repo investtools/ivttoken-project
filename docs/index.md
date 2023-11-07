@@ -2,6 +2,14 @@
 
 # GigaToken Project
 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="texto-central">
+
 Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet.
 The project utilizes a blockchain-based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet.
 ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.
@@ -22,12 +30,5 @@ This project is developed using the following technologies:
 - [Postgres](https://www.postgresql.org/)
 - [Prisma](https://www.prisma.io/)
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styles.css">
-</head>
-<body>
 </body>
 </html>

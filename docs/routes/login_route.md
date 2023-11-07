@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +6,6 @@
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-
 <div class="container">
   <h1>Login Route</h1>
     <div class="card">
@@ -32,9 +30,5 @@
       <p><strong>Request Type:</strong> Query</p>
     </div>
   </div>
-<footer>
-  <p>&copy; 2023 Giga Token Project</p>
-</footer>
-
 </body>
 </html>

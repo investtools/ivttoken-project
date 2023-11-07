@@ -12,6 +12,3 @@ title: Giga Token
 minima:
   title: Giga Token
   skin: dark
-  social_links:
-    - { platform: site,  user_url: "https://investtools.com.br/en" }
-    - { platform: devto, user_url: "https://br.linkedin.com/company/investtools" }

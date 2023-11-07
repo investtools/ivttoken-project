@@ -1,4 +1,4 @@
-## Environment Setup
+### Environment Setup
 
 Before you begin, you will need to install [Node.js](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) (which comes with Node.js) on your machine.
 Additionally, you will need to create a `.env` file at the root of the project with the following environment variables:

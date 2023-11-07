@@ -91,3 +91,15 @@ If you have any questions or comments about this project, feel free to open a is
 
 ## Code of Conduct
 We are committed to fostering a welcoming and inclusive community. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) for more information.
+
+## Who We Are
+
+At Investtools, we stand at the vanguard of technological innovation, consistently attuned to the evolving demands of the financial ecosystem. Our expertise is leveraged to craft tailored solutions that address the unique requirements of each participant in the financial sector. From catering to the specialized niche of fund managers to embracing the expansive realm of finance, our mission is to catalyze market transformation through cutting-edge technology. Our dedication to developing superior solutions is reflected in the high satisfaction rates of our clients, underscored by significant product endorsements and minimal client turnover. Driven by the dual forces of continual innovation and customer contentment, our ambition is to be recognized as a beacon of technology and a paragon of excellence within the financial industry.
+
+## What We Do
+
+Investtools is committed to revolutionizing the market with Perform It, our flagship project, which offers unprecedented control over the investment flow of asset management firms. This robust solution liberates asset managers to focus on strategic business aspects by automating and securing operational processes. Our ERP software ensures meticulous monitoring of the entire workflow within an asset management firm, providing seamless integration with various entities like administrators and brokers. With Perform It, the management of operations spans a comprehensive 360-degree view, encompassing Back Office, Middle Office, and Front Office functions, all underpinned by state-of-the-art interfaces and unwavering focus on automation and security.
+
+## Our Vision
+
+Our vision is to reshape the financial market landscape, instilling a culture of technological excellence and innovation. By offering bespoke solutions like Perform It, we empower fund managers and financial professionals with the tools necessary for superior operational control and strategic focus. As we forge ahead, our goal is to not only maintain our role as a key player in technology but to set new benchmarks for quality and excellence in the financial sphere. In the pursuit of this vision, we remain steadfast in our commitment to customer satisfaction, product quality, and the relentless pursuit of progress.

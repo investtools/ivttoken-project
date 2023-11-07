@@ -7,14 +7,11 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-</body>
-</html>
 
 Before you begin, you will need to install [Node.js](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) (which comes with Node.js) on your machine.
-Additionally, you will need to create a `.env` file at the root of the project with the following environment variables:
+Additionally, you will need to create a .env file at the root of the project with the following environment variables:
 
-```
-DATABASE_URL=
+<div class="code-container">DATABASE_URL=
 NEXT_PUBLIC_CAPTCHA_KEY=
 NEXT_PUBLIC_SLACK_CHANNEL=
 NEXT_PUBLIC_SLACK_BOT_TOKEN=
@@ -22,46 +19,41 @@ NEXT_PUBLIC_REGISTER_ISP_URL=
 NEXT_PUBLIC_REGISTER_ADMIN_URL=
 NEXT_PUBLIC_GEOLOCATION_API_KEY=
 NEXT_PUBLIC_SLACK_SIGNING_SECRET=
-```
+</div>
+
 Fill in the fields with the appropriate information.
 ## Installation Instructions
 
 To start developing, follow the instructions below:
 1. Clone this repository to your local machine:
-```
-git clone git@github.com:investtools/ivttoken-project.git
-```
+<div class="code-container">git clone git@github.com:investtools/ivttoken-project.git</div>
+
 2. Navigate to the project directory:
-```
-cd ivttoken-project
-```
+<div class="code-container">cd ivttoken-project</div>
+
 3. Install the project dependencies:
-```
-npm install
-```
+<div class="code-container">npm install</div>
+
 4. Prepare the local database:
-```
-npm run database:local:prepare
-```
+<div class="code-container">npm run database:local:prepare</div>
+
 ## Running the Project
 
 To run the project locally, use the following command:
-```
-npm run dev
-```
+<div class="code-container">npm run dev</div>
+
 The project will run on port 3000 unless you have set a different port in your .env file.
+
 ## Running the Tests
 
 To run the tests, use the following command:
-```
-npm run test
-```
+<div class="code-container">npm run test</div>
+
 ## Building the Project
 
 To build the project for production, use the following command:
-```
-npm run build
-```
+<div class="code-container">npm run build</div>
+
 ## CI/CD
 
 This project uses GitHub Actions to implement a Continuous Integration/Continuous Delivery (CI/CD) pipeline. The pipeline is triggered whenever a new commit is made to the main branch. It installs dependencies, prepares the local database, runs tests, and builds the project for production.
@@ -77,3 +69,6 @@ If you have any questions or comments about this project, feel free to open a is
 
 ## Code of Conduct
 We are committed to fostering a welcoming and inclusive community. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) for more information.
+
+</body>
+</html>

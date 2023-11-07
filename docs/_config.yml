@@ -1,4 +1,4 @@
-theme: leap-day
+theme: leapday
 header_pages:
   - index.md
   - setup.md

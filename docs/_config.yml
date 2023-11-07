@@ -6,7 +6,7 @@ header_pages:
   - routes/administrator_route.md
   - routes/schools_route.md
   - routes/internet_providers_route.md
-  - routes/login_route.html
+  - routes/login_route.md
 
 title: Giga Token
 minima:

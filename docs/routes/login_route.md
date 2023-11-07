@@ -8,10 +8,6 @@
 </head>
 <body>
 
-<header>
-  <h1>Giga Token Documentation</h1>
-</header>
-
 <div class="container">
   <h1>Login Route</h1>
     <div class="card">
@@ -21,7 +17,6 @@
       <p><strong>Procedure:</strong> Protected</p>
       <p><strong>Request Type:</strong> Query</p>
     </div>
-
     <div class="card">
       <h3>getAuthorizedRole</h3>
       <p><strong>Description:</strong> Checks if the user is authorized to log in</p>
@@ -29,7 +24,6 @@
       <p><strong>Procedure:</strong> Protected</p>
       <p><strong>Request Type:</strong> Query</p>
     </div>
-
     <div class="card">
       <h3>getUserRole</h3>
       <p><strong>Description:</strong> Retrieves the role the user is authorized for</p>

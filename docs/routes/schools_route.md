@@ -1,3 +1,5 @@
+# Schools Route
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +9,6 @@
 </head>
 <body>
 <div class="container">
-  <h1>Schools Route</h1>
   <div class="card">
     <h3>getSchoolsToBeApproved</h3>
     <p><strong>Description:</strong> Fetches the list of schools awaiting approval</p>

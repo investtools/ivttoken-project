@@ -17,17 +17,14 @@
     These tokens can be exchanged for tax incentives or other rewards.
     The project is designed to enhance educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.</p>
   </div>
-  <div class="card large">
     <h2>Technologies</h2>
     <h3>This project is developed using the following technologies:</h3>
-    
+</div>
+</body>
+
  - [Next.js](https://nextjs.org/)
  - [tRPC](https://trpc.io/)
  - [TailwindCSS](https://tailwindcss.com/)
  - [TypeScript](https://www.typescriptlang.org/)
  - [Postgres](https://www.postgresql.org/)
  - [Prisma](https://www.prisma.io/)
-
-  </div>
-</div>
-</body>

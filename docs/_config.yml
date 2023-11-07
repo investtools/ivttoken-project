@@ -1,4 +1,4 @@
-theme: architect
+theme: minima
 header_pages:
   - index.md
   - setup.md

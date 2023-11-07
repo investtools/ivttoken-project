@@ -2,6 +2,26 @@
 
 # GigaToken Project
 
+Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet.
+The project utilizes a blockchain-based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet.
+ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.
+These tokens can be exchanged for tax incentives or other rewards.
+The project is designed to enhance educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.
+
+## Documentation Website
+Please visit our [Documentation Website](https://ivttoken.vercel.app/dev/docs).
+
+## Technologies
+
+This project is developed using the following technologies:
+
+- [Next.js](https://nextjs.org/)
+- [tRPC](https://trpc.io/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Postgres](https://www.postgresql.org/)
+- [Prisma](https://www.prisma.io/)
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,22 +29,5 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<div class="container">
-  <div class="card large">
-    <h2>The project</h2>
-    <p>Giga Token is a social impact project in collaboration with UNICEF aimed at reducing the digital divide by connecting underprivileged schools to the internet. The project utilizes a blockchain-based token, GigaToken (GIGA), to incentivize Internet Service Providers (ISPs) to connect schools to the internet.
-    ISPs can earn GigaTokens by connecting schools to the internet and ensuring the quality of the connection.
-    These tokens can be exchanged for tax incentives or other rewards.
-    The project is designed to enhance educational opportunities for underprivileged students by providing access to online resources and promoting digital inclusion.</p>
-  </div>
-    <h2>Technologies</h2>
-    <h3>This project is developed using the following technologies:</h3>
-</div>
 </body>
-
- - [Next.js](https://nextjs.org/)
- - [tRPC](https://trpc.io/)
- - [TailwindCSS](https://tailwindcss.com/)
- - [TypeScript](https://www.typescriptlang.org/)
- - [Postgres](https://www.postgresql.org/)
- - [Prisma](https://www.prisma.io/)
+</html>

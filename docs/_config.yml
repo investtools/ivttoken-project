@@ -7,5 +7,12 @@ header_pages:
   - routes/schools_route.md
   - routes/internet_providers_route.md
   - routes/login_route.md
+  
+title: Giga Token
 minima:
+  title: Giga Token
   custom: true
+  skin: dark
+  social_links:
+    - { platform: site,  user_url: "https://investtools.com.br/en" }
+    - { platform: linkedin, user_url: "https://br.linkedin.com/company/investtools" }

@@ -1,4 +1,4 @@
-theme: leapday
+theme: architect
 header_pages:
   - index.md
   - setup.md

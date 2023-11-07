@@ -1,4 +1,4 @@
-### About Us
+# About Us
 
 ## Who We Are
 

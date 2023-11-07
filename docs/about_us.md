@@ -1,11 +1,24 @@
-## About us
+# InvestTools
 
-At Investtools, we stand at the vanguard of technological innovation, consistently attuned to the evolving demands of the financial ecosystem. Our expertise is leveraged to craft tailored solutions that address the unique requirements of each participant in the financial sector. From catering to the specialized niche of fund managers to embracing the expansive realm of finance, our mission is to catalyze market transformation through cutting-edge technology. Our dedication to developing superior solutions is reflected in the high satisfaction rates of our clients, underscored by significant product endorsements and minimal client turnover. Driven by the dual forces of continual innovation and customer contentment, our ambition is to be recognized as a beacon of technology and a paragon of excellence within the financial industry.
-
-## What We Do
-
-Investtools is committed to revolutionizing the market with Perform It, our flagship project, which offers unprecedented control over the investment flow of asset management firms. This robust solution liberates asset managers to focus on strategic business aspects by automating and securing operational processes. Our ERP software ensures meticulous monitoring of the entire workflow within an asset management firm, providing seamless integration with various entities like administrators and brokers. With Perform It, the management of operations spans a comprehensive 360-degree view, encompassing Back Office, Middle Office, and Front Office functions, all underpinned by state-of-the-art interfaces and unwavering focus on automation and security.
-
-## Our Vision
-
-Our vision is to reshape the financial market landscape, instilling a culture of technological excellence and innovation. By offering bespoke solutions like Perform It, we empower fund managers and financial professionals with the tools necessary for superior operational control and strategic focus. As we forge ahead, our goal is to not only maintain our role as a key player in technology but to set new benchmarks for quality and excellence in the financial sphere. In the pursuit of this vision, we remain steadfast in our commitment to customer satisfaction, product quality, and the relentless pursuit of progress.
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="container">
+  <div class="card large">
+    <h2>About Us</h2>
+    <p>At Investtools, we stand at the forefront of technological innovation within the financial ecosystem. We craft bespoke solutions that cater to the diverse needs of market participants, facilitating a transformative impact through advanced technology. Our commitment to excellence is evident in our high client satisfaction and retention rates. We aspire to be a leading force in financial technology, driven by innovation and customer contentment.</p>
+  </div>
+  <div class="card large">
+    <h2>What We Do</h2>
+    <p>Investtools revolutionizes asset management with Perform It, our premier ERP software. It provides asset managers with control by automating and securing operations. Covering Back Office to Front Office, it integrates with key entities and offers comprehensive management tools, underscored by automation and security, enabling managers to concentrate on strategic business growth.</p>
+  </div>
+  <div class="card large">
+    <h2>Our Vision</h2>
+    <p>Investtools envisions a technologically advanced financial market, where innovation is standard. With solutions like Perform It, we empower professionals with operational control and strategic advantage. Our commitment to excellence, customer satisfaction, and progress is unwavering as we strive to set new quality benchmarks in the financial sector.</p>
+  </div>
+</div>
+</body>

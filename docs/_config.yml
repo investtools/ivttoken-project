@@ -2,6 +2,7 @@ theme: minima
 header_pages:
   - index.md
   - setup.md
+  - about_us.md
   - routes/administrator_route.md
   - routes/schools_route.md
   - routes/internet_providers_route.md

@@ -1,5 +1,3 @@
-# About Us
-
 ## Who We Are
 
 At Investtools, we stand at the vanguard of technological innovation, consistently attuned to the evolving demands of the financial ecosystem. Our expertise is leveraged to craft tailored solutions that address the unique requirements of each participant in the financial sector. From catering to the specialized niche of fund managers to embracing the expansive realm of finance, our mission is to catalyze market transformation through cutting-edge technology. Our dedication to developing superior solutions is reflected in the high satisfaction rates of our clients, underscored by significant product endorsements and minimal client turnover. Driven by the dual forces of continual innovation and customer contentment, our ambition is to be recognized as a beacon of technology and a paragon of excellence within the financial industry.

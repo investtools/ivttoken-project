@@ -1,116 +1,147 @@
-### Administrator Route
+# Administrator Route
 
-- **getOpenedTickets:**
-  - **Description:** Retrieves all open tickets
-  - **Output:** Array of tickets
-  - **Procedure:** Protected
-  - **Request Type:** Query
-
-- **getClosedTickets:**
-  - **Description:** Retrieves all closed tickets
-  - **Output:** Array of tickets
-  - **Procedure:** Protected
-  - **Request Type:** Query
-
-- **openTicket:**
-  - **Description:** Opens a ticket
-  - **Input:** Name, Email, Subject, Message
-  - **Procedure:** Public
-  - **Request Type:** Mutation
-
-- **closeTicket:**
-  - **Description:** Closes a ticket
-  - **Input:** Ticket Id
-  - **Procedure:** Public
-  - **Request Type:** Mutation
-
-- **approveSchool:**
-  - **Description:** Approves a pending school
-  - **Input:** School Id
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **approveISP:**
-  - **Description:** Approves an ISP
-  - **Input:** Email
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **signTransaction:**
-  - **Description:** Signs a transaction
-  - **Input:** Transaction Hash, Private Key
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **getAllTransactionsToSign:**
-  - **Description:** Retrieves all transactions that need to be signed
-  - **Output:** Array of transactions
-  - **Procedure:** Protected
-  - **Request Type:** Query
-
-- **authorizeUser:**
-  - **Description:** Authorizes a user
-  - **Input:** Email, Role
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **createSchool:**
-  - **Description:** Creates a school
-  - **Input:** Name, State, City, Zip Code, Address, CNPJ, Inep Code, Email, Administrator
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **assignTokensToSchool:**
-  - **Description:** Assigns tokens to a school
-  - **Input:** School CNPJ, Tokens
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **registerAdmin:**
-  - **Description:** Registers a new administrator user
-  - **Input:** Name, Entity
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **isAdmin:**
-  - **Description:** Checks if the current user is an administrator
-  - **Output:** Boolean
-  - **Procedure:** Protected
-  - **Request Type:** Query
-
-- **getAuthorizedUsers:**
-  - **Description:** Retrieves the list of all authorized users
-  - **Output:** Array of Users
-  - **Procedure:** Protected
-  - **Request Type:** Query
-
-- **getPendingContracts:**
-  - **Description:** Retrieves all pending contracts
-  - **Output:** Array of Contracts
-  - **Procedure:** Protected
-  - **Request Type:** Query
-
-- **getAllConnectivityReports:**
-  - **Description:** Retrieves all connectivity reports for a school
-  - **Input:** School CNPJ
-  - **Output:** Array of Connectivity Reports
-  - **Procedure:** Protected
-  - **Request Type:** Query
-
-- **approveContract:**
-  - **Description:** Approves a contract between ISP and School
-  - **Input:** Contract Id
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **denyContract:**
-  - **Description:** Denies a contract between ISP and School
-  - **Input:** Contract Id
-  - **Procedure:** Protected
-  - **Request Type:** Mutation
-
-- **getAllContracts:**
-  - **Description:** Retrieves all contracts
-  - **Output:** Array of Contracts
-  - **Procedure:** Protected
-  - **Request Type:** Query
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <h3>getOpenedTickets</h3>
+    <p><strong>Description:</strong> Retrieves all open tickets</p>
+    <p><strong>Output:</strong> <span class="card-output">Array of tickets</span></p>
+    <p><strong>Procedure:</strong> Protected</p>
+    <p><strong>Request Type:</strong> Query</p>
+  </div>
+  <div class="card">
+    <h3>getClosedTickets</h3>
+    <p><strong>Description:</strong> Retrieves all closed tickets</p>
+    <p><strong>Output:</strong> <span class="card-output">Array of tickets</span></p>
+    <p><strong>Procedure:</strong> Protected</p>
+    <p><strong>Request Type:</strong> Query</p>
+  </div>
+    <div class="card">
+    <h3>openTicket</h3>
+    <p><strong>Description:</strong> Opens a ticket</p>
+    <p><strong>Input:</strong> Name, Email, Subject, Message</p>
+    <p><strong>Procedure:</strong> Public</p>
+    <p><strong>Request Type:</strong> Mutation</p>
+  </div>
+  <div class="card">
+    <h3>closeTicket</h3>
+    <p><strong>Description:</strong> Closes a ticket</p>
+    <p><strong>Input:</strong> Ticket Id</p>
+    <p><strong>Procedure:</strong> Public</p>
+    <p><strong>Request Type:</strong> Mutation</p>
+  </div>
+  <div class="card">
+  <h3>approveSchool</h3>
+  <p><strong>Description:</strong> Approves a pending school</p>
+  <p><strong>Input:</strong> School Id</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>approveISP</h3>
+  <p><strong>Description:</strong> Approves an ISP</p>
+  <p><strong>Input:</strong> Email</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>signTransaction</h3>
+  <p><strong>Description:</strong> Signs a transaction</p>
+  <p><strong>Input:</strong> Transaction Hash, Private Key</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>getAllTransactionsToSign</h3>
+  <p><strong>Description:</strong> Retrieves all transactions that need to be signed</p>
+  <p><strong>Output:</strong> Array of transactions</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Query</p>
+</div>
+<div class="card">
+  <h3>authorizeUser</h3>
+  <p><strong>Description:</strong> Authorizes a user</p>
+  <p><strong>Input:</strong> Email, Role</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>createSchool</h3>
+  <p><strong>Description:</strong> Creates a school</p>
+  <p><strong>Input:</strong> Name, State, City, Zip Code, Address, CNPJ, Inep Code, Email, Administrator</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>assignTokensToSchool</h3>
+  <p><strong>Description:</strong> Assigns tokens to a school</p>
+  <p><strong>Input:</strong> School CNPJ, Tokens</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>registerAdmin</h3>
+  <p><strong>Description:</strong> Registers a new administrator user</p>
+  <p><strong>Input:</strong> Name, Entity</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>isAdmin</h3>
+  <p><strong>Description:</strong> Checks if the current user is an administrator</p>
+  <p><strong>Output:</strong> Boolean</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Query</p>
+</div>
+<div class="card">
+  <h3>getAuthorizedUsers</h3>
+  <p><strong>Description:</strong> Retrieves the list of all authorized users</p>
+  <p><strong>Output:</strong> Array of Users</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Query</p>
+</div>
+<div class="card">
+  <h3>getPendingContracts</h3>
+  <p><strong>Description:</strong> Retrieves all pending contracts</p>
+  <p><strong>Output:</strong> Array of Contracts</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Query</p>
+</div>
+<div class="card">
+  <h3>getAllConnectivityReports</h3>
+  <p><strong>Description:</strong> Retrieves all connectivity reports for a school</p>
+  <p><strong>Input:</strong> School CNPJ</p>
+  <p><strong>Output:</strong> Array of Connectivity Reports</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Query</p>
+</div>
+<div class="card">
+  <h3>approveContract</h3>
+  <p><strong>Description:</strong> Approves a contract between ISP and School</p>
+  <p><strong>Input:</strong> Contract Id</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+<div class="card">
+  <h3>denyContract</h3>
+  <p><strong>Description:</strong> Denies a contract between ISP and School</p>
+  <p><strong>Input:</strong> Contract Id</p>
+  <p><strong>Procedure:</strong> Protected</p>
+  <p><strong>Request Type:</strong> Mutation</p>
+</div>
+  <div class="card">
+    <h3>getAllContracts</h3>
+    <p><strong>Description:</strong> Retrieves all contracts</p>
+    <p><strong>Output:</strong> <span class="card-output">Array of Contracts</span></p>
+    <p><strong>Procedure:</strong> Protected</p>
+    <p><strong>Request Type:</strong> Query</p>
+  </div>
+</div>
+</body>
+</html>

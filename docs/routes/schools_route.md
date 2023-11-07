@@ -1,4 +1,4 @@
-# Routes
+# Schools Route
 
 <html lang="en">
 <head>

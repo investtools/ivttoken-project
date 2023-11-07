@@ -1,4 +1,4 @@
-# Login Route
+# 
 
 <html lang="en">
 <head>
@@ -8,7 +8,6 @@
 </head>
 <body>
 <div class="container">
-  <h1>Login Route</h1>
     <div class="card">
       <h3>userHasAccount</h3>
       <p><strong>Description:</strong> Checks if the user already has an account</p>

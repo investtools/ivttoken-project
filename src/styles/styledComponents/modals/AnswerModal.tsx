@@ -152,9 +152,11 @@ export default function AnswerModal({ closeModal, locale, ispName, helpSubject, 
                       <XMark />
                     </button>
                   </div>
-                  <div className="mt-2 grid grid-cols-3 space-x-2">
-                    <MessageHeader label='Provider' locale={locale} value={ispName} />
-                    <MessageHeader label='Subject' locale={locale} value={helpSubject} />
+                  <div className="mt-2">
+                    <div className='grid grid-cols-2 space-x-1 mb-1'>
+                      <MessageHeader label='Provider' locale={locale} value={ispName} />
+                      <MessageHeader label='Subject' locale={locale} value={helpSubject} />
+                    </div>
                     <MessageHeader label='Message' locale={locale} value={helpMessage} />
                   </div>
 

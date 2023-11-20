@@ -39,3 +39,32 @@ export interface GeocodeMapsResponse {
   type: string
   importance: number
 }
+
+interface GigaSchool {
+  id: number
+  school_id: string
+  name: string
+  lon: number
+  lat: number
+  address: string
+  postal_code: string
+  email: string
+  education_level: string
+  environment: string
+  school_type: string
+  country_id: number
+  code: string
+  country: string
+  location_id: string
+  admin_2_name: string
+  admin_3_name: string
+  admin_4_name: string
+  admin_1_name: string
+  giga_id_school: string
+}
+
+export interface GigaSchoolsResponse {
+  success: boolean
+  timestamp: string
+  data: GigaSchool[]
+}

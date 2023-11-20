@@ -16,6 +16,7 @@ import type { inferRouterInputs } from '@trpc/server'
 import { type AppRouter } from '~/server/api/root'
 import CaptchaModal from '../modals/CaptchaModal'
 import Captcha from './Captcha'
+import ListboxComponent from './Listbox'
 
 type RouterInput = inferRouterInputs<AppRouter>
 type PageMutate = RouterInput['admin']['createSchool']
@@ -31,6 +32,7 @@ type CreateSchoolComponentProps = {
 }
 
 const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, mutate, closeModal }) => {
+  const [selectedSchool, setSelectedSchool] = useState('')
   const [name, setName] = useState('')
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
@@ -134,8 +136,19 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
               </button>
             </div>)
           }
-          <h1 className="text-center text-2xl font-bold mb-8 text-ivtcolor2">{t.t(isModal ? "Send School To Analysis" : "Create New School")}</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <h1 className="text-center text-2xl font-bold mb-4 text-ivtcolor2">{t.t(isModal ? "Send School To Analysis" : "Create New School")}</h1>
+
+          <ListboxComponent
+            label="Lista de escolas"
+            placeholder="Selecione uma escola..."
+            options={[]}
+            value={selectedSchool}
+            onChange={(value) => setSelectedSchool(String(value))}
+            required={false}
+            loading
+          />
+
+          <div className="grid grid-cols-1 mt-4 md:grid-cols-2 gap-4">
             <div className="flex flex-col mb-4">
               <label htmlFor="name" className="mb-2 font-bold text-lg text-ivtcolor2">
                 {t.t("School's Name")}:

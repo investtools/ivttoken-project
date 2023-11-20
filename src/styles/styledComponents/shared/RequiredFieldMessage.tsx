@@ -1,6 +1,6 @@
 const RequiredFieldMessage = () => {
   return (
-    <span className="text-[14px] text-obrigatorio font-extrabold">*</span>
+    <span className="text-[18px] text-obrigatorio font-extrabold">*</span>
   )
 }
 

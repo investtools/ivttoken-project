@@ -31,7 +31,7 @@ export default function ListboxComponent({ options, placeholder, onChange, requi
     control: (provided, state) => ({
       ...provided,
       height: '37px',
-      borderRadius: '9999px',
+      borderRadius: '9px',
       boxShadow: '0px 8px 24px 0px rgba(0, 0, 0, 0.08)',
       borderColor: state.isFocused
         ? 'rgba(0, 0, 0, 0.1)'
@@ -49,6 +49,15 @@ export default function ListboxComponent({ options, placeholder, onChange, requi
       fontSize: '14px',
       fontWeight: 400
     }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused
+        ? '#02B5A5'
+        : state.isSelected
+          ? '#02B5A5'
+          : 'transparent',
+      color: state.isFocused || state.isSelected ? 'white' : 'black'
+    })
   }
 
   const sortedOptions = [...options].sort((a, b) => a.label.localeCompare(b.label))

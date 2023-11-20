@@ -1,6 +1,6 @@
 import { Administrators, Role } from "@prisma/client"
 import axios from "axios"
-import { type GeocodeMapsResponse, type OpenWeatherResponse } from "~/service/types"
+import { type GigaSchoolsResponse, type GeocodeMapsResponse, type OpenWeatherResponse, type GigaSchool } from "~/service/types"
 
 export function validateEmail(email: string) {
     const re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -126,3 +126,20 @@ export async function getLatLon(city: string, state: string, street: string) {
         }
     }
 }
+
+export async function getSchoolsFromGiga(setSchoolList: React.Dispatch<React.SetStateAction<GigaSchool[]>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>) {
+    const config = {
+        headers: {
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImRhaWx5Y2hlY2thcHAiLCJpYXQiOjE1MTYyMzkwMjJ9.9lHxUZ0XmSc-5ddqEEKFt2Opx2CC-gSsRTGSCI-KcQU`
+        }
+    }
+    setLoading(true)
+    try {
+        const request = await axios.get<GigaSchoolsResponse>(`https://uni-connect-services.azurewebsites.net/api/v1/schools/country/144?size=200&page=1`, config)
+        const data = request.data
+        return setSchoolList(data.data)
+    }
+    catch (error) { console.error(error) }
+    finally { setLoading(false) }
+}
+

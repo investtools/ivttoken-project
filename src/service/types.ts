@@ -40,7 +40,7 @@ export interface GeocodeMapsResponse {
   importance: number
 }
 
-interface GigaSchool {
+export interface GigaSchool {
   id: number
   school_id: string
   name: string

@@ -1,22 +1,21 @@
-import { Listbox } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import FormSentModal from "~/styles/styledComponents/modals/FormSentModal"
 import IncompleteFieldsModal from "~/styles/styledComponents/modals/IncompleteFieldsModal"
 import SendIcon from "~/styles/styledComponents/icons/SendIcon"
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/router"
 import { Translate } from "translate/translate"
-import InputMask from 'react-input-mask'
-import { validateEmail, type ViaCEPAddress } from "~/utils/functions/adminFunctions"
+import { getSchoolsFromGiga, validateEmail, type ViaCEPAddress } from "~/utils/functions/adminFunctions"
 import InvalidEmailModal from "~/styles/styledComponents/modals/InvalidEmailModal"
 import PageHeader from "~/styles/styledComponents/shared/PageHeader"
-import { selectField } from "~/styles/styledComponents/shared/selectFieldForms"
 import XMark from '../icons/XMarkIcon'
 import type { inferRouterInputs } from '@trpc/server'
 import { type AppRouter } from '~/server/api/root'
 import CaptchaModal from '../modals/CaptchaModal'
 import Captcha from './Captcha'
 import ListboxComponent from './Listbox'
+import { type GigaSchool } from '../../../service/types'
+import FormInputField from "./FormInputField"
+import TitleComponent from "./TitleComponent"
 
 type RouterInput = inferRouterInputs<AppRouter>
 type PageMutate = RouterInput['admin']['createSchool']
@@ -33,6 +32,9 @@ type CreateSchoolComponentProps = {
 
 const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, mutate, closeModal }) => {
   const [selectedSchool, setSelectedSchool] = useState('')
+  const [lat, setLat] = useState('')
+  const [lon, setLon] = useState('')
+  const [schoolList, setSchoolList] = useState<GigaSchool[]>([])
   const [name, setName] = useState('')
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
@@ -47,24 +49,17 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [verified, setVerified] = useState(false)
   const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
-  const [optionsWidth, setOptionsWidth] = useState(0)
-  const buttonRef = useRef<HTMLButtonElement | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'pt-br' : router.locale
   const t = new Translate(locale)
 
-  useEffect(() => {
-    if (buttonRef.current) {
-      setOptionsWidth(buttonRef.current.getBoundingClientRect().width)
-    }
-  }, [administrator])
-
   const handleSubmit = (name: string, state: string, city: string, zipCode: string, address: string, number: number, inepCode: string, email: string, administrator: string) => {
     if (!name || !state || !city || !zipCode || !address || !inepCode || !email || !administrator || !number) return setIncompleteFieldsModalIsOpen(true)
     if (validateEmail(email) === false) return setInvalidEmailIsOpen(true)
 
-    const inputData = { name, state, city, zipCode, address: address + ", " + String(number), inepCode, email, administrator: String(administrator) }
+    const inputData = { name, state, city, zipCode, address: address + ", " + String(number), inepCode, email, administrator: String(administrator), lat, lon }
     if (isModal) {
       if (verified === false) {
         return setCaptchaModalIsOpen(true)
@@ -109,6 +104,40 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
     }
   }
 
+  useEffect(() => {
+    if (schoolList.length === 0) {
+      try {
+        void getSchoolsFromGiga(setSchoolList, setLoading)
+      }
+      catch (err) {
+        console.log(err)
+      }
+    }
+  }, [schoolList])
+
+  useEffect(() => {
+    if (selectedSchool) {
+      const school = schoolList.find(school => school.school_id === selectedSchool)
+      if (school) {
+        setLat(String(school.lat))
+        setLon(String(school.lon))
+        setName(school.name)
+        setZipCode(school.postal_code)
+        setEmail(school.email)
+        setAddress(school.address)
+        setCity(school.admin_1_name)
+        setInepCode(school.school_id)
+      }
+    }
+  }, [selectedSchool, schoolList])
+
+
+  useEffect(() => {
+    if (zipCode && !zipCode.includes("_")) {
+      void fetchAddress(zipCode)
+    }
+  }, [zipCode])
+
   return (
     <>
       <PageHeader title={t.t("Create School")} />
@@ -136,201 +165,97 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
               </button>
             </div>)
           }
-          <h1 className="text-center text-2xl font-bold mb-4 text-ivtcolor2">{t.t(isModal ? "Send School To Analysis" : "Create New School")}</h1>
-
+          <TitleComponent title={t.t(isModal ? "Send School To Analysis" : "Create New School")} />
           <ListboxComponent
-            label="Lista de escolas"
-            placeholder="Selecione uma escola..."
-            options={[]}
+            label={t.t("Schools List")}
+            placeholder={t.t("Select one...")}
+            options={schoolList.map(elem => ({ value: elem.school_id, label: elem.name }))}
             value={selectedSchool}
             onChange={(value) => setSelectedSchool(String(value))}
             required={false}
-            loading
+            loading={loading}
           />
 
           <div className="grid grid-cols-1 mt-4 md:grid-cols-2 gap-4">
-            <div className="flex flex-col mb-4">
-              <label htmlFor="name" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("School's Name")}:
-              </label>
-              <input
-                placeholder="E.E. João e Maria"
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="zipCode" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("Zip Code")}:
-              </label>
-              <InputMask
-                mask="99999-999"
-                placeholder="00000-000"
-                type="text"
-                id="zipCode"
-                value={zipCode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setZipCode(e.target.value)
-                  void fetchAddress(e.target.value)
-                }}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="state" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("State")}:
-              </label>
-              <input
-                placeholder="São Paulo"
-                type="text"
-                id="state"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="city" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("City")}:
-              </label>
-              <input
-                placeholder="São Paulo"
-                type="text"
-                id="city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="address" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("Address")}:
-              </label>
-              <input
-                placeholder="Rua A"
-                type="text"
-                id="address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="number" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("Number")}:
-              </label>
-              <input
-                placeholder="1965"
-                type="number"
-                id="number"
-                value={number}
-                onChange={(e) => setNumber(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="inepCode" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("Inep Code")}:
-              </label>
-              <InputMask
-                mask="99999999"
-                placeholder="12345678"
-                type="text"
-                id="inepCode"
-                value={inepCode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInepCode(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="email" className="mb-2 font-bold text-lg text-ivtcolor2">
-                {t.t("E-Mail")}:
-              </label>
-              <input
-                placeholder="email@domain.com"
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className={selectField}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label
-                htmlFor="administrator"
-                className="mb-2 font-bold text-lg text-ivtcolor2"
-              >
-                {t.t("Administrator")}:
-              </label>
-              <Listbox value={administrator} onChange={(e) => setAdministrator(e.valueOf())}>
-                <Listbox.Button ref={buttonRef} className="h-full relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-ivtcolor sm:text-sm">
-                  <span className="block truncate text-gray-900">
-                    {t.t(administrator) || t.t("Select an Administrator")}
-                  </span>
-                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                  </span>
-                </Listbox.Button>
-                <Listbox.Options className="absolute py-1 mt-1 overflow-auto text-base text-gray-900 bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" style={{ width: optionsWidth }}>
-                  <Listbox.Option
-                    className={({ active }) =>
-                      `${active ? "text-white bg-ivtcolor" : "text-gray-900"
-                      } cursor-default select-none relative py-2 pl-10 pr-4`}
-                    value="State"
-                  >
-                    {({ selected }) => (
-                      <>
-                        <span
-                          className={`block truncate ${selected ? 'font-medium' : 'font-normal'
-                            }`}
-                        >
-                          {t.t("State")}
-                        </span>
-                        {selected ? (
-                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-ivtcolor2">
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
-                  </Listbox.Option>
-                  <Listbox.Option
-                    className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-ivtcolor text-white' : 'text-gray-900'
-                      }`
-                    }
-                    value="Municipality"
-                  >
-                    {({ selected }) => (
-                      <>
-                        <span
-                          className={`block truncate ${selected ? 'font-medium' : 'font-normal'
-                            }`}
-                        >
-                          {t.t("Municipality")}
-                        </span>
-                        {selected ? (
-                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-ivtcolor2">
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
-                  </Listbox.Option>
-                </Listbox.Options>
-              </Listbox>
-            </div>
+            <FormInputField
+              label={t.t("School's Name")}
+              placeholder="E.E. João e Maria"
+              value={name}
+              onChange={setName}
+              required={!name}
+            />
+
+            <FormInputField
+              label={t.t("Zip Code")}
+              placeholder="00000-000"
+              mask="cep"
+              value={zipCode}
+              onChange={setZipCode}
+              required={!zipCode}
+            />
+
+            <FormInputField
+              label={t.t("State")}
+              placeholder="SP"
+              value={state}
+              onChange={setState}
+              required={!state}
+            />
+
+            <FormInputField
+              label={t.t("City")}
+              placeholder="São Paulo"
+              value={city}
+              onChange={setCity}
+              required={!city}
+            />
+
+            <FormInputField
+              label={t.t("Address")}
+              placeholder="Rua Machado de Assis"
+              value={address}
+              required={!address}
+              onChange={setAddress}
+            />
+
+            <FormInputField
+              inputType="number"
+              label={t.t("Number")}
+              placeholder="1965"
+              value={number}
+              required={!number}
+              onChange={setNumber}
+            />
+
+            <FormInputField
+              label={t.t("Inep Code")}
+              placeholder="12345678"
+              value={inepCode}
+              required={!inepCode}
+              onChange={setInepCode}
+              mask="inepcode"
+            />
+
+            <FormInputField
+              label={t.t("E-Mail")}
+              placeholder="email@domain.com"
+              value={email}
+              required={!email}
+              onChange={setEmail}
+            />
+
+            <ListboxComponent
+              label={t.t("Administrator")}
+              placeholder={t.t("Administrator")}
+              options={[
+                { value: t.t("State"), label: t.t("State") },
+                { value: t.t("Municipality"), label: t.t("Municipality") }
+              ]}
+              value={administrator}
+              onChange={(value) => setAdministrator(String(value))}
+              required={!administrator}
+            />
+
             <div className="flex items-center justify-center mt-4">
               <button
                 onClick={(event) => {

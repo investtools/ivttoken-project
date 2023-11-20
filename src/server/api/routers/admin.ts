@@ -460,7 +460,9 @@ export const adminRouter = createTRPCRouter({
       address: z.string(),
       inepCode: z.string(),
       email: z.string(),
-      administrator: z.string()
+      administrator: z.string(),
+      lat: z.string(),
+      lon: z.string(),
     })
   )
     .mutation(async ({ ctx, input }) => {
@@ -472,7 +474,7 @@ export const adminRouter = createTRPCRouter({
       const administrator = mapAdministrator(input.administrator)
       if (!administrator) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid administrator to create school root" })
 
-      const latLon = await getLatLon(input.city, input.state, String(input.address.split(',')[0]))
+      const coordinates = await getLatLon(input.city, input.state, String(input.address.split(',')[0]))
 
       const schoolData: CreateSchool = {
         name: input.name,
@@ -484,8 +486,8 @@ export const adminRouter = createTRPCRouter({
         email: input.email,
         role: Role.SCHOOL,
         administrator,
-        lat: String(latLon?.lat),
-        lon: String(latLon?.lon)
+        lat: input.lat ? input.lat : String(coordinates?.lat),
+        lon: input.lon ? input.lon : String(coordinates?.lon)
       }
 
       return await prisma.schools.create({

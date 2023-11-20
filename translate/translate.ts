@@ -262,6 +262,7 @@ export class Translate {
                 case "Sign-Up": return "Cadastre-se"
                 case "Register Your Credentials": return "Registre Suas Credenciais"
                 case "Company Name": return "Nome da Empresa"
+                case "Legal Name": return "Razão Social"
                 case "Register Provider": return "Cadastrar Provedor"
                 case "Register School Admin": return "Cadastrar Admin Escolar"
                 case "Register Admin": return "Cadastrar Admin"

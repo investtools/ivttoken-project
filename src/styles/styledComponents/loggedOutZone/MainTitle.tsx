@@ -33,11 +33,11 @@ const MainTitle: React.FC = () => {
           <div className="md:w-1/2 text-start flex flex-col justify-center items-start font-bold text-white p-8 z-40 md:ml-12">
             <h2 className="md:text-7xl text-6xl mb-4 leading-[5rem]">{t.t("Connecting schools worldwide")}</h2>
             <div>
-              <button
+              {/* <button
                 onClick={clickSchool}
                 className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full mt-4 md:mr-6 mr-2">
                 {t.t("Register School")}
-              </button>
+              </button> */}
               <button
                 onClick={clickISP}
                 className="bg-ivtcolor hover:bg-hover text-white font-bold py-2 px-4 rounded-full">

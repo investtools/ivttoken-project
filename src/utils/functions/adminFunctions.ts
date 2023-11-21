@@ -1,6 +1,6 @@
 import { Administrators, Role } from "@prisma/client"
 import axios from "axios"
-import { GigaSchoolsResponse, type GeocodeMapsResponse, type OpenWeatherResponse, GigaSchool } from "~/service/types"
+import { type GigaSchoolsResponse, type GeocodeMapsResponse, type OpenWeatherResponse, type GigaSchool } from "~/service/types"
 
 export function validateEmail(email: string) {
     const re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

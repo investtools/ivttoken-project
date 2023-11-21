@@ -11,6 +11,7 @@ type FormInputFieldProps = {
   mask?: string
   disable?: boolean
   textColor?: string
+  loading?: boolean
 }
 
 export default function FormInputField({
@@ -22,7 +23,8 @@ export default function FormInputField({
   required,
   mask,
   disable,
-  textColor
+  textColor,
+  loading
 }: FormInputFieldProps) {
   const handleNumberInput = (value: string) => {
     if (Number(value) < 0) return '0'
@@ -55,6 +57,7 @@ export default function FormInputField({
           placeholder={placeholder}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
           className={`focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-ivtcolor  border border-ivtcolor p-2 rounded-lg text-gray-900 ${disable ? 'cursor-not-allowed text-gray-400' : ''}`} />
+          {loading && <div className="spinner-border text-primary ml-1" role="status" />}
       </div>
     </>
   )

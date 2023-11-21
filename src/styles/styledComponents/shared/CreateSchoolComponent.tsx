@@ -188,19 +188,23 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
             </div>)
           }
           <TitleComponent title={t.t(isModal ? "Send School To Analysis" : "Create New School")} />
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative' }} className="w-full">
             <FormInputField
               label={t.t("Search for a school...")}
               placeholder="E.E. João e Maria"
               value={searchInput}
               onChange={setSearchInput}
               required={false}
+              loading={loading}
             />
 
             {dropdownVisible && (
               <div className="dropdown-menu">
                 {filteredSchoolList.map(school => (
-                  <div key={school.school_id} className="dropdown-item" onClick={() => setSelectedSchool(school.school_id)}>
+                  <div key={school.school_id} className="dropdown-item" onClick={() => {
+                    setSelectedSchool(school.school_id)
+                    setSearchInput('')
+                  }}>
                     {school.name}
                   </div>
                 ))}

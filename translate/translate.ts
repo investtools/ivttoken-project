@@ -305,6 +305,7 @@ export class Translate {
                 case "Create School": return "Criar Escola"
                 case "Schools List": return "Lista de Escolas"
                 case "Select one...": return "Escolha uma..."
+                case "Search for a school...": return "Busque uma escola..."
                 case "School Catalog": return "Catálogo de Escolas"
                 case "Assign Tokens to School": return "Atribuir Tokens à Escola"
                 case "Contracts": return "Contratos"

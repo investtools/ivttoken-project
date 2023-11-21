@@ -35,6 +35,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [lat, setLat] = useState('')
   const [lon, setLon] = useState('')
   const [schoolList, setSchoolList] = useState<GigaSchool[]>([])
+  const [filteredSchoolList, setFilteredSchoolList] = useState<GigaSchool[]>([])
   const [name, setName] = useState('')
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
@@ -50,6 +51,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [invalidEmailIsOpen, setInvalidEmailIsOpen] = useState(false)
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [searchInput, setSearchInput] = useState('')
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'pt-br' : router.locale
@@ -106,14 +108,18 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
 
   useEffect(() => {
     if (schoolList.length === 0) {
-      try {
-        void getSchoolsFromGiga(setSchoolList, setLoading)
-      }
-      catch (err) {
-        console.log(err)
-      }
+      void getSchoolsFromGiga(setSchoolList, setLoading)
     }
   }, [schoolList])
+
+  useEffect(() => {
+    if (schoolList.length > 0 && searchInput) {
+      const newFilteredSchoolList = schoolList.filter(school =>
+        school.name.toLowerCase().includes(searchInput.toLowerCase())
+      ).slice(0, 100)
+      setFilteredSchoolList(newFilteredSchoolList)
+    }
+  }, [schoolList, searchInput])
 
   useEffect(() => {
     if (selectedSchool) {
@@ -166,10 +172,18 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
             </div>)
           }
           <TitleComponent title={t.t(isModal ? "Send School To Analysis" : "Create New School")} />
+          <FormInputField
+            label={t.t("Search for a school...")}
+            placeholder="E.E. João e Maria"
+            value={searchInput}
+            onChange={setSearchInput}
+            required={false}
+          />
+
           <ListboxComponent
             label={t.t("Schools List")}
             placeholder={t.t("Select one...")}
-            options={schoolList.map(elem => ({ value: elem.school_id, label: elem.name }))}
+            options={filteredSchoolList.map(elem => ({ value: elem.school_id, label: elem.name }))}
             value={selectedSchool}
             onChange={(value) => setSelectedSchool(String(value))}
             required={false}

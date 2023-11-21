@@ -139,18 +139,18 @@ export const adminRouter = createTRPCRouter({
       helpId: z.string()
     })
   )
-  .query(async ({ ctx, input }) => {
-    const email = ctx.session.user.email
-    if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
+    .query(async ({ ctx, input }) => {
+      const email = ctx.session.user.email
+      if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "There is no email" })
 
-    const help = await prisma.helpProviders.findUniqueOrThrow({
-      where: {
-        id: input.helpId
-      }
-    })
+      const help = await prisma.helpProviders.findUniqueOrThrow({
+        where: {
+          id: input.helpId
+        }
+      })
 
-    return help
-  }),
+      return help
+    }),
 
   getOpenedTickets: protectedProcedure.query(async ({ ctx }) => {
     const email = ctx.session.user.email
@@ -775,4 +775,16 @@ export const adminRouter = createTRPCRouter({
       }]
     }
   }),
+
+  searchGigaSchools: protectedProcedure
+    // .input(z.object({
+    //   searchQuery: z.string().min(1, "Search query is required").optional()
+    // }))
+    .query(async ({ ctx, input }) => {
+      const email = ctx.session.user.email
+      if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
+
+      const schools = await prisma.gigaSchools.findMany({ take: 100 })
+      return schools
+    }),
 })

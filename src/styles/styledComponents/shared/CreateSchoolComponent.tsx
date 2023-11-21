@@ -52,6 +52,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [sentFormModalIsOpen, setSentFormModalIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [searchInput, setSearchInput] = useState('')
+  const [dropdownVisible, setDropdownVisible] = useState(false)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'pt-br' : router.locale
@@ -111,6 +112,20 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
       void getSchoolsFromGiga(setSchoolList, setLoading)
     }
   }, [schoolList])
+
+  useEffect(() => {
+    if (searchInput) {
+      setDropdownVisible(true)
+    } else {
+      setDropdownVisible(false)
+    }
+  }, [searchInput])
+
+  useEffect(() => {
+    if (selectedSchool) {
+      setDropdownVisible(false)
+    }
+  }, [selectedSchool])
 
   useEffect(() => {
     if (schoolList.length > 0) {
@@ -173,19 +188,25 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
             </div>)
           }
           <TitleComponent title={t.t(isModal ? "Send School To Analysis" : "Create New School")} />
-          <FormInputField
-            label={t.t("Search for a school...")}
-            placeholder="E.E. João e Maria"
-            value={searchInput}
-            onChange={setSearchInput}
-            required={false}
-          />
+          <div style={{ position: 'relative' }}>
+            <FormInputField
+              label={t.t("Search for a school...")}
+              placeholder="E.E. João e Maria"
+              value={searchInput}
+              onChange={setSearchInput}
+              required={false}
+            />
 
-          {searchInput && filteredSchoolList.map(school => (
-            <div key={school.school_id} onClick={() => setSelectedSchool(school.school_id)}>
-              {school.name}
-            </div>
-          ))}
+            {dropdownVisible && (
+              <div className="dropdown-menu">
+                {filteredSchoolList.map(school => (
+                  <div key={school.school_id} className="dropdown-item" onClick={() => setSelectedSchool(school.school_id)}>
+                    {school.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className="grid grid-cols-1 mt-4 md:grid-cols-2 gap-4">
             <FormInputField

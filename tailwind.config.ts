@@ -16,6 +16,7 @@ export default {
         'ivtcolor2': '#285966',
         'ivtcolor2hover': '#2D6B77',
         'xhover': '#3B3B3B',
+        'obrigatorio': '#dd9287',
       },
     },
     variants: {

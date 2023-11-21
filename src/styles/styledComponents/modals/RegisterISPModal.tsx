@@ -22,6 +22,7 @@ interface RegisterISPModalProps {
 function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
     const [isOpen] = useState(true)
     const [name, setName] = useState('')
+    const [razaoSocial, setRazaoSocial] = useState('')
     const [cnpj, setCnpj] = useState('')
     const [email, setEmail] = useState('')
     const [incompleteFieldsModalIsOpen, setIncompleteFieldsModalIsOpen] = useState(false)
@@ -108,6 +109,21 @@ function RegisterISPModal({ closeModal }: RegisterISPModalProps) {
                                                     id="name"
                                                     value={name}
                                                     onChange={(e) => setName(e.target.value)}
+                                                    required
+                                                    className={selectField}
+                                                />
+                                            </div>
+
+                                            <div className="flex flex-col mb-4">
+                                                <label htmlFor="razaoSocial" className="mb-2 font-bold text-lg text-ivtcolor2">
+                                                    {t.t("Legal Name")}:
+                                                </label>
+                                                <input
+                                                    placeholder={t.t("Legal Name")}
+                                                    type="text"
+                                                    id="razaoSocial"
+                                                    value={razaoSocial}
+                                                    onChange={(e) => setRazaoSocial(e.target.value)}
                                                     required
                                                     className={selectField}
                                                 />

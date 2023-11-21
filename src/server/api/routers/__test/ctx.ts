@@ -92,7 +92,9 @@ export const schoolTest = {
   cnpj: "cnpjTest",
   inepCode: "12344321",
   email: "escola@test.com",
-  administrator: "state"
+  administrator: "state",
+  lon: "-46.633308",
+  lat: "-23.550520" 
 }
 
 

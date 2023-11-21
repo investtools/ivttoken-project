@@ -113,9 +113,9 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   }, [schoolList])
 
   useEffect(() => {
-    if (schoolList.length > 0 && searchInput) {
+    if (schoolList.length > 0) {
       const newFilteredSchoolList = schoolList.filter(school =>
-        school.name.toLowerCase().includes(searchInput.toLowerCase())
+        school.name.toLowerCase().includes(searchInput.toLowerCase() ?? "escola")
       ).slice(0, 100)
       setFilteredSchoolList(newFilteredSchoolList)
     }

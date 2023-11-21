@@ -128,12 +128,16 @@ export async function getLatLon(city: string, state: string, street: string) {
 }
 
 
-export async function getSchoolsFromGiga(setSchoolList: React.Dispatch<React.SetStateAction<GigaSchool[]>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>) {
+export async function getSchoolsFromGiga(
+    setSchoolList: React.Dispatch<React.SetStateAction<GigaSchool[]>>,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    page: string, size: string
+) {
     setLoading(true)
     try {
-        const request = await axios.get<GigaSchoolsResponse>('/api/gigaSchools')
+        const request = await axios.get(`/api/gigaSchools?page=${page}&size=${size}`)
         const data = request.data
-        return setSchoolList(data.data)
+        setSchoolList(prevSchools => [...prevSchools, ...data.data])
     }
     catch (error) { console.error(error) }
     finally { setLoading(false) }

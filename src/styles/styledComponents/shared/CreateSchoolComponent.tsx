@@ -109,7 +109,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
 
   useEffect(() => {
     if (schoolList.length === 0) {
-      void getSchoolsFromGiga(setSchoolList, setLoading)
+      void getSchoolsFromGiga(setSchoolList, setLoading, '1', '400')
     }
   }, [schoolList])
 

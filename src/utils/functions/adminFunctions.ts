@@ -137,7 +137,7 @@ export async function getSchoolsFromGiga(
     try {
         const request = await axios.get(`/api/gigaSchools?page=${page}&size=${size}`)
         const data = request.data
-        setSchoolList(prevSchools => [...prevSchools, ...data.data])
+        setSchoolList(data.data)
     }
     catch (error) { console.error(error) }
     finally { setLoading(false) }

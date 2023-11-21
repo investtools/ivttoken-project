@@ -115,7 +115,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   useEffect(() => {
     if (schoolList.length > 0) {
       const newFilteredSchoolList = schoolList.filter(school =>
-        school.name.toLowerCase().includes(searchInput.toLowerCase() ?? "escola")
+        school.name.toLowerCase().includes(searchInput.toLowerCase())
       ).slice(0, 100)
       setFilteredSchoolList(newFilteredSchoolList)
     }
@@ -143,6 +143,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
       void fetchAddress(zipCode)
     }
   }, [zipCode])
+
 
   return (
     <>
@@ -180,15 +181,11 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
             required={false}
           />
 
-          <ListboxComponent
-            label={t.t("Schools List")}
-            placeholder={t.t("Select one...")}
-            options={filteredSchoolList.map(elem => ({ value: elem.school_id, label: elem.name }))}
-            value={selectedSchool}
-            onChange={(value) => setSelectedSchool(String(value))}
-            required={false}
-            loading={loading}
-          />
+          {searchInput && filteredSchoolList.map(school => (
+            <div key={school.school_id} onClick={() => setSelectedSchool(school.school_id)}>
+              {school.name}
+            </div>
+          ))}
 
           <div className="grid grid-cols-1 mt-4 md:grid-cols-2 gap-4">
             <FormInputField

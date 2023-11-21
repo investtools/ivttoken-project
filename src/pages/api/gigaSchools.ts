@@ -10,7 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${GIGA_AUTH_TOKEN}`
-    }
+    },
+    timeout: 60000
   }
 
   if (req.method === 'GET') {

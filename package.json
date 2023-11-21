@@ -13,7 +13,7 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start",
+    "start": "npm run build && next start",
     "database:local:prepare": "docker-compose up -d --no-deps database && sleep 3 && npx prisma migrate dev",
     "prisma:db:push": "npx prisma db push",
     "prisma:generate": "npx prisma generate",

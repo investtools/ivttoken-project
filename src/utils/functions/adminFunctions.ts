@@ -137,4 +137,4 @@ export async function getSchoolsFromGiga(setSchoolList: React.Dispatch<React.Set
     }
     catch (error) { console.error(error) }
     finally { setLoading(false) }
-  }
+}

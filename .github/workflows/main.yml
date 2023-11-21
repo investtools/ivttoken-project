@@ -20,6 +20,8 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
+          echo "GIGA_AUTH_TOKEN=${{ secrets.GIGA_AUTH_TOKEN }}" >> .env
+          echo "GIGA_URL=${{ secrets.GIGA_URL }}" >> .env
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
           echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env
           echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env

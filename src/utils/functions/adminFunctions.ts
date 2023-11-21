@@ -1,6 +1,6 @@
 import { Administrators, Role } from "@prisma/client"
 import axios from "axios"
-import { type GigaSchoolsResponse, type GeocodeMapsResponse, type OpenWeatherResponse, type GigaSchool } from "~/service/types"
+import { type GeocodeMapsResponse, type OpenWeatherResponse, type GigaSchool, type GigaSchoolsResponse } from "~/service/types"
 
 export function validateEmail(email: string) {
     const re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -135,7 +135,7 @@ export async function getSchoolsFromGiga(
 ) {
     setLoading(true)
     try {
-        const request = await axios.get(`/api/gigaSchools?page=${page}&size=${size}`)
+        const request = await axios.get<GigaSchoolsResponse>(`/api/gigaSchools?page=${page}&size=${size}`)
         const data = request.data
         setSchoolList(data.data)
     }

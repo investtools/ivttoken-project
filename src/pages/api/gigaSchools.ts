@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const page = req.query.page
       const size = req.query.size
 
-      const response = await axios.get(`${GIGA_URL}/api/v1/schools/country/144?size=${size}&page=${page}`, headers)
+      const response = await axios.get(`${GIGA_URL}/api/v1/schools/country/144?size=${String(size)}&page=${String(page)}`, headers)
       res.status(200).json(response.data)
     } catch (error) {
       res.status(500).json({ error })

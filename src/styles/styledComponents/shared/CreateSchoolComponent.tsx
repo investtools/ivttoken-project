@@ -140,7 +140,7 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
       ).slice(0, 100)
       setFilteredSchoolList(newFilteredSchoolList)
     }
-  }, [searchInput])
+  }, [searchInput, schoolList])
 
   useEffect(() => {
     if (selectedSchool) {

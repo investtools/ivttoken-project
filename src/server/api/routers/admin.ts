@@ -775,16 +775,4 @@ export const adminRouter = createTRPCRouter({
       }]
     }
   }),
-
-  searchGigaSchools: protectedProcedure
-    // .input(z.object({
-    //   searchQuery: z.string().min(1, "Search query is required").optional()
-    // }))
-    .query(async ({ ctx, input }) => {
-      const email = ctx.session.user.email
-      if (!email) throw new TRPCError({ code: "UNAUTHORIZED" })
-
-      const schools = await prisma.gigaSchools.findMany({ take: 100 })
-      return schools
-    }),
 })

@@ -53,7 +53,6 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   const [loading, setLoading] = useState(false)
   const [searchInput, setSearchInput] = useState('')
   const [dropdownVisible, setDropdownVisible] = useState(false)
-  const [alreadyHaveAll, setAlreadyHaveAll] = useState(false)
 
   const router = useRouter()
   const locale = router.locale === undefined ? 'pt-br' : router.locale
@@ -109,18 +108,18 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
   }
 
   useEffect(() => {
-    if (schoolList.length === 0) {
-      void getSchoolsFromGiga(setSchoolList, setLoading, '1', '200')
-    }
-  }, [schoolList])
+    const pageSize = 5000
+    const totalSchools = 138754
+    const totalPages = Math.ceil(totalSchools / pageSize)
 
-  useEffect(() => {
-    if (schoolList.length > 0 && !alreadyHaveAll) {
-      void getSchoolsFromGiga(setSchoolList, setLoading, '1', '138754')
-
-      if (schoolList.length > 100000) setAlreadyHaveAll(true)
+    const loadSchools = async () => {
+      for (let page = 1; page <= totalPages; page++) {
+        await getSchoolsFromGiga(setSchoolList, setLoading, page, pageSize)
+      }
     }
-  }, [alreadyHaveAll, schoolList])
+
+    void loadSchools()
+  }, [])
 
   useEffect(() => {
     if (searchInput) {
@@ -144,6 +143,11 @@ const CreateSchoolComponent: React.FC<CreateSchoolComponentProps> = ({ isModal, 
       setFilteredSchoolList(newFilteredSchoolList)
     }
   }, [searchInput, schoolList])
+
+  useEffect(() => {
+    const uniqueSchools = Array.from(new Map(schoolList.map(school => [school.school_id, school])).values())
+    setSchoolList(uniqueSchools)
+  }, [schoolList])
 
   useEffect(() => {
     if (selectedSchool) {
